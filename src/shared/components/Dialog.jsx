@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react'
 import {
   Button,
   Dialog,
   DialogHeader,
   DialogBody,
-  DialogFooter,
-} from "@material-tailwind/react";
+  DialogFooter
+} from '@material-tailwind/react'
 
-export function DialogDefault() {
-  const [open, setOpen] = React.useState(false);
+export function DialogDefault () {
+  const [open, setOpen] = React.useState(false)
 
-  const handleOpen = () => setOpen(!open);
+  const handleOpen = () => setOpen(!open)
 
   return (
     <>
@@ -40,5 +40,5 @@ export function DialogDefault() {
         </DialogFooter>
       </Dialog>
     </>
-  );
+  )
 }

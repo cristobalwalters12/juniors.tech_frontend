@@ -4,10 +4,10 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  Button,
-} from "@material-tailwind/react";
+  Button
+} from '@material-tailwind/react'
 
-export function CardDefault() {
+export function CardDefault () {
   return (
     <Card className="mt-6 w-96">
       <CardHeader color="blue-gray" className="relative h-56">
@@ -30,5 +30,5 @@ export function CardDefault() {
         <Button>Read More</Button>
       </CardFooter>
     </Card>
-  );
+  )
 }
