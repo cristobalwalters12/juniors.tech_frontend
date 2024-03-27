@@ -27,7 +27,7 @@ export function NavbarLanding () {
   }, [])
 
   return (
-        <Navbar className="mx-auto max-w-screen-xl px-4 py-2">
+        <Navbar className="max-w-full mx-auto w-full px-4 py-2">
             <div className="flex items-center justify-between text-blue-gray-900">
                 <Typography
                     as="a"
