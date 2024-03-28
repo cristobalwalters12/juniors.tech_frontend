@@ -4,7 +4,8 @@ import { getPosts } from '../../services/posts'
 const useGetPosts = () => {
   const { isLoading, data: posts, isError, error } = useQuery({
     queryKey: ['posts'],
-    queryFn: getPosts
+    queryFn: getPosts,
+    select: (data) => data.sort((a, b) => b.id - a.id)
   })
   return { isLoading, posts, isError, error }
 }
