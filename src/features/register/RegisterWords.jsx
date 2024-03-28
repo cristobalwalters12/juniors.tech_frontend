@@ -5,7 +5,7 @@ const RegisterWords = () => {
   return (
     <div >
       <Card className='div-words' shadow={false}>
-      <Typography color="blue-gray" variant="h1" >
+      <Typography color="blue-gray" variant="h2" >
         Únete a la mayor red de desarrolladores junior de LATAM
       </Typography>
 

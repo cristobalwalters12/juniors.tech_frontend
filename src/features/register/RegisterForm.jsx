@@ -8,9 +8,9 @@ import './css/registerForm.css'
 
 import { Link } from 'react-router-dom'
 
-const CreatePostForm = () => {
+const RegisterForm = () => {
   return (
-      <Card color="white" shadow={false} className="card-size">
+    <Card color="white" shadow={false} className="w-full card-size">
         <Typography variant="h2" color="blue-gray" className='text-center mt-4'>
           Regístrate
         </Typography>
@@ -40,10 +40,10 @@ const CreatePostForm = () => {
           ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
         </Typography>
         <Typography variant='h6' className='mt-6 text-center sm:text-left'>
-  al continuar, aceptas nuestros <a href="/login">Términos de servicio</a> y <a href="/login">Política de privacidad</a>
-</Typography>
+          al continuar, aceptas nuestros <a href="/login">Términos de servicio</a> y <a href="/login">Política de privacidad</a>
+        </Typography>
 
       </Card>
   )
 }
-export default CreatePostForm
+export default RegisterForm
