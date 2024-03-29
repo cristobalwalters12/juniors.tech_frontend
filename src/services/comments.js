@@ -18,7 +18,7 @@ const saveComment = async ({ postId, comment }) => {
 }
 
 const deleteComment = async ({ postId, commentId }) => {
-  await baseApi.put(`${API_PATHS.posts}/${postId}/comments/${commentId}`)
+  await baseApi.delete(`${API_PATHS.posts}/${postId}/comments/${commentId}`)
 }
 
 const voteComment = async (comment) => {

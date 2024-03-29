@@ -62,4 +62,13 @@ const updateComment = http.put('/api/v1/posts/:postId/comments/:commentId', asyn
   return HttpResponse.json(comment, { status: 200 })
 })
 
-export default [getComments, createComment, updateComment]
+const deleteComment = http.delete('/api/v1/posts/:postId/comments/:commentId', ({ params }) => {
+  const id = Number.parseInt(params.commentId)
+
+  const comment = dataComments.find(comment => comment.id === id)
+  comment.deleted_at = (new Date()).toISOString()
+
+  return HttpResponse.json(undefined, { status: 204 })
+})
+
+export default [getComments, createComment, updateComment, deleteComment]
