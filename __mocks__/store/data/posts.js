@@ -1,6 +1,6 @@
 export const dataPosts = [
   {
-    id: '1',
+    id: 1,
     category: 'Hojas de vida',
     category_id: 1,
     username: 'Eliseo',
@@ -9,13 +9,13 @@ export const dataPosts = [
     title: 'Publicación de Eliseo',
     body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
     vote_count: -4,
-    comment_count: 15,
+    comment_count: 14,
     created_at: '2023-07-10T05:00:00.000Z',
     updated_at: null,
     vote_direction: -1
   },
   {
-    id: '2',
+    id: 2,
     category: 'Portafolios',
     category_id: 2,
     username: 'Jayne_Kuhic',
@@ -24,13 +24,13 @@ export const dataPosts = [
     title: 'Publicación de Jayne',
     body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
     vote_count: 10,
-    comment_count: 3,
+    comment_count: 13,
     created_at: '2023-06-20T05:00:00.000Z',
     updated_at: '2023-08-10T06:00:00.000Z',
     vote_direction: 1
   },
   {
-    id: '3',
+    id: 3,
     category: 'Proyectos grupales',
     category_id: 3,
     username: 'Nikita',
