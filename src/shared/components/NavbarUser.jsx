@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom'
 import { useGetUser } from '../../features/posts/useGetUser'
 
 function NavbarSearch () {
-  const { user } = useGetUser()
+  const { user: { users: [profile] }, isError, isLoading } = useGetUser()
   const [openNav, setOpenNav] = useState(false)
   const [openRight, setOpenRight] = useState(false)
 
@@ -23,13 +23,17 @@ function NavbarSearch () {
 
   const handleNavToggle = () => setOpenNav(!openNav)
 
-  if (!Array.isArray(user)) {
-    return null
+  if (isLoading) {
+    return <h1>Cargando</h1>
+  }
+
+  if (isError) {
+    return <h1>Error</h1>
   }
 
   return (
     <>
-      {user.map((profile) => (
+      {profile &&
         <div key={profile.id}>
           <Navbar className="max-w-full mx-auto w-full px-4 py-2">
             <div className="flex items-center justify-between text-blue-gray-900 lg:flex-row">
@@ -166,7 +170,7 @@ function NavbarSearch () {
             </div>
           </Drawer>
         </div>
-      ))}
+      }
     </>
   )
 }

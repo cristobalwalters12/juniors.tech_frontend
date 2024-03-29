@@ -125,7 +125,7 @@ export function BottomTextWithButtons () {
             </Typography>
             <div className="flex gap-5">
                 <a href="/register">
-                    <Button variant="outlined" color="white">
+                    <Button variant="outlined" color="black">
                         Crear cuenta
                     </Button>
                 </a>

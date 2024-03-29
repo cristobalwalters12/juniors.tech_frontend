@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 // import { useParams } from 'react-router-dom'
 // import { baseApi } from '../api/baseApi'
 // import axios from 'axios'
-import Navbar from '../shared/components/NavbarLanding'
+import { NavbarLanding as Navbar } from '../shared/components/NavbarLanding'
 import NavbarUser from '../shared/components/NavbarUser'
 
 function VerifyUser () {
