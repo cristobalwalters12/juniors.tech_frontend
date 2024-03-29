@@ -1,21 +1,26 @@
 import { http, HttpResponse } from 'msw'
 
-const getUsers = http.get('/users', () => {
-  return HttpResponse.json({
-    users: [
-      { id: 1, name: 'John Doe', username: 'johndoe', email: 'jhonDoe@gmail.com', password: '123456' },
-      { id: 2, name: 'Jane Doe', username: 'janedoe', email: 'janeDoe@gmail.com', password: '123456' }
-
-    ]
-  },
-  { status: 200 })
+const getUsers = http.get('api/v1/users', () => {
+  return HttpResponse.json(arrayUsers,
+    { status: 200 })
 })
 
 const arrayUsers = [
-  { id: 1, name: 'John Doe', username: 'johndoe', email: '', password: '' },
-  { id: 2, name: 'Jane Doe', username: 'janedoe', email: '', password: '' }
+  { id: 1, name: 'John Doe', username: 'johndoe', email: 'jhonDoe@gmail.com', password: '123456' },
+  { id: 2, name: 'Jane Doe', username: 'janedoe', email: 'janeDoe@gmail.com', password: '123456' }
 ]
-const addUsers = http.post('/users', async ({ request }) => {
+
+const getUserById = http.get('api/v1/users/:id', ({ params }) => {
+  const user = arrayUsers.find(u => u.id === Number(params.id))
+
+  if (!user) {
+    return HttpResponse.json({ error: 'User not found' }, { status: 404 })
+  }
+
+  return HttpResponse.json(user, { status: 200 })
+})
+
+const addUsers = http.post('api/v1/users', async ({ request }) => {
   const user = await request.json()
   const email = user.email ?? ''
   const username = user.username ?? ''
@@ -30,7 +35,7 @@ const addUsers = http.post('/users', async ({ request }) => {
   }
 })
 
-const login = http.post('/login', async ({ request }) => {
+const login = http.post('api/v1/login', async ({ request }) => {
   const user = await request.json()
   const username = user.username ?? ''
   const password = user.password ?? ''
@@ -46,4 +51,4 @@ const login = http.post('/login', async ({ request }) => {
   return HttpResponse.json({ token: 'token' }, { status: 200 })
 })
 
-export default [getUsers, addUsers, login]
+export default [getUsers, addUsers, login, getUserById]

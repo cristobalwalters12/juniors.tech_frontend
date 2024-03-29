@@ -7,7 +7,7 @@ function App () {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/post" element={<PostDetails />} />
+      <Route path="/posts/create-post" element={<PostDetails />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   )

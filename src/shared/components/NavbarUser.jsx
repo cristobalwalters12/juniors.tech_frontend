@@ -76,7 +76,7 @@ function NavbarSearch () {
                 />
               </Button>
               <div className="hidden lg:block">
-                <Link to="/AddPost">
+                <Link to="/posts/new">
                   <Button variant="text" size="sm" color="black">
                     Crear Publicación
                   </Button>
@@ -136,33 +136,24 @@ function NavbarSearch () {
                 variant="circular"
                 alt={profile.username}
                 className="cursor-pointer"
-                src="https://docs.material-tailwind.com/img/face-2.jpg" size="lg" />
+                src="https://docs.material-tailwind.com/img/face-2.jpg" size="xxl" />
               <div>
                 <Typography variant="h6" color="blue-gray">
-                  Nombre: {profile.username}
+                  {profile.username}
                 </Typography>
                 <Typography variant="h6" color="blue-gray">
-                  Email:
-                </Typography>
-                <Typography variant="h6" color="blue-gray">
-                  Rol: {profile.roles}
+                  Administrador{profile.roles}
                 </Typography>
               </div>
             </div>
             <div className="mt-4">
-              <Typography variant="h6" color="blue-gray">
-                Opciones adicionales:
-              </Typography>
-              <ul className="list-disc list-inside">
+              <ul className="list-none list-inside">
                 <li>
-                  <Typography variant="h6" color="blue-gray">
-                    Opción 1
-                  </Typography>
-                </li>
-                <li>
-                  <Typography variant="h6" color="blue-gray">
-                    Opción 2
-                  </Typography>
+                  <Link to='/users'>
+                    <Button variant="h6" className='m-4' color="blue-gray">
+                      Ir al perfil
+                    </Button>
+                  </Link>
                 </li>
                 <li>
                 <Link to="/register">

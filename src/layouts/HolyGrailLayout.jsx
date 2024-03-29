@@ -10,7 +10,6 @@ const HolyGrailLayout = ({ children }) => {
     <aside className="w-1/3 p-4 max-w-[18rem]"><SideBar /></aside>
     <main className=" w-1/3 flex-1 p-4">{ children }</main>
   </div>
-  <footer className="p-4">Footer</footer>
 </div>
 
   )
