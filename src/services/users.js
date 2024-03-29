@@ -2,7 +2,7 @@ import { baseApi } from '../api/baseApi'
 import { API_PATHS } from '../config/constants'
 
 const getUser = async () => {
-  const { data } = await baseApi.get(API_PATHS.users)
+  const { data } = await baseApi.get(API_PATHS.userData)
   return data
 }
 
