@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import SavePostForm from '../features/posts/SavePostForm'
-import { HolyGrailLayout } from '../layouts/HolyGrailLayout'
+import HolyGrailLayout from '../layouts/HolyGrailLayout'
 import { Typography } from '@material-tailwind/react'
 import { useGetSinglePost } from '../features/posts/useGetSinglePost'
 
