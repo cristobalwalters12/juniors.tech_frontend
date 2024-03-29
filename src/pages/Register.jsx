@@ -1,8 +1,12 @@
 import RegisterForm from '../features/register/registerForm'
+import RegisterFormEmail from '../features/registerEmail/RegisterFormEmail'
 import RegisterWords from '../features/register/RegisterWords'
 import NavbarRegisterLogin from '../shared/components/navbarRegisterLogin'
+import { useState } from 'react'
 
 const Register = () => {
+  const [showEmailForm, setShowEmailForm] = useState(false)
+
   return (
     <>
     <NavbarRegisterLogin />
@@ -11,7 +15,7 @@ const Register = () => {
         <RegisterWords/>
       </div>
       <div className="flex flex-1 justify-center items-center">
-        <RegisterForm/>
+        {showEmailForm ? <RegisterFormEmail/> : <RegisterForm onEmailClick={() => setShowEmailForm(true)}/>}
       </div>
     </div>
     </>

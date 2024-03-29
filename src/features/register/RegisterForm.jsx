@@ -6,9 +6,7 @@ import {
 } from '@material-tailwind/react'
 import './css/registerForm.css'
 
-import { Link } from 'react-router-dom'
-
-const RegisterForm = () => {
+const RegisterForm = ({ onEmailClick }) => {
   return (
     <Card color="white" shadow={false} className="w-full card-size">
         <Typography variant="h2" color="blue-gray" className='text-center mt-4'>
@@ -30,11 +28,9 @@ const RegisterForm = () => {
           O con tu
         </Typography>
         <div>
-        <Link to="/registerEmail">
-        <Button className="mt-6 rounded-none" fullWidth variant="outlined">
+        <Button className="mt-6 rounded-none" fullWidth variant="outlined" onClick={onEmailClick}>
           Correo Electronico
         </Button>
-        </Link>
         </div>
         <Typography variant='h6' className='mt-6 text-center'>
           ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>

@@ -7,7 +7,7 @@ const useLoginUser = () => {
   const setToken = useAuthStore((state) => state.setToken)
   const setId = useAuthStore((state) => state.setId)
   const setUser = useAuthStore((state) => state.setUser)
-
+  const setRole = useAuthStore((state) => state.setRole)
   const loginUserMutation = useMutation({
     mutationFn: loginUserService,
     onSuccess: (data) => {
@@ -16,7 +16,7 @@ const useLoginUser = () => {
       getUserMutation.mutate()
     },
     onError: (error) => {
-      console.log('puta la wea', error)
+      console.log(error)
     }
   })
   const getUserMutation = useMutation({
@@ -26,9 +26,10 @@ const useLoginUser = () => {
       console.log(data)
       setId(data[0].id)
       setUser(data[0].username)
+      setRole(data[0].role)
     },
     onError: (error) => {
-      console.log('puta la wea', error)
+      console.log(error)
     }
   })
 
