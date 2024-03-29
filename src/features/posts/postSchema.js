@@ -3,6 +3,7 @@ import Joi from 'joi'
 const postSchema = Joi.object({
   category: Joi.string()
     .messages({
+      'string.empty': 'La categoría es obligatoria',
       'any.required': 'La categoría es obligatoria'
     })
     .required(),
