@@ -19,11 +19,11 @@ const NonDeletedComment = ({
   const hideEditingForm = () => setEditing(false)
   const openReplyForm = () => setReplying(true)
   const closeReplyForm = () => setReplying(false)
-  const { saveComment } = useSaveComment()
+  const saveComment = useSaveComment()
   const { deleteComment } = useDeleteComment()
   const submitReply = (reply) => {
     if (reply.parent_id === undefined) reply.parent_id = comment.id
-    saveComment({
+    saveComment.mutate({
       postId: comment.post_id,
       comment: reply
     })
