@@ -6,16 +6,32 @@ import {
   Checkbox,
   Button,
   Typography,
-  Select, Option
+  Select, Option, Alert
 } from '@material-tailwind/react'
 import './css/registerFormEmail.css'
 import { useCreateUser } from './userCreateUser'
+import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+
 const RegisterFormEmail = () => {
   const { register, handleSubmit, control, formState: { errors } } = useForm({
     mode: 'onTouched',
     resolver: joiResolver(userSchema)
   })
-  const { createUser } = useCreateUser()
+  const { createUser, errorMessage } = useCreateUser()
+  const navigate = useNavigate()
+  const [showError, setShowError] = useState(false)
+
+  useEffect(() => {
+    if (errorMessage) {
+      setShowError(true)
+      const timer = setTimeout(() => {
+        setShowError(false)
+      }, 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [errorMessage])
+
   const onSubmit = data => {
     if (data.month && data.year && data.day) {
       const date = new Date(`${data.year}-${data.month}-${data.day}`)
@@ -26,8 +42,11 @@ const RegisterFormEmail = () => {
         password: data.password,
         birthdate
       }
-      createUser(user)
-      console.log(user)
+      createUser(user, {
+        onSuccess: () => {
+          navigate('/login')
+        }
+      })
     }
   }
 
@@ -43,6 +62,7 @@ const RegisterFormEmail = () => {
           </Typography>
           <Input
             {...register('email')}
+
             size="lg"
             placeholder="name@mail.com"
             className=" !border-t-blue-gray-200 focus:!border-t-gray-900 rounded-none"
@@ -55,7 +75,9 @@ const RegisterFormEmail = () => {
             Nombre de Usuario
           </Typography>
           <Input
+
             {...register('username')}
+
             size="lg"
             placeholder="name123"
             className=" !border-t-blue-gray-200 focus:!border-t-gray-900 rounded-none"
@@ -86,6 +108,7 @@ const RegisterFormEmail = () => {
           <div className='inputs'>
             <Input
               {...register('day')}
+              value={'10'}
               placeholder="1234567890"
               className="inputs !border-t-blue-gray-200 focus:!border-t-gray-900 rounded-none"
               labelProps={{
@@ -119,6 +142,7 @@ const RegisterFormEmail = () => {
           <div className='inputs ml-5'>
             <Input
               {...register('year')}
+              value={'1999'}
               placeholder="name@mail.com"
               className=" inputs !border-t-blue-gray-200 focus:!border-t-gray-900 rounded-none "
               labelProps={{
@@ -150,6 +174,7 @@ const RegisterFormEmail = () => {
         <Button className="mt-6 rounded-none" fullWidth variant="outlined" type="submit">
           Registrarse
         </Button>
+        {showError && <Alert color="red" className='mt-6 '>{errorMessage}</Alert>}
       </form>
       <Typography variant='h6' className='mt-6 text-center'>
           ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>

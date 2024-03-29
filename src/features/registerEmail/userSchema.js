@@ -15,17 +15,17 @@ const userSchema = Joi.object({
     'string.max': 'El nombre de usuario no puede tener más de 30 caracteres',
     'any.required': 'El nombre de usuario es obligatorio'
   }),
-  day: Joi.number().min(1).max(31).required().messages({
+  day: Joi.string().required().messages({
     'number.min': 'El día debe ser válido',
     'number.max': 'El día debe ser válido',
     'any.required': 'El día es obligatorio'
   }),
-  month: Joi.number().min(1).max(12).required().messages({
+  month: Joi.string().required().messages({
     'number.min': 'El mes debe ser válido',
     'number.max': 'El mes debe ser válido',
     'any.required': 'El mes es obligatorio'
   }),
-  year: Joi.number().min(1900).max(2023).required().messages({
+  year: Joi.string().required().messages({
     'number.min': 'El año debe ser válido',
     'number.max': 'El año debe ser válido',
     'any.required': 'El año es obligatorio'
