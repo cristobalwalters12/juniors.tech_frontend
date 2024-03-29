@@ -129,7 +129,7 @@ export function BottomTextWithButtons () {
                         Crear cuenta
                     </Button>
                 </a>
-                <a href="#buttons-with-link">
+                <a href="/home">
                     <Button variant="gradient" color="blue">
                         Ingresar al foro
                     </Button>

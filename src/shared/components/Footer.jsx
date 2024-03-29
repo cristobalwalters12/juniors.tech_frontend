@@ -1,10 +1,10 @@
 import { Typography } from '@material-tailwind/react'
 
 const DEVELOPERS = [
-  'Jonathan Araos',
-  'Ayxa Chaverra',
-  'Cristobal Walters',
-  'Nicolás Contreras'
+  { name: 'Jonathan Araos', path: 'https://github.com/jonaisenberg/' },
+  { name: 'Ayxa Chaverra', path: 'https://github.com/achaverrar/' },
+  { name: 'Cristobal Walters', path: 'https://github.com/cristobalwalters12/' },
+  { name: 'Nicolás Contreras', path: 'https://github.com/lukitas0606/' }
 ]
 
 const INSTRUCTORS = [
@@ -38,7 +38,7 @@ export function Footer () {
             <div className="grid grid-cols-1 gap-2">
               {DEVELOPERS.map((developer, index) => (
                 <Typography key={index} as="p">
-                  {developer}
+                  <a href={developer.path} target="_blank" rel="noopener noreferrer">{developer.name}</a>
                 </Typography>
               ))}
             </div>
