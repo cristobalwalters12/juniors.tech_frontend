@@ -20,26 +20,10 @@ export function ListDefault () {
     }))
   }
 
-  //   const {id} = useParams()
-  // <ListItem
-  //   id="portafolio"
-  //   className={id === "portafolio" ? "active": ""}
-  //   onClick={(e)=> navigate("/portafolio")}
-  // >
-  //   Portafolio
-  // </ListItem>
-  // <ListItem
-  //   id="ofertas"
-  //   className={active === "ofertas" ? "active": ""}
-  //   onClick={(e)=> setActive(e.target.id)}
-  // >
-  //   Ofertas
-  // </ListItem>
-
   const isOpen = (key, value) => open[key] === value
 
   return (
-    <Card className="w-96 h-screen overflow-y-auto">
+    <Card className="w-96 h-screen overflow-y-auto border-none">
       <List>
         <Typography variant="h4" color="blue-gray">
           Panel de Administrador
