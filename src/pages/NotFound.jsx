@@ -88,21 +88,21 @@ export default function NavbarSimple () {
           <NavList />
         </Collapse>
       </Navbar>
-      <div className='flex-column bg-white'>
-      <Typography
-            as="a"
-            href="#"
-            variant="h1"
-            className="flex justify-center mt-20 cursor-pointer py-1.5"
+      <div className='flex-column'>
+        <Typography
+          as="a"
+          href="#"
+          variant="h1"
+          className="flex justify-center mt-20 cursor-pointer py-1.5"
           >
-            Página no encontrada
-          </Typography>
+          Página no encontrada
+        </Typography>
         <Card className={` flex-col-reverse w-screen h-full items-center lg:flex-row ${getCardHeaderClasses(isMobile)}`}>
           <CardHeader
             shadow={false}
             floated={false}
             className={getCardHeaderClasses(isMobile)}
-          >
+            >
             <Typography
               variant="h2"
               color="gray"

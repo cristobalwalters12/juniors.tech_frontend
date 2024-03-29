@@ -1,5 +1,5 @@
 import CreatePostForm from '../features/posts/CreatePostForm'
-import { HolyGrailLayout } from '../layouts/HolyGrailLayout'
+import HolyGrailLayout from '../layouts/HolyGrailLayout'
 
 const PostDetails = () => {
   return (
