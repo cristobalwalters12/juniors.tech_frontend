@@ -26,7 +26,7 @@ const getUserById = http.get('api/v1/users/:id', ({ params }) => {
   return HttpResponse.json(user, { status: 200 })
 })
 
-const addUsers = http.post('api/v1/users', async ({ request }) => {
+const addUsers = http.post('api/v1/sign-up', async ({ request }) => {
   const user = await request.json()
   const email = user.email ?? ''
   const username = user.username ?? ''
@@ -40,6 +40,11 @@ const addUsers = http.post('api/v1/users', async ({ request }) => {
   if (arrayUsers.some(u => u.username === username)) {
     return HttpResponse.json({ error: 'Username already exists' }, { status: 405 })
   }
+  const id = arrayUsers.length + 1
+
+  arrayUsers.push({ id, email, username, password, birthdate })
+  console.log(arrayUsers)
+
   return HttpResponse.json({ message: 'User created' }, { status: 201 })
 })
 
@@ -55,15 +60,20 @@ const login = http.post('api/v1/login', async ({ request }) => {
   if (!matchedUser) {
     return HttpResponse.json({ error: 'Invalid credentials' }, { status: 404 })
   }
-  return HttpResponse.json({ token: 'token' }, { status: 200 })
+  return HttpResponse.json({ token: matchedUser.id }, { status: 200 })
 })
 
 const UserData = http.get('api/v1/user-data', async ({ request }) => {
-  const token = request.headers.get('Authorization')
-  if (!token) {
+  const authHeader = request.headers.get('Authorization')
+  if (!authHeader) {
     return HttpResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
-  return HttpResponse.json([{ id: 1, username: 'johndoe' }], { status: 200 })
+  const token = authHeader.split(' ')[1]
+  const user = arrayUsers.find(u => u.id === parseInt(token))
+  if (!user) {
+    return HttpResponse.json({ error: 'Usuario No Encontrado' }, { status: 404 })
+  }
+  return HttpResponse.json([{ id: user.id, username: user.username, role: 'usuario' }], { status: 200 })
 })
 
 export default [getUsers, addUsers, login, UserData, getUserById]
