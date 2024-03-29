@@ -15,7 +15,18 @@ const arrayUsers = [
   { id: 1, name: 'John Doe', username: 'johndoe', email: 'jhonDoe@gmail.com', password: '123456' },
   { id: 2, name: 'Jane Doe', username: 'janedoe', email: 'janeDoe@gmail.com', password: '123456' }
 ]
-const addUsers = http.post('/api/v1/sign-up', async ({ request }) => {
+
+const getUserById = http.get('api/v1/users/:id', ({ params }) => {
+  const user = arrayUsers.find(u => u.id === Number(params.id))
+
+  if (!user) {
+    return HttpResponse.json({ error: 'User not found' }, { status: 404 })
+  }
+
+  return HttpResponse.json(user, { status: 200 })
+})
+
+const addUsers = http.post('api/v1/users', async ({ request }) => {
   const user = await request.json()
   const email = user.email ?? ''
   const username = user.username ?? ''
@@ -55,4 +66,4 @@ const UserData = http.get('api/v1/user-data', async ({ request }) => {
   return HttpResponse.json([{ id: 1, username: 'johndoe' }], { status: 200 })
 })
 
-export default [getUsers, addUsers, login, UserData]
+export default [getUsers, addUsers, login, UserData, getUserById]
