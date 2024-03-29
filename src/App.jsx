@@ -1,14 +1,14 @@
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import PostDetails from './pages/PostDetails'
-import AdminPanel from './pages/AdminPanel'
+import RoleManagement from './pages/RoleManagement'
 
 function App () {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/post" element={<PostDetails />} />
-      <Route path="/admin-panel" element={<AdminPanel />} />
+      <Route path="/admin-panel/role-management" element={<RoleManagement />} />
     </Routes>
   )
 }

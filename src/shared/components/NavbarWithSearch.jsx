@@ -25,7 +25,7 @@ export function NavbarSearch () {
             label="Buscar en Juniors.tech"
             className="pr-12"
             containerProps={{
-              className: 'min-w-[380px]' // Ajustar según tus necesidades
+              className: 'min-w-[450px]'
             }}
             labelProps={{
               className: 'text-gray-500'
