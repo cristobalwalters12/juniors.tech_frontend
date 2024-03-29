@@ -48,7 +48,18 @@ const createComment = http.post('/api/v1/posts/:id/comments', async ({ params, r
 
   dataComments.push(comment)
 
+  return HttpResponse.json(comment, { status: 201 })
+})
+
+const updateComment = http.put('/api/v1/posts/:postId/comments/:commentId', async ({ params, request }) => {
+  const id = Number.parseInt(params.commentId)
+  const { body } = await request.json()
+
+  const comment = dataComments.find(currComment => currComment.id === id)
+  comment.body = body
+  comment.updated_at = (new Date()).toISOString()
+
   return HttpResponse.json(comment, { status: 200 })
 })
 
-export default [getComments, createComment]
+export default [getComments, createComment, updateComment]
