@@ -6,7 +6,7 @@ const useCreatePost = () => {
 
   const createPostMutation = useMutation({
     mutationFn: createPost,
-    onSuccess: queryClient.invalidateQueries('posts')
+    onSuccess: queryClient.invalidateQueries({ queryKey: ['posts'] })
   })
 
   return {
