@@ -22,18 +22,10 @@ const getPosts = http.get('/api/v1/posts', () => {
 })
 
 const getPostById = http.get('/api/v1/posts/:id', ({ params }) => {
-  const { id } = params
-  let post = null
-  posts.forEach(p => {
-    if (p.id === id) post = p
-  })
+  const id = Number.parseInt(params.id)
+  const post = posts.find(p => p.id === id)
 
-  if (post !== null) {
-    return HttpResponse.json(
-      post,
-      { status: 200 }
-    )
-  } else {
+  if (post === null) {
     return HttpResponse.json(
       {
         message: 'Post not found'
@@ -41,6 +33,7 @@ const getPostById = http.get('/api/v1/posts/:id', ({ params }) => {
       { status: 404 }
     )
   }
+  return HttpResponse.json(post, { status: 200 })
 })
 
 const createPost = http.post('/api/v1/posts', async ({ request }) => {

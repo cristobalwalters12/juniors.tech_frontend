@@ -12,7 +12,7 @@ const PostDetails = () => {
   const { id } = useParams()
   const [replying, setReplying] = useState(false)
   const query = useGetSinglePost(id)
-  const { saveComment } = useSaveComment()
+  const saveComment = useSaveComment()
 
   if (query.isLoading || query.isError) return <h1>Cargando...</h1>
   const openReplyForm = () => setReplying(true)
@@ -20,7 +20,7 @@ const PostDetails = () => {
 
   const submitReply = (reply) => {
     reply.parent_id = null
-    saveComment({
+    saveComment.mutate({
       postId: id,
       comment: reply
     })
