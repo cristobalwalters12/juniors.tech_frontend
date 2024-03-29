@@ -12,8 +12,8 @@ const getUsers = http.get('api/v1/users', () => {
 })
 
 const arrayUsers = [
-  { id: 1, name: 'John Doe', username: 'johndoe', email: '', password: '' },
-  { id: 2, name: 'Jane Doe', username: 'janedoe', email: '', password: '' }
+  { id: 1, name: 'John Doe', username: 'johndoe', email: 'jhonDoe@gmail.com', password: '123456' },
+  { id: 2, name: 'Jane Doe', username: 'janedoe', email: 'janeDoe@gmail.com', password: '123456' }
 ]
 const addUsers = http.post('/api/v1/sign-up', async ({ request }) => {
   const user = await request.json()
@@ -34,17 +34,25 @@ const addUsers = http.post('/api/v1/sign-up', async ({ request }) => {
 
 const login = http.post('api/v1/login', async ({ request }) => {
   const user = await request.json()
-  const username = user.username ?? ''
+  const email = user.email ?? ''
   const password = user.password ?? ''
 
-  if (username === '' || password === '') {
-    return HttpResponse.json({ error: 'Invalid user' }, { status: 400 })
+  if (email === '' || password === '') {
+    return HttpResponse.json({ error: 'Usuario Invalido' }, { status: 400 })
   }
-
-  if (!arrayUsers.some(u => u.username === username && u.password === password)) {
+  const matchedUser = arrayUsers.find(u => u.email === email && u.password === password)
+  if (!matchedUser) {
     return HttpResponse.json({ error: 'Invalid credentials' }, { status: 404 })
   }
-  HttpResponse.json({ token: 'token' }, { status: 200 })
+  return HttpResponse.json({ token: 'token' }, { status: 200 })
 })
 
-export default [getUsers, addUsers, login]
+const UserData = http.get('api/v1/user-data', async ({ request }) => {
+  const token = request.headers.get('Authorization')
+  if (!token) {
+    return HttpResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+  return HttpResponse.json([{ id: 1, username: 'johndoe' }], { status: 200 })
+})
+
+export default [getUsers, addUsers, login, UserData]
