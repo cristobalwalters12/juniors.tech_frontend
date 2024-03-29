@@ -4,6 +4,7 @@ const API_PATHS = {
   login: '/login',
   register: '/sign-up',
   users: '/users',
+  userData: '/user-data',
   posts: '/posts',
   comments: '/comments'
 }
