@@ -6,14 +6,14 @@ import { useGetSinglePost } from '../features/posts/useGetSinglePost'
 
 const EditPost = () => {
   const { id } = useParams()
-  const { isLoading, post, isError } = useGetSinglePost(id)
-  if (isLoading || isError) return <h1>Cargando...</h1>
+  const query = useGetSinglePost(id)
+  if (query.isLoading || query.isError) return <h1>Cargando...</h1>
   return (
     <HolyGrailLayout>
       <Typography variant="h4" color="blue-gray">
         Edita tu publicación
       </Typography>
-      <SavePostForm {...post}/>
+      <SavePostForm {...query.data}/>
     </HolyGrailLayout>
   )
 }

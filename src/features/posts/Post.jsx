@@ -11,20 +11,7 @@ import {
 import { FormattedDate } from '../../shared/components/FormattedDate'
 import { CardFooter } from '../../shared/components/CardFooter'
 
-const post = {
-  id: 1,
-  category: 'Hojas de vida',
-  author: 'fulano123',
-  title: 'Título',
-  body: 'Cuerpo de texto completo de la publicación. Cuerpo de texto completo de la publicación. Cuerpo de texto completo de la publicación. Cuerpo de texto completo de la publicación. Cuerpo de texto completo de la publicación.',
-  vote_count: -4,
-  comment_count: 15,
-  created_at: (new Date(2024, 2, 15)).toISOString(),
-  updated_at: null,
-  vote_direction: -1
-}
-
-const Post = () => {
+const Post = ({ post }) => {
   return (
     <article className='pl-4 pb-3'>
     <Card color="transparent" shadow={false} className="w-full">
@@ -46,7 +33,7 @@ const Post = () => {
           </Typography>
           <div className="flex items-center gap-1.5">
             <Typography variant="small" color="blue-gray" className='font-normal'>
-              {post.author}
+              {post.username}
             </Typography>
             <span className='font-semibold'>&middot;</span>
             <Typography variant="small" color="blue-gray" className='font-normal'>

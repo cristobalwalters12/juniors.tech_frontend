@@ -2,11 +2,11 @@ import { useQuery } from '@tanstack/react-query'
 import { getPostById } from '../../services/posts'
 
 const useGetSinglePost = (id) => {
-  const { isLoading, data: post, isError, error } = useQuery({
+  return useQuery({
     queryKey: ['post'],
-    queryFn: () => getPostById(id)
+    queryFn: () => getPostById(id),
+    refetchOnWindowFocus: false
   })
-  return { isLoading, post, isError, error }
 }
 
 export { useGetSinglePost }

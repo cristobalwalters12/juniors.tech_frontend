@@ -30,7 +30,10 @@ const NonDeletedComment = ({
     hideEditingForm()
   }
   const handleDelete = () => {
-    deleteComment(comment)
+    deleteComment({
+      postId: comment.post_id,
+      commentId: comment.id
+    })
   }
   return (
     <>

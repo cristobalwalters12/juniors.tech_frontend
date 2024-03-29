@@ -1,2 +1,5 @@
 import mockUsers from './store/mockUsers'
-export const handlers = [...mockUsers]
+import mockPosts from './store/mockPosts'
+import mockComments from './store/mockComments'
+
+export const handlers = [...mockUsers, ...mockPosts, ...mockComments]

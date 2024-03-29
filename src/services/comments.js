@@ -7,44 +7,18 @@ const getComments = async (postId) => {
 }
 
 const saveComment = async ({ postId, comment }) => {
-  // const isCreating = comment.created_at === undefined
   const isCreating = comment.id === undefined
-  const preparedComment = prepareCommentToSave({ postId, comment })
   let result = null
   if (isCreating) {
-    result = await baseApi.post(`${API_PATHS.posts}/${postId}/comments`, preparedComment)
+    result = await baseApi.post(`${API_PATHS.posts}/${postId}/comments`, comment)
   } else {
-    result = await baseApi.put(`${API_PATHS.posts}/${postId}/comments/${comment.id}`, preparedComment)
+    result = await baseApi.put(`${API_PATHS.posts}/${postId}/comments/${comment.id}`, comment)
   }
   return result.data
 }
 
-const deleteComment = async (comment) => {
-  comment.avatar = null
-  comment.username = null
-  comment.author_id = null
-  comment.body = null
-  comment.vote_direction = 0
-  comment.deleted_at = (new Date()).toISOString()
-  await baseApi.put(`${API_PATHS.posts}/${comment.post_id}/comments/${comment.id}`, comment)
-}
-
-const prepareCommentToSave = ({ postId, comment }) => {
-  comment.post_id = postId
-  comment.avatar = 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png'
-  comment.username = 'Eliseo'
-  comment.author_id = 1
-  comment.vote_count = 0
-  comment.comment_count = 0
-  comment.vote_direction = 0
-  comment.deleted_at = null
-  if (comment.created_at) {
-    comment.updated_at = (new Date()).toISOString()
-  } else {
-    comment.created_at = (new Date()).toISOString()
-    comment.updated_at = null
-  }
-  return comment
+const deleteComment = async ({ postId, commentId }) => {
+  await baseApi.put(`${API_PATHS.posts}/${postId}/comments/${commentId}`)
 }
 
 const voteComment = async (comment) => {

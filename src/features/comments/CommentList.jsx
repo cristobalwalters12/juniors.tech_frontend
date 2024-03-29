@@ -3,10 +3,10 @@ import { handleComments } from './commentUtils'
 import { Comment } from './Comment'
 
 const CommentList = ({ postId }) => {
-  const { isLoading, comments, isError, error } = useGetComments(postId)
-  if (isLoading) return <h1>Cargando...</h1>
-  if (isError) return <h1>{error.message}</h1>
-  const { rootComments, getRepliesById } = handleComments(comments)
+  const query = useGetComments(postId)
+  if (query.isLoading) return <h1>Cargando...</h1>
+  if (query.isError) return <h1>{query.error.message}</h1>
+  const { rootComments, getRepliesById } = handleComments(query.data)
 
   return (
     <div className="p-3 pt-1 bg-blue-gray-100">

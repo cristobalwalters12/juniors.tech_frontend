@@ -7,15 +7,14 @@ import { Post } from '../features/posts/Post'
 import { CommentList } from '../features/comments/CommentList'
 import { CreateCommentForm } from '../features/comments/SaveCommentForm'
 import { useSaveComment } from '../features/comments/useSaveComment'
-// import { Comment } from '../features/comments/Comment'
 
 const PostDetails = () => {
   const { id } = useParams()
   const [replying, setReplying] = useState(false)
-  const { isLoading, post, isError } = useGetSinglePost(id)
+  const query = useGetSinglePost(id)
   const { saveComment } = useSaveComment()
 
-  if (isLoading || isError) return <h1>Cargando...</h1>
+  if (query.isLoading || query.isError) return <h1>Cargando...</h1>
   const openReplyForm = () => setReplying(true)
   const closeReplyForm = () => setReplying(false)
 
@@ -30,7 +29,7 @@ const PostDetails = () => {
   return (
     <HolyGrailLayout>
       <main className='mx-auto max-w-[60rem]'>
-        <Post post={post} />
+        <Post post={query.data} />
         <div className='pt-4 pl-0 bg-blue-gray-100'>
           {
             replying
@@ -48,7 +47,7 @@ const PostDetails = () => {
                 </Button>
           }
         </div>
-        <CommentList postId={1} />
+        <CommentList postId={id} />
       </main>
     </HolyGrailLayout>
   )

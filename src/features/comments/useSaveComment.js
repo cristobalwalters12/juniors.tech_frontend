@@ -9,9 +9,7 @@ const useSaveComment = () => {
     onSuccess: queryClient.invalidateQueries({ queryKey: ['comments'] })
   })
 
-  return {
-    saveComment: saveCommentMutation.mutate
-  }
+  return saveCommentMutation
 }
 
 export { useSaveComment }

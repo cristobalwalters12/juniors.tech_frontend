@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query'
 import { getComments } from '../../services/comments'
 
 const useGetComments = (id) => {
-  const { isLoading, data: comments, isError, error } = useQuery({
+  return useQuery({
     queryKey: ['comments'],
     queryFn: () => getComments(id),
-    select: (data) => data?.sort((a, b) => a.id - b.id)
+    staleTime: 60 * 60 * 1000 // 1h in ms
+    // select: (data) => data?.sort((a, b) => a.id - b.id)
   })
-  return { isLoading, comments, isError, error }
 }
 
 export { useGetComments }
