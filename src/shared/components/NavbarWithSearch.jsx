@@ -40,7 +40,7 @@ export function NavbarSearch () {
           </Button>
         </div>
         <div className="hidden lg:block">
-          <Link to="/AddPost">
+          <Link to="/posts/new">
             <Button variant="text" size="sm" color="black">
               Crear Publicación
             </Button>

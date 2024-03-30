@@ -5,7 +5,8 @@ const useGetSinglePost = (id) => {
   return useQuery({
     queryKey: ['post'],
     queryFn: () => getPostById(id),
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
+    retry: false
   })
 }
 

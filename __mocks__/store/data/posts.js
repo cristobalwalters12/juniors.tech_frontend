@@ -1,6 +1,6 @@
 export const dataPosts = [
   {
-    id: '123',
+    id: 1,
     category: 'Hojas de vida',
     category_id: 1,
     username: 'Eliseo',
@@ -9,13 +9,13 @@ export const dataPosts = [
     title: 'Publicación de Eliseo',
     body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
     vote_count: -4,
-    comment_count: 15,
+    comment_count: 14,
     created_at: '2023-07-10T05:00:00.000Z',
     updated_at: null,
     vote_direction: -1
   },
   {
-    id: '223',
+    id: 2,
     category: 'Portafolios',
     category_id: 2,
     username: 'Jayne_Kuhic',
@@ -24,13 +24,13 @@ export const dataPosts = [
     title: 'Publicación de Jayne',
     body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
     vote_count: 10,
-    comment_count: 3,
+    comment_count: 13,
     created_at: '2023-06-20T05:00:00.000Z',
     updated_at: '2023-08-10T06:00:00.000Z',
     vote_direction: 1
   },
   {
-    id: '323',
+    id: 3,
     category: 'Proyectos grupales',
     category_id: 3,
     username: 'Nikita',
@@ -45,10 +45,9 @@ export const dataPosts = [
     vote_direction: 1
   },
   {
-    id: 1,
+    id: 4,
     title: 'Hice un portafolio y te lo muestro',
     category: 'Portafolios',
-    parent_id: null,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Eliseo',
     created_at: '2023-02-11T05:00:00.000Z',
@@ -60,10 +59,9 @@ export const dataPosts = [
     body: 'laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium'
   },
   {
-    id: 2,
+    id: 5,
     title: 'lo que sea ',
     category: 'Proyectos grupales',
-    parent_id: 1,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Jayne_Kuhic',
     created_at: '2023-03-19T05:00:00.000Z',
@@ -75,10 +73,9 @@ export const dataPosts = [
     body: 'est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et'
   },
   {
-    id: 3,
+    id: 6,
     title: 'lo que sea 1',
     category: 'Hojas de vida',
-    parent_id: 1,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Maria',
     created_at: '2023-07-21T05:00:00.000Z',
@@ -90,10 +87,9 @@ export const dataPosts = [
     body: 'quia molestiae reprehenderit quasi aspernatur\naut expedita occaecati aliquam eveniet laudantium\nomnis quibusdam delectus saepe quia accusamus maiores nam est\ncum et ducimus et vero voluptates excepturi deleniti ratione'
   },
   {
-    id: 4,
+    id: 7,
     title: 'lo que sea 2',
     category: 'Ofertas de trabajo',
-    parent_id: 1,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Eliseo',
     created_at: '2023-03-21T05:00:00.000Z',
@@ -105,10 +101,9 @@ export const dataPosts = [
     body: 'non et atque\noccaecati deserunt quas accusantium unde odit nobis qui voluptatem\nquia voluptas consequuntur itaque dolor\net qui rerum deleniti ut occaecati'
   },
   {
-    id: 5,
+    id: 8,
     title: 'lo que sea 3',
     category: 'Sugerencias de cursos',
-    parent_id: 1,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Nicol',
     created_at: '2023-08-13T05:00:00.000Z',
@@ -120,10 +115,9 @@ export const dataPosts = [
     body: 'harum non quasi et ratione\ntempore iure ex voluptates in ratione\nharum architecto fugit inventore cupiditate\nvoluptates magni quo et'
   },
   {
-    id: 7,
+    id: 9,
     title: 'lo que sea 4',
     category: 'Ofertas de trabajo',
-    parent_id: 2,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Eliseo',
     created_at: '2023-11-24T05:00:00.000Z',
@@ -135,10 +129,9 @@ export const dataPosts = [
     body: 'maiores sed dolores similique labore et inventore et\nquasi temporibus esse sunt id et\neos voluptatem aliquam\naliquid ratione corporis molestiae mollitia quia et magnam dolor'
   },
   {
-    id: 8,
+    id: 10,
     title: 'lo que sea 5',
     category: 'Portafolios',
-    parent_id: 2,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Jayne_Kuhic',
     created_at: '2023-07-20T05:00:00.000Z',
@@ -150,10 +143,9 @@ export const dataPosts = [
     body: 'ut voluptatem corrupti velit\nad voluptatem maiores\net nisi velit vero accusamus maiores\nvoluptates quia aliquid ullam eaque'
   },
   {
-    id: 9,
+    id: 11,
     title: 'lo que sea 6',
     category: 'Proyectos grupales',
-    parent_id: 2,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Jayne_Kuhic',
     created_at: '2023-03-18T05:00:00.000Z',
@@ -165,10 +157,9 @@ export const dataPosts = [
     body: 'sapiente assumenda molestiae atque\nadipisci laborum distinctio aperiam et ab ut omnis\net occaecati aspernatur odit sit rem expedita\nquas enim ipsam minus'
   },
   {
-    id: 10,
+    id: 12,
     title: 'lo que sea 7',
     category: 'Hojas de vida',
-    parent_id: 2,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Jayne_Kuhic',
     created_at: '2023-02-01T05:00:00.000Z',
@@ -180,10 +171,9 @@ export const dataPosts = [
     body: 'voluptate iusto quis nobis reprehenderit ipsum amet nulla\nquia quas dolores velit et non\naut quia necessitatibus\nnostrum quaerat nulla et accusamus nisi facilis'
   },
   {
-    id: 11,
+    id: 13,
     title: 'lo que sea 8',
     category: 'Sugerencias de cursos',
-    parent_id: 3,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Eliseo',
     created_at: '2023-06-14T05:00:00.000Z',
@@ -195,10 +185,9 @@ export const dataPosts = [
     body: 'ut dolorum nostrum id quia aut est\nfuga est inventore vel eligendi explicabo quis consectetur\naut occaecati repellat id natus quo est\nut blanditiis quia ut vel ut maiores ea'
   },
   {
-    id: 12,
+    id: 14,
     title: 'lo que sea 9',
     category: 'Portafolios',
-    parent_id: 3,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Jayne_Kuhic',
     created_at: '2023-11-20T05:00:00.000Z',
@@ -210,10 +199,9 @@ export const dataPosts = [
     body: 'expedita maiores dignissimos facilis\nipsum est rem est fugit velit sequi\neum odio dolores dolor totam\noccaecati ratione eius rem velit'
   },
   {
-    id: 13,
+    id: 15,
     title: 'lo que sea 10',
     category: 'Ofertas de trabajo',
-    parent_id: 3,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Camila',
     created_at: '2023-02-08T05:00:00.000Z',
@@ -225,10 +213,9 @@ export const dataPosts = [
     body: 'fuga eos qui dolor rerum\ninventore corporis exercitationem\ncorporis cupiditate et deserunt recusandae est sed quis culpa\neum maiores corporis et'
   },
   {
-    id: 14,
+    id: 16,
     title: 'lo que sea 11',
     category: 'Hojas de vida',
-    parent_id: 3,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Nikita',
     created_at: '2023-06-24T05:00:00.000Z',
@@ -240,10 +227,9 @@ export const dataPosts = [
     body: 'vel quae voluptas qui exercitationem\nvoluptatibus unde sed\nminima et qui ipsam aspernatur\nexpedita magnam laudantium et et quaerat ut qui dolorum'
   },
   {
-    id: 15,
+    id: 17,
     title: 'lo que sea 12',
     category: 'Ofertas de trabajo',
-    parent_id: 3,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Nikita',
     created_at: '2023-11-21T05:00:00.000Z',
@@ -255,10 +241,9 @@ export const dataPosts = [
     body: 'nihil ut voluptates blanditiis autem odio dicta rerum\nquisquam saepe et est\nsunt quasi nemo laudantium deserunt\nmolestias tempora quo quia'
   },
   {
-    id: 16,
+    id: 18,
     title: 'lo que sea 13',
     category: 'Sugerencias de cursos',
-    parent_id: 4,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Eliseo',
     created_at: '2023-07-10T05:00:00.000Z',
@@ -270,10 +255,9 @@ export const dataPosts = [
     body: 'iste ut laborum aliquid velit facere itaque\nquo ut soluta dicta voluptate\nerror tempore aut et\nsequi reiciendis dignissimos expedita consequuntur libero sed fugiat facilis'
   },
   {
-    id: 17,
+    id: 19,
     title: 'lo que sea 14',
     category: 'Portafolios',
-    parent_id: 4,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Jayne_Kuhic',
     created_at: '2023-02-17T05:00:00.000Z',
@@ -285,10 +269,9 @@ export const dataPosts = [
     body: 'consequatur necessitatibus totam sed sit dolorum\nrecusandae quae odio excepturi voluptatum harum voluptas\nquisquam sit ad eveniet delectus\ndoloribus odio qui non labore'
   },
   {
-    id: 18,
+    id: 20,
     title: 'lo que sea 15',
     category: 'Ofertas de trabajo',
-    parent_id: 4,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Eliseo',
     created_at: '2023-02-21T05:00:00.000Z',
@@ -303,7 +286,6 @@ export const dataPosts = [
     id: 21,
     title: 'lo que sea 16',
     category: 'Hojas de vida',
-    parent_id: null,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Jayne_Kuhic',
     author_id: 2,
@@ -318,7 +300,6 @@ export const dataPosts = [
     id: 22,
     title: 'lo que sea 17',
     category: 'Proyectos grupales',
-    parent_id: null,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Jayne_Kuhic',
     author_id: 2,
@@ -333,7 +314,6 @@ export const dataPosts = [
     id: 23,
     title: 'lo que sea 18',
     category: 'Ofertas de trabajo',
-    parent_id: null,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Jose Miguel',
     author_id: 3,
@@ -348,7 +328,6 @@ export const dataPosts = [
     id: 24,
     title: 'lo que sea 19',
     category: 'Hojas de vida',
-    parent_id: null,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Josefina',
     author_id: 3,
@@ -363,7 +342,6 @@ export const dataPosts = [
     id: 25,
     title: 'lo que sea 20',
     category: 'Portafolios',
-    parent_id: null,
     avatar: 'https://southernplasticsurgery.com.au/wp-content/uploads/2013/10/user-placeholder.png',
     username: 'Jayne_Kuhic',
     author_id: 2,

@@ -25,12 +25,19 @@ const CardFooter = ({
   className,
   openReplyForm,
   showEditingForm,
-  handleDelete
+  handleDelete,
+  downVote,
+  upVote
 }) => {
+  const handleClick = (e) => {
+    e.stopPropagation()
+    openReplyForm()
+  }
+
   return (
     <div className={`mt-1 flex items-center ${className}`}>
       <div className="flex items-center gap-1">
-        <Button variant="text" className="rounded-full p-1.5">
+        <Button variant="text" onClick={upVote} className="rounded-full p-1.5">
           <ArrowUpIcon className={`h-4 w-4 ${voteDirection === 1 ? 'text-blue-600' : ''}`} />
         </Button>
         <Typography
@@ -39,11 +46,11 @@ const CardFooter = ({
         >
           {voteCount}
         </Typography>
-        <Button variant="text" className="rounded-full p-1.5">
+        <Button variant="text" onClick={downVote} className="rounded-full p-1.5">
           <ArrowDownIcon className={`h-4 w-4 ${voteDirection === -1 ? 'text-blue-600' : ''}`} />
         </Button>
       </div>
-        <Button variant="text" className="rounded-full py-1.5 px-2.5" onClick={openReplyForm}>
+        <Button variant="text" className="rounded-full py-1.5 px-2.5" onClick={handleClick}>
           <div className="flex items-center gap-1">
             <ChatBubbleOvalLeftIcon className="h-4 w-4" />
             <Typography

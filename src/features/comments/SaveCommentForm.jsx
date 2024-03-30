@@ -1,4 +1,3 @@
-// import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { commentSchema } from './commentSchema'

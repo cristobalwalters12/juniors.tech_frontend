@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/24/outline'
 import { Card, CardBody, Typography, List, CardFooter, Button, IconButton } from '@material-tailwind/react'
 import { CardFooterPost } from '../../shared/components/CardFooterPost'
+import { useAuthStore } from '../../stores/authStore'
 
 const PostList = ({ orderBy, orderDirection }) => {
   const [posts, setPosts] = useState([])
   const [active, setActive] = React.useState(1)
   const [currentPage, setCurrentPage] = React.useState(1)
+  const currUserId = useAuthStore((state) => state.id)
   const postsPerPage = 4
-
+  
   useEffect(() => {
     fetch('/api/v1/posts')
       .then(response => response.json())

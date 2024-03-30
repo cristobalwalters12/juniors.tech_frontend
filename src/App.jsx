@@ -8,6 +8,12 @@ import RoleManagement from './pages/RoleManagement'
 import NotFound from './pages/NotFound'
 import Register from './pages/Register'
 import Login from './pages/login'
+import AdminPanel from './pages/AdminPanel'
+import ReportsManagement from './pages/ReportsManagement'
+import CategoryManagement from './pages/CategoryManagement'
+import PostsReport from './pages/PostsReportManagement'
+import CommentsReport from './pages/CommentsReportsManagement'
+import UsersReport from './pages/UsersReportsManagement'
 
 function App () {
   return (
@@ -18,7 +24,13 @@ function App () {
       <Route path="/posts/:id" element={<PostDetails />} />
       <Route path="/home" element={<Home />} />
       <Route path='*' element={<NotFound />} />
+      <Route path="/admin-panel" element={<AdminPanel />} />
       <Route path="/admin-panel/role-management" element={<RoleManagement />} />
+      <Route path="/admin-panel/reports-management" element={<ReportsManagement />} />
+      <Route path="/admin-panel/reports-management/posts-reports" element={<PostsReport />} />
+      <Route path="/admin-panel/reports-management/comments-reports" element={<CommentsReport />} />
+      <Route path="/admin-panel/reports-management/users-reports" element={<UsersReport />} />
+      <Route path="/admin-panel/category-management" element={<CategoryManagement />} />
       <Route path="/register"element= {<Register/>}/>
       <Route path="/login"element= {<Login/>}/>
     </Routes>

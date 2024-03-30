@@ -1,6 +1,6 @@
 import HolyGrailLayout from '../layouts/HolyGrailLayout'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import { Button } from '@material-tailwind/react'
 import { useGetSinglePost } from '../features/posts/useGetSinglePost'
 import { Post } from '../features/posts/Post'
@@ -12,15 +12,18 @@ const PostDetails = () => {
   const { id } = useParams()
   const [replying, setReplying] = useState(false)
   const query = useGetSinglePost(id)
-  const { saveComment } = useSaveComment()
-
-  if (query.isLoading || query.isError) return <h1>Cargando...</h1>
+  const saveComment = useSaveComment()
   const openReplyForm = () => setReplying(true)
   const closeReplyForm = () => setReplying(false)
 
+  if (query.isLoading) return <h1>Cargando...</h1>
+  if (query.isError) {
+    return <Navigate to="/not-found" />
+  }
+
   const submitReply = (reply) => {
     reply.parent_id = null
-    saveComment({
+    saveComment.mutate({
       postId: id,
       comment: reply
     })

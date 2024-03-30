@@ -13,10 +13,10 @@ import { SelectCategories } from './SelectCategories'
 import { useEditPost } from './useEditPost'
 import { useNavigate } from 'react-router-dom'
 
-const SavePostForm = ({ id, category = '', title = '', body = '' }) => {
-  const { createPost } = useCreatePost()
-  const { editPost, isEditing } = useEditPost()
+const SavePostForm = ({ id, category_id: categoryId = '', title = '', body = '' }) => {
   const navigate = useNavigate()
+  const createPost = useCreatePost()
+  const editPost = useEditPost()
   const {
     register,
     handleSubmit,
@@ -26,17 +26,16 @@ const SavePostForm = ({ id, category = '', title = '', body = '' }) => {
   } = useForm({
     mode: 'onTouched',
     resolver: joiResolver(postSchema),
-    defaultValues: { category, title, body }
+    defaultValues: { categoryId: categoryId.toString(), title, body }
   })
 
   const onSubmit = (data) => {
     if (id) {
-      editPost({ id, post: data })
+      editPost.mutate({ id, post: data })
     } else {
-      createPost(data)
+      createPost.mutate(data)
       reset()
     }
-    navigate('/')
   }
 
   return (
@@ -50,17 +49,22 @@ const SavePostForm = ({ id, category = '', title = '', body = '' }) => {
             Categoría
           </Typography>
           <Controller
-            name="category"
+            name="categoryId"
             defaultValue=""
             control={control}
             render={({ field }) => {
               const { ref, ...rest } = field
-              return <SelectCategories id="category" {...rest} label="Categoría"/>
+              return (
+                <SelectCategories
+                  id="categoryId"
+                  {...rest}
+                  label="Categoría"
+                />)
             }}
           />
-          {errors.category && (
+          {errors.categoryId && (
             <Typography variant="small" color="red" className="font-normal">
-              {errors.category.message}
+              {errors.categoryId.message}
             </Typography>
           )}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -87,10 +91,10 @@ const SavePostForm = ({ id, category = '', title = '', body = '' }) => {
             </Typography>
           )}
           <div className="flex gap-2">
-            <Button size="sm" color="red" variant="text" className="rounded-md">
+            <Button onClick={() => navigate(-1)} size="sm" color="red" variant="text" className="rounded-md">
               Cancelar
             </Button>
-            <Button type="submit" disabled={!isValid || isEditing} size="sm" className="rounded-md">
+            <Button type="submit" disabled={!isValid || editPost.isPending} size="sm" className="rounded-md">
               Publicar
             </Button>
           </div>

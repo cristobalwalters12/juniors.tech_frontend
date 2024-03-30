@@ -11,21 +11,19 @@ const Comment = ({ comment, getRepliesById }) => {
   const toggleOpenReplies = () => setOpenReplies((cur) => !cur)
   return (
     <>
-      <article className={replies.length > 0 ? 'cursor-pointer' : undefined}>
-        {
-          comment.deleted_at !== null
-            ? (
-            <DeletedComment
-              comment={comment}
-              toggleOpenReplies={toggleOpenReplies}
-            />
-              )
-            : <NonDeletedComment
-              comment={comment}
-              toggleOpenReplies={toggleOpenReplies}
-            />
-        }
-        </article>
+      {
+        comment.deleted_at !== null
+          ? (
+          <DeletedComment
+            comment={comment}
+            toggleOpenReplies={toggleOpenReplies}
+          />
+            )
+          : <NonDeletedComment
+            comment={comment}
+            toggleOpenReplies={toggleOpenReplies}
+          />
+      }
       {
         replies.length > 0 &&
         <Collapse open={openReplies} className='pl-5'>
