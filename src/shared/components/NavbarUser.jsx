@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import {
   Navbar,
   Collapse,
@@ -10,11 +11,8 @@ import {
   Drawer
 } from '@material-tailwind/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link } from 'react-router-dom'
-import { useGetUser } from '../../features/posts/useGetUser'
 
-function NavbarSearch () {
-  const { user: { users: [profile] }, isError, isLoading } = useGetUser()
+function NavbarSearch ({ profile, role }) {
   const [openNav, setOpenNav] = useState(false)
   const [openRight, setOpenRight] = useState(false)
 
@@ -23,18 +21,16 @@ function NavbarSearch () {
 
   const handleNavToggle = () => setOpenNav(!openNav)
 
-  if (isLoading) {
-    return <h1>Cargando</h1>
-  }
+  const navigate = useNavigate()
 
-  if (isError) {
-    return <h1>Error</h1>
+  const handleClick = () => {
+    navigate('/posts/new')
   }
 
   return (
     <>
       {profile &&
-        <div key={profile.id}>
+        <div>
           <Navbar className="max-w-full mx-auto w-full px-4 py-2">
             <div className="flex items-center justify-between text-blue-gray-900 lg:flex-row">
               <Typography
@@ -80,12 +76,9 @@ function NavbarSearch () {
                 />
               </Button>
               <div className="hidden lg:block">
-                <Link to="/posts/new">
-                  <Button variant="text" size="sm" color="black">
+                  <Button onClick={handleClick} variant="text" size="sm" color="black">
                     Crear Publicación
                   </Button>
-                </Link>
-                <Link to="*" />
               </div>
               <IconButton
                 variant="text"
@@ -125,7 +118,7 @@ function NavbarSearch () {
           >
             <div className="mb-6 flex items-center justify-between">
               <Typography variant="h5" color="blue-gray">
-                {profile.username}
+                {profile}
               </Typography>
               <IconButton
                 variant="text"
@@ -138,15 +131,15 @@ function NavbarSearch () {
             <div className="flex items-center gap-4">
               <Avatar
                 variant="circular"
-                alt={profile.username}
+                alt={profile}
                 className="cursor-pointer"
                 src="https://docs.material-tailwind.com/img/face-2.jpg" size="xxl" />
               <div>
                 <Typography variant="h6" color="blue-gray">
-                  {profile.username}
+                  {profile}
                 </Typography>
                 <Typography variant="h6" color="blue-gray">
-                  Administrador{profile.roles}
+                  Rol: {role}
                 </Typography>
               </div>
             </div>
@@ -154,7 +147,7 @@ function NavbarSearch () {
               <ul className="list-none list-inside">
                 <li>
                   <Link to='/users'>
-                    <Button variant="h6" className='m-4' color="blue-gray">
+                    <Button variant="text" className='m-4' color="blue-gray">
                       Ir al perfil
                     </Button>
                   </Link>

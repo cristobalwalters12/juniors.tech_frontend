@@ -1,30 +1,17 @@
-import { useState, useEffect } from 'react'
-// import { useParams } from 'react-router-dom'
-// import { baseApi } from '../api/baseApi'
-// import axios from 'axios'
 import { NavbarLanding as Navbar } from '../shared/components/NavbarLanding'
 import NavbarUser from '../shared/components/NavbarUser'
+import { useAuthStore } from '../stores/authStore'
 
 function VerifyUser () {
-  const [userData, setUserData] = useState(null)
-  // const [error, setError] = useState(null)
+  const user = useAuthStore((state) => state.user)
+  const role = useAuthStore((state) => state.role)
 
-  // const { id } = useParams()
-  // `/api/v1/users${id}`
-  useEffect(() => {
-    fetch('/api/v1/users').then(response => response.json()).then(data => setUserData(data))
-  }, [])
-
-  // if (error) {
-  //   return <p>Error: {error}</p>
-  // }
-
-  if (!userData) {
+  if (!user) {
     return <Navbar />
   }
 
   return (
-    <NavbarUser />
+    <NavbarUser profile={user} role={role} />
   )
 }
 

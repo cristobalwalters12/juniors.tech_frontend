@@ -1,18 +1,40 @@
+import { useState } from 'react'
+import Sidebar from '../shared/components/Sidebar'
 import VerifyUser from '../pages/VerifyUser'
-import SideBar from '../shared/components/Sidebar'
+import PostList from '../features/posts/PostList'
 
-const HolyGrailLayout = ({ children }) => {
+const HolyGrailLayout = () => {
+  const [orderDirection, setOrderDirection] = useState('desc')
+  const [orderBy, setOrderBy] = useState('vote_count')
+
+  const handleAscendente = () => {
+    setOrderDirection('asc')
+  }
+
+  const handleDescendente = () => {
+    setOrderDirection('desc')
+  }
+
+  const handleOrderChange = (field) => {
+    setOrderBy(field)
+  }
+
   return (
-
-<div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col">
   <header className=" p-4"><VerifyUser /></header>
   <div className="flex flex-1 flex-row">
-    <aside className="w-1/3 p-4 max-w-[18rem]"><SideBar /></aside>
-    <main className=" w-1/3 flex-1 p-4">{ children }</main>
+    <aside className="w-1/3 p-4 max-w-[18rem]">
+      <Sidebar
+        handleAscendente={handleAscendente}
+        handleDescendente={handleDescendente}
+        handleOrderChange={handleOrderChange}
+      />
+    </aside>
+    <PostList orderBy={orderBy} orderDirection={orderDirection} />
   </div>
 </div>
 
   )
 }
 
-export { HolyGrailLayout }
+export default HolyGrailLayout

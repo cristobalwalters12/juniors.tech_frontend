@@ -89,7 +89,7 @@ const Post = ({ post }) => {
           <Typography variant='h4'>{post.title}</Typography>
           <Typography>{post.body}</Typography>
         </CardBody>
-          <CardFooter voteDirection={post.vote_direction} voteCount={post.vote_count} commentCount={post.comment_count} owner={false} />
+        <CardFooter voteDirection={post.vote_direction} voteCount={post.vote_count} commentCount={post.comment_count} owner={false} />
       </Card>
     </article>
   )

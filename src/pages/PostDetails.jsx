@@ -1,7 +1,7 @@
+import HolyGrailLayout from '../layouts/HolyGrailLayout'
 import { useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import { Button } from '@material-tailwind/react'
-import { HolyGrailLayout } from '../layouts/HolyGrailLayout'
 import { useGetSinglePost } from '../features/posts/useGetSinglePost'
 import { Post } from '../features/posts/Post'
 import { CommentList } from '../features/comments/CommentList'

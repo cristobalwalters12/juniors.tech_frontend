@@ -6,7 +6,7 @@ import {
 } from '@material-tailwind/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 
-export default function ListDefault () {
+export default function ListDefault ({ handleAscendente, handleDescendente }) {
   const [open, setOpen] = React.useState({
     junior: 0,
     dev: 0,
@@ -20,99 +20,16 @@ export default function ListDefault () {
     }))
   }
 
-  //   const {id} = useParams()
-  // <ListItem
-  //   id="portafolio"
-  //   className={id === "portafolio" ? "active": ""}
-  //   onClick={(e)=> navigate("/portafolio")}
-  // >
-  //   Portafolio
-  // </ListItem>
-  // <ListItem
-  //   id="ofertas"
-  //   className={active === "ofertas" ? "active": ""}
-  //   onClick={(e)=> setActive(e.target.id)}
-  // >
-  //   Ofertas
-  // </ListItem>
-
   const isOpen = (key, value) => open[key] === value
 
   return (
     <Card >
       <List>
         <Typography variant="h4" color="blue-gray">
-          Ver las publicaciones
+          Ordenar por
         </Typography>
-        <ListItem>Más votados</ListItem>
-        <ListItem>Más recientes</ListItem>
-      </List>
-      <List>
-        <ListItem className="p-0">
-          <Typography variant="h4" color="blue-gray">
-            Ver publicaciones sobre
-          </Typography>
-        </ListItem>
-        <ListItem className="p-0">
-          <label
-            htmlFor="vertical-list-react"
-            className="flex w-full cursor-pointer items-center px-3 py-2"
-          >
-            <Typography color="blue-gray" className="font-medium">
-              Proyectos grupales
-            </Typography>
-          </label>
-        </ListItem>
-        <ListItem className="p-0">
-          <label
-            htmlFor="vertical-list-vue"
-            className="flex w-full cursor-pointer items-center px-3 py-2"
-          >
-            <Typography color="blue-gray" className="font-medium">
-              Hojas de vida
-            </Typography>
-          </label>
-        </ListItem>
-        <ListItem className="p-0">
-          <label
-            htmlFor="vertical-list-svelte"
-            className="flex w-full cursor-pointer items-center px-3 py-2"
-          >
-            <Typography color="blue-gray" className="font-medium">
-              Portafolios
-            </Typography>
-          </label>
-        </ListItem>
-        <ListItem className="p-0">
-          <label
-            htmlFor="vertical-list-svelte"
-            className="flex w-full cursor-pointer items-center px-3 py-2"
-          >
-            <Typography color="blue-gray" className="font-medium">
-              Ofertas de trabajo
-            </Typography>
-          </label>
-        </ListItem>
-        <ListItem className="p-0">
-          <label
-            htmlFor="vertical-list-svelte"
-            className="flex w-full cursor-pointer items-center px-3 py-2"
-          >
-            <Typography color="blue-gray" className="font-medium">
-              Sugerencias de curso
-            </Typography>
-          </label>
-        </ListItem>
-        <ListItem className="p-0">
-          <label
-            htmlFor="vertical-list-svelte"
-            className="flex w-full cursor-pointer items-center px-3 py-2"
-          >
-            <Typography color="blue-gray" className="font-medium">
-              Grupos de estudio
-            </Typography>
-          </label>
-        </ListItem>
+        <ListItem onClick={handleDescendente}>Más votados</ListItem>
+        <ListItem onClick={handleAscendente}>Menos votados</ListItem>
       </List>
       <Accordion
         open={isOpen('junior', 1)}
@@ -162,18 +79,26 @@ export default function ListDefault () {
         </ListItem>
         <AccordionBody className="py-1">
           <List className="p-0">
-            <ListItem>
-              Ayxa Chaverra
-            </ListItem>
-            <ListItem>
-              Cristóbal Walters
-            </ListItem>
-            <ListItem>
-              Nicolás Contreras
-            </ListItem>
-            <ListItem>
-              Jonathan Araos
-            </ListItem>
+            <a href="https://github.com/achaverrar">
+              <ListItem>
+                Ayxa Chaverra
+              </ListItem>
+            </a>
+            <a href="https://github.com/cristobalwalters12">
+              <ListItem>
+                Cristóbal Walters
+              </ListItem>
+            </a>
+            <a href="https://github.com/lukitas0606">
+              <ListItem>
+                Nicolás Contreras
+              </ListItem>
+            </a>
+            <a href="https://github.com/jonaisenberg">
+              <ListItem>
+                Jonathan Araos
+              </ListItem>
+            </a>
           </List>
         </AccordionBody>
       </Accordion>
