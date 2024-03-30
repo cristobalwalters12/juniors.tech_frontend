@@ -23,7 +23,7 @@ const getPosts = http.get('/api/v1/posts', () => {
 
 const getPostById = http.get('/api/v1/posts/:id', ({ params }) => {
   const id = Number.parseInt(params.id)
-  const post = posts.find(p => p.id === id)
+  const post = posts.find(currPost => currPost.id === id)
 
   if (post === null) {
     return HttpResponse.json(
@@ -37,14 +37,14 @@ const getPostById = http.get('/api/v1/posts/:id', ({ params }) => {
 })
 
 const createPost = http.post('/api/v1/posts', async ({ request }) => {
-  const { category: category_id, title, body } = await request.json()
+  const { categoryId, title, body } = await request.json()
 
   postCount++
-  const category = categories.find(category => category.id === category_id)
+  const category = categories.find(category => category.id === +categoryId)
   const post = {
     id: postCount,
-    category,
-    category_id,
+    category: category.name,
+    category_id: categoryId,
     username,
     avatar,
     author_id,

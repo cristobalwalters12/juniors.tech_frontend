@@ -11,12 +11,12 @@ import {
 import { TextEditor } from './TextEditor'
 import { SelectCategories } from './SelectCategories'
 import { useEditPost } from './useEditPost'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
-const SavePostForm = ({ id, category = '', title = '', body = '' }) => {
-  const { createPost } = useCreatePost()
+const SavePostForm = ({ id, category: categoryId = '', title = '', body = '' }) => {
+  const createPost = useCreatePost()
   const { editPost, isEditing } = useEditPost()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -26,17 +26,17 @@ const SavePostForm = ({ id, category = '', title = '', body = '' }) => {
   } = useForm({
     mode: 'onTouched',
     resolver: joiResolver(postSchema),
-    defaultValues: { category, title, body }
+    defaultValues: { categoryId, title, body }
   })
 
   const onSubmit = (data) => {
     if (id) {
       editPost({ id, post: data })
     } else {
-      createPost(data)
+      createPost.mutate(data)
       reset()
     }
-    navigate('/')
+    // navigate(`/posts/${id}`)
   }
 
   return (
@@ -50,17 +50,22 @@ const SavePostForm = ({ id, category = '', title = '', body = '' }) => {
             Categoría
           </Typography>
           <Controller
-            name="category"
+            name="categoryId"
             defaultValue=""
             control={control}
             render={({ field }) => {
               const { ref, ...rest } = field
-              return <SelectCategories id="category" {...rest} label="Categoría"/>
+              return (
+                <SelectCategories
+                  id="categoryId"
+                  {...rest}
+                  label="Categoría"
+                />)
             }}
           />
-          {errors.category && (
+          {errors.categoryId && (
             <Typography variant="small" color="red" className="font-normal">
-              {errors.category.message}
+              {errors.categoryId.message}
             </Typography>
           )}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
