@@ -7,7 +7,7 @@ const PostList = ({ orderBy, orderDirection }) => {
   const [posts, setPosts] = useState([])
   const [active, setActive] = React.useState(1)
   const [currentPage, setCurrentPage] = React.useState(1)
-  const postsPerPage = 3
+  const postsPerPage = 4
 
   useEffect(() => {
     fetch('/api/v1/posts')
@@ -62,7 +62,7 @@ const PostList = ({ orderBy, orderDirection }) => {
               {post.category}
             </Typography>
             <Typography variant='small' color='gray' className='font-normal'>
-              fecha
+              {post.created_at}
             </Typography>
           </List>
           <CardBody>

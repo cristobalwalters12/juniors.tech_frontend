@@ -11,10 +11,8 @@ import {
 } from '@material-tailwind/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
-import { useGetUser } from '../../features/posts/useGetUser'
 
-function NavbarSearch () {
-  const { user: { users: [profile] }, isError, isLoading } = useGetUser()
+function NavbarSearch ({ profile, role }) {
   const [openNav, setOpenNav] = useState(false)
   const [openRight, setOpenRight] = useState(false)
 
@@ -22,14 +20,6 @@ function NavbarSearch () {
   const closeDrawerRight = () => setOpenRight(false)
 
   const handleNavToggle = () => setOpenNav(!openNav)
-
-  if (isLoading) {
-    return <h1>Cargando</h1>
-  }
-
-  if (isError) {
-    return <h1>Error</h1>
-  }
 
   return (
     <>
@@ -138,15 +128,15 @@ function NavbarSearch () {
             <div className="flex items-center gap-4">
               <Avatar
                 variant="circular"
-                alt={profile.username}
+                alt={profile}
                 className="cursor-pointer"
                 src="https://docs.material-tailwind.com/img/face-2.jpg" size="xxl" />
               <div>
                 <Typography variant="h6" color="blue-gray">
-                  {profile.username}
+                  {profile}
                 </Typography>
                 <Typography variant="h6" color="blue-gray">
-                  Administrador{profile.roles}
+                  Rol: {role}
                 </Typography>
               </div>
             </div>

@@ -22,7 +22,7 @@ const RegisterForm = () => {
     }
     loginUser(user, {
       onSuccess: () => {
-        navigate('/PublicProfile')
+        navigate('/home')
       }
     })
   }
