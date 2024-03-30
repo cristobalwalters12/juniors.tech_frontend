@@ -14,6 +14,7 @@ import CategoryManagement from './pages/CategoryManagement'
 import PostsReport from './pages/PostsReportManagement'
 import CommentsReport from './pages/CommentsReportsManagement'
 import UsersReport from './pages/UsersReportsManagement'
+import PublicUserProfile from './pages/PublicUserProfile'
 
 function App () {
   return (
@@ -33,6 +34,8 @@ function App () {
       <Route path="/admin-panel/category-management" element={<CategoryManagement />} />
       <Route path="/register"element= {<Register/>}/>
       <Route path="/login"element= {<Login/>}/>
+      <Route path="/publicProfile" element={<PublicUserProfile />} />
+
     </Routes>
   )
 }

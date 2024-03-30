@@ -50,7 +50,7 @@ function NavbarRegisterLogin () {
           variant="h6"
           className="mr-4 cursor-pointer py-1.5"
         >
-          Material Tailwind
+          Juniors.TECH
         </Typography>
         <div className="hidden lg:block">
           <NavList />

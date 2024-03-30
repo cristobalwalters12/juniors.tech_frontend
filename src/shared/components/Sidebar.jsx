@@ -42,9 +42,9 @@ export default function ListDefault ({ handleAscendente, handleDescendente }) {
       >
         <ListItem className="p-0" selected={isOpen('junior', 1)}>
           <AccordionHeader onClick={() => handleOpen('junior', 1)} className="border-b-0 p-3">
-            <Typography variant="h4" color="blue-gray">
-              Juniors.tech
-            </Typography>
+          <Typography variant="h4" color="blue-gray">
+            Juniors.tech
+          </Typography>
           </AccordionHeader>
         </ListItem>
         <AccordionBody className="py-1">

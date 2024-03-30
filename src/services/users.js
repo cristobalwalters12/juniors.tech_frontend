@@ -20,4 +20,9 @@ const loginUser = async (user) => {
   const { data } = await baseApi.post(API_PATHS.login, user)
   return data
 }
-export { getUser, createUser, loginUser, getUsers }
+
+const getPublicProfile = async (user) => {
+  const { data } = await baseApi.post(API_PATHS.publicProfile, user)
+  return data
+}
+export { getUser, createUser, loginUser, getUsers, getPublicProfile }
