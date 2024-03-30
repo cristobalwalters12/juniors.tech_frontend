@@ -8,7 +8,7 @@ const useCreatePost = () => {
   const createPostMutation = useMutation({
     mutationFn: createPost,
     onSuccess: (data) => {
-      navigate(`/posts/${data.id}`)
+      navigate(`/posts/${data.id}`, { replace: true })
     }
   })
 

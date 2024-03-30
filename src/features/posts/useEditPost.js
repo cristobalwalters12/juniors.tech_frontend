@@ -8,7 +8,7 @@ const useEditPost = () => {
   const editPostMutation = useMutation({
     mutationFn: editPost,
     onSuccess: ({ data }) => {
-      navigate(`/posts/${data.id}`)
+      navigate(`/posts/${data.id}`, { replace: true })
     }
   })
 

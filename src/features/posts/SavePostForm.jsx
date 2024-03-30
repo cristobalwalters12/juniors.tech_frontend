@@ -11,8 +11,10 @@ import {
 import { TextEditor } from './TextEditor'
 import { SelectCategories } from './SelectCategories'
 import { useEditPost } from './useEditPost'
+import { useNavigate } from 'react-router-dom'
 
 const SavePostForm = ({ id, category_id: categoryId = '', title = '', body = '' }) => {
+  const navigate = useNavigate()
   const createPost = useCreatePost()
   const editPost = useEditPost()
   const {
@@ -89,7 +91,7 @@ const SavePostForm = ({ id, category_id: categoryId = '', title = '', body = '' 
             </Typography>
           )}
           <div className="flex gap-2">
-            <Button size="sm" color="red" variant="text" className="rounded-md">
+            <Button onClick={() => navigate(-1)} size="sm" color="red" variant="text" className="rounded-md">
               Cancelar
             </Button>
             <Button type="submit" disabled={!isValid || editPost.isPending} size="sm" className="rounded-md">
