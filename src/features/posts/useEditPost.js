@@ -1,17 +1,18 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from 'react-router'
+import { useMutation } from '@tanstack/react-query'
 import { editPost } from '../../services/posts'
 
 const useEditPost = () => {
-  const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const editPostMutation = useMutation({
     mutationFn: editPost,
-    onSuccess: queryClient.invalidateQueries({ queryKey: ['posts'] })
+    onSuccess: ({ data }) => {
+      navigate(`/posts/${data.id}`, { replace: true })
+    }
   })
 
-  return {
-    editPost: editPostMutation.mutate
-  }
+  return editPostMutation
 }
 
 export { useEditPost }

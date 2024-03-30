@@ -5,34 +5,51 @@ import { useSaveComment } from './useSaveComment'
 import { useState } from 'react'
 import { CardFooter } from '../../shared/components/CardFooter'
 import { useDeleteComment } from './useDeleteComment'
+import { useVoteComment } from './useVoteComment'
+import { useAuthStore } from '../../stores/authStore'
 
-const currUserId = 1
-
-const NonDeletedComment = ({
-  toggleOpenReplies,
-  comment
-}) => {
+const NonDeletedComment = ({ toggleOpenReplies, comment }) => {
+  const currUserId = useAuthStore((state) => state.id)
   const owner = comment.author_id === currUserId
   const [replying, setReplying] = useState(false)
   const [editing, setEditing] = useState(false)
   const showEditingForm = () => setEditing(true)
+  const voteComment = useVoteComment()
   const hideEditingForm = () => setEditing(false)
   const openReplyForm = () => setReplying(true)
   const closeReplyForm = () => setReplying(false)
-  const { saveComment } = useSaveComment()
+  const saveComment = useSaveComment()
   const { deleteComment } = useDeleteComment()
+
   const submitReply = (reply) => {
     if (reply.parent_id === undefined) reply.parent_id = comment.id
-    saveComment({
+    saveComment.mutate({
       postId: comment.post_id,
       comment: reply
     })
     hideEditingForm()
   }
+
   const handleDelete = () => {
     deleteComment({
       postId: comment.post_id,
       commentId: comment.id
+    })
+  }
+
+  const downVote = () => {
+    voteComment.mutate({
+      postId: comment.post_id,
+      commentId: comment.id,
+      voteDirection: -1
+    })
+  }
+
+  const upVote = () => {
+    voteComment.mutate({
+      postId: comment.post_id,
+      commentId: comment.id,
+      voteDirection: 1
     })
   }
   return (
@@ -41,7 +58,7 @@ const NonDeletedComment = ({
           color="transparent"
           shadow={false}
           onClick={toggleOpenReplies}
-          className="w-full mt-3 p-3 pb-2 bg-white"
+          className={`w-full mt-3 p-3 pb-2 bg-white ${comment.comment_count > 0 ? 'cursor-pointer' : ''}`}
         >
           <CardHeader
             color="transparent"
@@ -92,6 +109,8 @@ const NonDeletedComment = ({
                 showEditingForm={showEditingForm}
                 handleDelete={handleDelete}
                 className="pl-11"
+                downVote={downVote}
+                upVote={upVote}
               />)}
         </Card>
         {

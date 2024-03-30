@@ -3,18 +3,10 @@ import { categories } from './data/categories'
 import { dataPosts } from './data/posts'
 import { currUser } from './data/global'
 
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-return-assign */
-/* eslint-disable camelcase */
-
 let postCount = dataPosts.length
-let posts = [...dataPosts]
-const username = currUser.username
-const author_id = currUser.id
-const avatar = currUser.avatar
 
 const getPosts = http.get('/api/v1/posts', () => {
-  const postsResponse = posts.filter(post => post.deleted_at !== null)
+  const postsResponse = dataPosts.filter(post => post.deleted_at !== null)
   return HttpResponse.json(
     postsResponse,
     { status: 200 }
@@ -22,18 +14,10 @@ const getPosts = http.get('/api/v1/posts', () => {
 })
 
 const getPostById = http.get('/api/v1/posts/:id', ({ params }) => {
-  const { id } = params
-  let post = null
-  posts.forEach(p => {
-    if (p.id === id) post = p
-  })
+  const id = Number.parseInt(params.id)
+  const post = dataPosts.find(currPost => currPost.id === id)
 
-  if (post !== null) {
-    return HttpResponse.json(
-      post,
-      { status: 200 }
-    )
-  } else {
+  if (post === undefined) {
     return HttpResponse.json(
       {
         message: 'Post not found'
@@ -41,20 +25,21 @@ const getPostById = http.get('/api/v1/posts/:id', ({ params }) => {
       { status: 404 }
     )
   }
+  return HttpResponse.json(post, { status: 200 })
 })
 
 const createPost = http.post('/api/v1/posts', async ({ request }) => {
-  const { category: category_id, title, body } = await request.json()
+  const { categoryId, title, body } = await request.json()
 
   postCount++
-  const category = categories.find(category => category.id === category_id)
+  const category = categories.find(category => category.id === +categoryId)
   const post = {
     id: postCount,
-    category,
-    category_id,
-    username,
-    avatar,
-    author_id,
+    category: category.name,
+    category_id: categoryId,
+    username: currUser.username,
+    avatar: currUser.avatar,
+    author_id: currUser.id,
     title,
     body,
     vote_count: 0,
@@ -64,36 +49,20 @@ const createPost = http.post('/api/v1/posts', async ({ request }) => {
     vote_direction: 0
   }
 
-  posts = [...posts, post]
+  dataPosts.push(post)
+
   return HttpResponse.json(post, { status: 201 })
 })
 
 const editPost = http.put('/api/v1/posts/:id', async ({ params, request }) => {
-  const { id } = params
+  const postId = Number.parseInt(params.id)
 
-  const { category: category_id, title, body } = await request.json()
+  const { categoryId, title, body } = await request.json()
 
   postCount++
-  const post = posts.find(post => post.id = id)
+  const post = dataPosts.find(post => post.id === postId)
 
-  if (post !== null) {
-    posts = posts.map(currPost => {
-      if (currPost.id !== id) return currPost
-
-      return {
-        ...currPost,
-        category_id,
-        category: categories.find(category => category.id === category_id).name,
-        title,
-        body
-      }
-    })
-
-    return HttpResponse.json(
-      posts,
-      { status: 200 }
-    )
-  } else {
+  if (post === null) {
     return HttpResponse.json(
       {
         message: 'Post not found'
@@ -101,9 +70,19 @@ const editPost = http.put('/api/v1/posts/:id', async ({ params, request }) => {
       { status: 404 }
     )
   }
+
+  const category = categories.find(category => category.id === +categoryId).name
+
+  post.category_id = categoryId
+  post.category = category
+  post.title = title
+  post.body = body
+  post.updated_at = (new Date()).toISOString()
+
+  return HttpResponse.json(post, { status: 200 })
 })
 
-const deletePost = http.delete('/api/v1/posts/:postId', ({ params }, res, ctx) => {
+/* const deletePost = http.delete('/api/v1/posts/:postId', ({ params }, res, ctx) => {
   const id = Number.parseInt(params.commentId)
   posts = posts.map(post => {
     if (post.id !== id) return post
@@ -135,6 +114,6 @@ const votePost = http.post('/api/v1/posts/:id/vote', async ({ params, request })
     }
     post.vote_direction = newVote
   }
-})
+}) */
 
-export default [getPosts, getPostById, createPost, editPost, deletePost, votePost]
+export default [getPosts, getPostById, createPost, editPost]

@@ -9,7 +9,7 @@ const DeletedComment = ({ toggleOpenReplies, comment }) => {
         color="transparent"
         shadow={false}
         onClick={toggleOpenReplies}
-        className="w-full mt-3 p-3 pb-2 bg-white"
+        className={`w-full mt-3 p-3 pb-2 bg-white ${comment.comment_count > 0 ? 'cursor-pointer' : ''}`}
       >
         <CardHeader
           color="transparent"
