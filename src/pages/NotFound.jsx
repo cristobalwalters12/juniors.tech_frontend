@@ -19,7 +19,7 @@ function NavList () {
       <Link to="/login" >
         <Button
           as="li"
-          variant="small"
+          variant="text"
           color="blue-gray"
           className="p-1 mr-16 font-medium"
         >

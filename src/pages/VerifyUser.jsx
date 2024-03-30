@@ -6,8 +6,6 @@ function VerifyUser () {
   const user = useAuthStore((state) => state.user)
   const role = useAuthStore((state) => state.role)
 
-  console.log(role)
-
   if (!user) {
     return <Navbar />
   }

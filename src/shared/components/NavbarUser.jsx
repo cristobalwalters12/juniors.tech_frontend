@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import {
   Navbar,
   Collapse,
@@ -10,7 +11,6 @@ import {
   Drawer
 } from '@material-tailwind/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link } from 'react-router-dom'
 
 function NavbarSearch ({ profile, role }) {
   const [openNav, setOpenNav] = useState(false)
@@ -21,10 +21,16 @@ function NavbarSearch ({ profile, role }) {
 
   const handleNavToggle = () => setOpenNav(!openNav)
 
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate('/posts/new')
+  }
+
   return (
     <>
       {profile &&
-        <div key={profile.id}>
+        <div>
           <Navbar className="max-w-full mx-auto w-full px-4 py-2">
             <div className="flex items-center justify-between text-blue-gray-900 lg:flex-row">
               <Typography
@@ -70,12 +76,9 @@ function NavbarSearch ({ profile, role }) {
                 />
               </Button>
               <div className="hidden lg:block">
-                <Link to="/posts/new">
-                  <Button variant="text" size="sm" color="black">
+                  <Button onClick={handleClick} variant="text" size="sm" color="black">
                     Crear Publicación
                   </Button>
-                </Link>
-                <Link to="*" />
               </div>
               <IconButton
                 variant="text"
@@ -115,7 +118,7 @@ function NavbarSearch ({ profile, role }) {
           >
             <div className="mb-6 flex items-center justify-between">
               <Typography variant="h5" color="blue-gray">
-                {profile.username}
+                {profile}
               </Typography>
               <IconButton
                 variant="text"
@@ -144,7 +147,7 @@ function NavbarSearch ({ profile, role }) {
               <ul className="list-none list-inside">
                 <li>
                   <Link to='/users'>
-                    <Button variant="h6" className='m-4' color="blue-gray">
+                    <Button variant="text" className='m-4' color="blue-gray">
                       Ir al perfil
                     </Button>
                   </Link>

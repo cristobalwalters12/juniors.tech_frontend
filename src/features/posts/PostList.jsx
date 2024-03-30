@@ -62,7 +62,7 @@ const PostList = ({ orderBy, orderDirection }) => {
               {post.category}
             </Typography>
             <Typography variant='small' color='gray' className='font-normal'>
-              {post.created_at}
+              {post.created_at.slice(2, 10)}
             </Typography>
           </List>
           <CardBody>

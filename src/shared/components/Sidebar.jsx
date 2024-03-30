@@ -6,7 +6,7 @@ import {
 } from '@material-tailwind/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 
-export default function ListDefault ({ handleAscendente, handleDescendente, handleOrderChange }) {
+export default function ListDefault ({ handleAscendente, handleDescendente }) {
   const [open, setOpen] = React.useState({
     junior: 0,
     dev: 0,
@@ -25,7 +25,7 @@ export default function ListDefault ({ handleAscendente, handleDescendente, hand
   return (
     <Card >
       <List>
-        <Typography handleOrderChange={handleOrderChange} variant="h4" color="blue-gray">
+        <Typography variant="h4" color="blue-gray">
           Ordenar por
         </Typography>
         <ListItem onClick={handleDescendente}>Más votados</ListItem>
