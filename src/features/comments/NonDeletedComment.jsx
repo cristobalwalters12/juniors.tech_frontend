@@ -6,13 +6,10 @@ import { useState } from 'react'
 import { CardFooter } from '../../shared/components/CardFooter'
 import { useDeleteComment } from './useDeleteComment'
 import { useVoteComment } from './useVoteComment'
+import { useAuthStore } from '../../stores/authStore'
 
-const currUserId = 1
-
-const NonDeletedComment = ({
-  toggleOpenReplies,
-  comment
-}) => {
+const NonDeletedComment = ({ toggleOpenReplies, comment }) => {
+  const currUserId = useAuthStore((state) => state.id)
   const owner = comment.author_id === currUserId
   const [replying, setReplying] = useState(false)
   const [editing, setEditing] = useState(false)
@@ -55,7 +52,6 @@ const NonDeletedComment = ({
       voteDirection: 1
     })
   }
-  console.log('hello from non-deleted comment')
   return (
     <>
       <Card

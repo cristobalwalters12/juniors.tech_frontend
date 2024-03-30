@@ -10,7 +10,7 @@ const CommentList = ({ postId }) => {
   useEffect(() => {
     getComments(postId).then(data => setComments(data))
   }, [postId])
-  console.log('hello from comment list')
+
   return (
     <div className="p-3 pt-1 bg-blue-gray-100">
       {rootComments?.map(comment =>

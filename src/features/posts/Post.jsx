@@ -15,12 +15,13 @@ import {
 import { FormattedDate } from '../../shared/components/FormattedDate'
 import { CardFooter } from '../../shared/components/CardFooter'
 import { useNavigate } from 'react-router-dom'
-
-const userId = 1
+import { useAuthStore } from '../../stores/authStore'
 
 const Post = ({ post }) => {
-  const owner = post.author_id === userId
+  const currUserId = useAuthStore((state) => state.id)
+  const owner = post.author_id === currUserId
   const navigate = useNavigate()
+
   return (
     <article className='pl-4 pb-3'>
       <Card color="transparent" shadow={false} className="w-full">
