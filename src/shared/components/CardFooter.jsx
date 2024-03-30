@@ -27,6 +27,11 @@ const CardFooter = ({
   showEditingForm,
   handleDelete
 }) => {
+  const handleClick = (e) => {
+    e.stopPropagation()
+    openReplyForm()
+  }
+
   return (
     <div className={`mt-1 flex items-center ${className}`}>
       <div className="flex items-center gap-1">
@@ -43,7 +48,7 @@ const CardFooter = ({
           <ArrowDownIcon className={`h-4 w-4 ${voteDirection === -1 ? 'text-blue-600' : ''}`} />
         </Button>
       </div>
-        <Button variant="text" className="rounded-full py-1.5 px-2.5" onClick={openReplyForm}>
+        <Button variant="text" className="rounded-full py-1.5 px-2.5" onClick={handleClick}>
           <div className="flex items-center gap-1">
             <ChatBubbleOvalLeftIcon className="h-4 w-4" />
             <Typography
