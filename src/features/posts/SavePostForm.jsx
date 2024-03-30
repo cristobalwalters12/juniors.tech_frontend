@@ -11,12 +11,10 @@ import {
 import { TextEditor } from './TextEditor'
 import { SelectCategories } from './SelectCategories'
 import { useEditPost } from './useEditPost'
-// import { useNavigate } from 'react-router-dom'
 
-const SavePostForm = ({ id, category: categoryId = '', title = '', body = '' }) => {
+const SavePostForm = ({ id, category_id: categoryId = '', title = '', body = '' }) => {
   const createPost = useCreatePost()
-  const { editPost, isEditing } = useEditPost()
-  // const navigate = useNavigate()
+  const editPost = useEditPost()
   const {
     register,
     handleSubmit,
@@ -26,17 +24,16 @@ const SavePostForm = ({ id, category: categoryId = '', title = '', body = '' }) 
   } = useForm({
     mode: 'onTouched',
     resolver: joiResolver(postSchema),
-    defaultValues: { categoryId, title, body }
+    defaultValues: { categoryId: categoryId.toString(), title, body }
   })
 
   const onSubmit = (data) => {
     if (id) {
-      editPost({ id, post: data })
+      editPost.mutate({ id, post: data })
     } else {
       createPost.mutate(data)
       reset()
     }
-    // navigate(`/posts/${id}`)
   }
 
   return (
@@ -95,7 +92,7 @@ const SavePostForm = ({ id, category: categoryId = '', title = '', body = '' }) 
             <Button size="sm" color="red" variant="text" className="rounded-md">
               Cancelar
             </Button>
-            <Button type="submit" disabled={!isValid || isEditing} size="sm" className="rounded-md">
+            <Button type="submit" disabled={!isValid || editPost.isPending} size="sm" className="rounded-md">
               Publicar
             </Button>
           </div>

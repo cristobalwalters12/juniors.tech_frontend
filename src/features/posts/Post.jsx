@@ -39,6 +39,10 @@ const Post = ({ post }) => {
             <Typography variant="small" color="blue-gray" className='font-normal'>
               <FormattedDate date={post.created_at} />
             </Typography>
+            {post.updated_at && <Typography variant='small' color="blue-gray" className='font-normal'>
+              <span> &middot; (Editado) </span>
+              <FormattedDate date={post.updated_at} />
+            </Typography>}
           </div>
         </div>
       </CardHeader>
