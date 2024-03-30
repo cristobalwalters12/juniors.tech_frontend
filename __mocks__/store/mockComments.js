@@ -71,4 +71,28 @@ const deleteComment = http.delete('/api/v1/posts/:postId/comments/:commentId', (
   return HttpResponse.json(undefined, { status: 204 })
 })
 
-export default [getComments, createComment, updateComment, deleteComment]
+const voteComment = http.post('/api/v1/posts/:postId/comments/:commentId/vote', async ({ params, request }) => {
+  const commentId = Number.parseInt(params.commentId)
+  const { vote_direction: newVote } = await request.json()
+  const comment = dataComments.find(currComment => currComment.id === commentId)
+  const { vote_direction: currVote } = comment
+
+  console.log({ commentId, newVote, currVote, voteCount: comment.vote_count })
+  // unvote
+  if (newVote === currVote) {
+    comment.vote_direction = 0
+    comment.vote_count -= newVote
+  } else {
+    // new vote
+    if (currVote === 0) {
+      comment.vote_count += newVote
+    } else { // reverse vote
+      comment.vote_count += 2 * newVote
+    }
+    comment.vote_direction = newVote
+  }
+
+  return HttpResponse.json(comment, { status: 200 })
+})
+
+export default [getComments, createComment, updateComment, deleteComment, voteComment]

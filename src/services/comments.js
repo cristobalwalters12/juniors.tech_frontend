@@ -21,9 +21,8 @@ const deleteComment = async ({ postId, commentId }) => {
   await baseApi.delete(`${API_PATHS.posts}/${postId}/comments/${commentId}`)
 }
 
-const voteComment = async (comment) => {
-  comment.vote_count += comment.vote_direction
-  await baseApi.patch(`${API_PATHS.posts}/${comment.post_id}/comments/${comment.id}`, comment)
+const voteComment = async ({ postId, commentId, voteDirection }) => {
+  await baseApi.post(`${API_PATHS.posts}/${postId}/comments/${commentId}/vote`, { vote_direction: voteDirection })
 }
 
 export { getComments, saveComment, deleteComment, voteComment }
