@@ -9,6 +9,7 @@ const Comment = ({ comment, getRepliesById }) => {
   const replies = getRepliesById(comment.id)
   const [openReplies, setOpenReplies] = useState(false)
   const toggleOpenReplies = () => setOpenReplies((cur) => !cur)
+  console.log('hello from comment')
   return (
     <>
       {

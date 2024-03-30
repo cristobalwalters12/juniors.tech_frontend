@@ -3,6 +3,7 @@ import { FormattedDate } from '../../shared/components/FormattedDate'
 import { DisabledCardFooter } from '../../shared/components/DisabledCardFooter'
 
 const DeletedComment = ({ toggleOpenReplies, comment }) => {
+  console.log('hello from deleted comment')
   return (
     <>
       <Card

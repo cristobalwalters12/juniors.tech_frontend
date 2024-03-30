@@ -55,7 +55,7 @@ const NonDeletedComment = ({
       voteDirection: 1
     })
   }
-
+  console.log('hello from non-deleted comment')
   return (
     <>
       <Card
