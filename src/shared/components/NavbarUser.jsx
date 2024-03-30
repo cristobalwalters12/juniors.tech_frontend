@@ -146,7 +146,7 @@ function NavbarSearch ({ profile, role }) {
             <div className="mt-4">
               <ul className="list-none list-inside">
                 <li>
-                  <Link to='/users'>
+                  <Link to='/publicProfile'>
                     <Button variant="text" className='m-4' color="blue-gray">
                       Ir al perfil
                     </Button>

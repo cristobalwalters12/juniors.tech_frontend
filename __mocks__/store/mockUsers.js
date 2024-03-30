@@ -76,4 +76,46 @@ const UserData = http.get('api/v1/user-data', async ({ request }) => {
   return HttpResponse.json([{ id: user.id, username: user.username, role: 'usuario' }], { status: 200 })
 })
 
-export default [getUsers, addUsers, login, UserData, getUserById]
+const PublicUserInformation = [
+  {
+    id: 1,
+    user: 'johndoe',
+    pronoun: 'He/Him',
+    employmentStatus: 'Busca ofertas Laborales',
+    country: 'Chile',
+    numberOfPosts: 10,
+    comments: 10,
+    likes: 10,
+    About: 'Soy un desarrollador web fullstack con JavaScript. Amo la tecnología y me apasiona aprender.',
+    Languaje: ['Español (Nativo)', 'Ingles (Intermedio)'],
+    it_field: ['Desarrollador Web Fullstack', 'DevOps'],
+    technologies: ['JavaScript', 'React', 'Node.js', 'Express', 'MongoDB', 'Docker', 'Kubernetes'],
+    socialNetwork: 'www.linkedin.com/johndoe'
+  },
+  {
+    id: 2,
+    user: 'janedoe',
+    pronoun: 'She/Her',
+    employmentStatus: 'Devops Senior',
+    country: 'Chile',
+    numberOfPosts: 10,
+    comments: 10,
+    likes: 10,
+    About: 'Soy devops y me encanta la tecnología. Me gusta aprender y compartir conocimientos.',
+    Languaje: ['Español (Nativo)', 'Ingles (Intermedio)'],
+    it_field: ['Desarrollador Web Fullstack', 'DevOps'],
+    technologies: ['MongoDB', 'Docker', 'Kubernetes'],
+    socialNetwork: 'www.linkedin.com/janedoe'
+  }
+]
+
+const PublicProfile = http.post('api/v1/publicProfile', async ({ request }) => {
+  const requestData = await request.json()
+  const username = requestData.username
+  const user = PublicUserInformation.find(u => u.user === username)
+  if (!user) {
+    return HttpResponse.json({ error: 'El usuario no existe' }, { status: 404 })
+  }
+  return HttpResponse.json(user, { status: 200 })
+})
+export default [getUsers, addUsers, login, UserData, getUserById, PublicProfile]
