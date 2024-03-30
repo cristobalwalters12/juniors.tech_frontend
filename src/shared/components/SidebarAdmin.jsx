@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { List, ListItem, Card, Typography } from '@material-tailwind/react'
 
 export function ListDefault () {
+  const location = useLocation()
+
   return (
     <Card className="w-60 h-screen overflow-y-auto rounded-none">
       <List>
@@ -9,10 +11,20 @@ export function ListDefault () {
           Panel de Administrador
         </Typography>
         <Link to='/admin-panel/role-management'>
-        <ListItem>Gestión de roles</ListItem>
+          <ListItem className={location.pathname === '/admin-panel/role-management' ? 'bg-blue-200' : ''}>
+            Gestión de roles
+          </ListItem>
         </Link>
-        <ListItem>Gestión de reportes</ListItem>
-        <ListItem>Gestión de usuarios</ListItem>
+        <Link to='/admin-panel/reports-management'>
+          <ListItem className={location.pathname === '/admin-panel/reports-management' ? 'bg-blue-200' : ''}>
+            Gestión de reportes
+          </ListItem>
+        </Link>
+        <Link to='/admin-panel/category-management'>
+          <ListItem className={location.pathname === '/admin-panel/category-management' ? 'bg-blue-200' : ''}>
+            Gestión de categorias
+          </ListItem>
+        </Link>
       </List>
       <List>
         <ListItem className="p-0">
@@ -21,34 +33,25 @@ export function ListDefault () {
           </Typography>
         </ListItem>
         <ListItem className="p-0">
-          <label
-            htmlFor="vertical-list-react"
-            className="flex w-full cursor-pointer items-center px-3 py-2"
-          >
-            <Typography color="blue-gray" className="font-medium">
+          <Link to='/admin-panel/reports-management/posts-reports'>
+            <Typography color="blue-gray" className={location.pathname === '/admin-panel/reports-management/posts-reports' ? 'bg-blue-200 font-medium' : 'font-medium'}>
               Publicaciones
             </Typography>
-          </label>
+          </Link>
         </ListItem>
         <ListItem className="p-0">
-          <label
-            htmlFor="vertical-list-vue"
-            className="flex w-full cursor-pointer items-center px-3 py-2"
-          >
-            <Typography color="blue-gray" className="font-medium">
+          <Link to='/admin-panel/reports-management/comments-reports'>
+            <Typography color="blue-gray" className={location.pathname === '/admin-panel/reports-management/comments-reports' ? 'bg-blue-200 font-medium' : 'font-medium'}>
               Comentarios
             </Typography>
-          </label>
+          </Link>
         </ListItem>
         <ListItem className="p-0">
-          <label
-            htmlFor="vertical-list-svelte"
-            className="flex w-full cursor-pointer items-center px-3 py-2"
-          >
-            <Typography color="blue-gray" className="font-medium">
+          <Link to='/admin-panel/reports-management/users-reports'>
+            <Typography color="blue-gray" className={location.pathname === '/admin-panel/reports-management/users-reports' ? 'bg-blue-200 font-medium' : 'font-medium'}>
               Usuarios
             </Typography>
-          </label>
+          </Link>
         </ListItem>
       </List>
     </Card>
