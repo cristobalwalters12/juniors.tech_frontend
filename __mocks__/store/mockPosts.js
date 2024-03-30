@@ -17,7 +17,7 @@ const getPostById = http.get('/api/v1/posts/:id', ({ params }) => {
   const id = Number.parseInt(params.id)
   const post = dataPosts.find(currPost => currPost.id === id)
 
-  if (post === null) {
+  if (post === undefined) {
     return HttpResponse.json(
       {
         message: 'Post not found'
