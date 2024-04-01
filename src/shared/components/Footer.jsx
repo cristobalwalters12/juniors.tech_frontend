@@ -22,7 +22,7 @@ export function Footer () {
       <div className="container mx-auto px-4 flex flex-col items-center">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-4">
           <div className="text-center">
-            <Typography variant="lg" className="font-bold mb-4">
+            <Typography variant="h6" className="mb-4">
               JUNIORS.TECH
             </Typography>
             <ul className="space-y-2">
@@ -32,7 +32,7 @@ export function Footer () {
             </ul>
           </div>
           <div className="text-center">
-            <Typography variant="lg" className="font-bold mb-4">
+            <Typography variant="h6" className="mb-4">
               DESARROLLADORES
             </Typography>
             <div className="grid grid-cols-1 gap-2">
@@ -44,7 +44,7 @@ export function Footer () {
             </div>
           </div>
           <div className="text-center">
-            <Typography variant="lg" className="font-bold mb-4">
+            <Typography variant="h6" className="mb-4">
               INSTRUCTORES
             </Typography>
             <div className="grid grid-cols-1 gap-2">

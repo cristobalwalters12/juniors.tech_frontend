@@ -110,7 +110,7 @@ export function BottomTextWithButtons () {
   return (
         <div className="flex flex-col items-center mt-10 mb-10">
             <Typography
-                variant="body"
+                variant="paragraph"
                 color="white"
                 className="mb-3 text-center"
             >

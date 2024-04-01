@@ -19,7 +19,7 @@ function NavList () {
         color="blue-gray"
         className="p-1 font-medium"
       >
-           <a href={isRegisterRoute ? '/Login' : '/Register'} className="flex items-center hover:text-blue-500 transition-colors">
+          <a href={isRegisterRoute ? '/Login' : '/Register'} className="flex items-center hover:text-blue-500 transition-colors">
           {isRegisterRoute ? 'Iniciar sesión' : 'Registrarse'}
         </a>
       </Typography>

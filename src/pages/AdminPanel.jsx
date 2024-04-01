@@ -1,6 +1,6 @@
 import { NavbarSearch } from '../shared/components/NavbarWithSearch'
-import { ListDefault } from '../shared/components/SidebarAdmin'
 import { Footer } from '../shared/components/Footer'
+import { ListDefault } from '../features/dashboard/SidebarAdmin'
 
 function AdminPanel () {
   return (

@@ -1,7 +1,7 @@
 import { NavbarSearch } from '../shared/components/NavbarWithSearch'
-import { ListDefault } from '../shared/components/SidebarAdmin'
 import { Footer } from '../shared/components/Footer'
-import ReportManagementSelector from '../shared/components/ButtonsReportManagement'
+import { ListDefault } from '../features/dashboard/SidebarAdmin'
+import ReportManagementSelector from '../features/dashboard/ReportManagementSelector'
 
 function ReportsManagement () {
   return (

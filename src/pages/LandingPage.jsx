@@ -1,7 +1,7 @@
 import { NavbarLanding } from '../shared/components/NavbarLanding'
-import { Title } from '../shared/components/Title'
-import { CardsList, BottomTextWithButtons } from '../shared/components/Main'
 import { Footer } from '../shared/components/Footer'
+import { Title } from '../features/landing/Title'
+import { BottomTextWithButtons, CardsList } from '../features/landing/Main'
 
 export function LandingPage () {
   return (

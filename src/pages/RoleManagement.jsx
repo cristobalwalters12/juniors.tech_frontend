@@ -1,7 +1,7 @@
 import { NavbarSearch } from '../shared/components/NavbarWithSearch'
-import { ListDefault } from '../shared/components/SidebarAdmin'
-import { RoleManagementTable } from '../shared/components/RoleManagementTable'
 import { Footer } from '../shared/components/Footer'
+import { ListDefault } from '../features/dashboard/SidebarAdmin'
+import { RoleManagementTable } from '../features/dashboard/RoleManagementTable'
 
 function RoleManagement () {
   return (

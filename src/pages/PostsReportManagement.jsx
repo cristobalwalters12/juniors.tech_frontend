@@ -1,7 +1,7 @@
 import { NavbarSearch } from '../shared/components/NavbarWithSearch'
-import { ListDefault } from '../shared/components/SidebarAdmin'
 import { Footer } from '../shared/components/Footer'
-import { PostReportTable } from '../shared/components/PostsReportManagementTable'
+import { ListDefault } from '../features/dashboard/SidebarAdmin'
+import { PostReportTable } from '../features/dashboard/PostsReportManagementTable'
 
 function PostsReport () {
   return (
