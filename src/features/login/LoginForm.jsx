@@ -7,7 +7,7 @@ import {
 } from '@material-tailwind/react'
 import './css/loginForm.css'
 import { useLoginUser } from './userLogin'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const RegisterForm = () => {
   const { control, handleSubmit } = useForm()
@@ -32,13 +32,13 @@ const RegisterForm = () => {
         Inicia Sesión
       </Typography>
       <div className=''>
-        <Button className="mt-6 rounded-none" fullWidth variant="outlined">
+        <Button className="mt-6" fullWidth variant="outlined">
           Con tu cuenta de Google
         </Button>
-        <Button className="mt-6 rounded-none" fullWidth variant="outlined">
+        <Button className="mt-6" fullWidth variant="outlined">
           Con tu cuenta de LinkedIn
         </Button>
-        <Button className="mt-6 rounded-none" fullWidth variant="outlined">
+        <Button className="mt-6" fullWidth variant="outlined">
           Con tu cuenta de GitHub
         </Button>
       </div>
@@ -51,33 +51,31 @@ const RegisterForm = () => {
           <Controller
             name="email"
             control={control}
-            defaultValue=""
-            render={({ field }) => <Input {...field} label="email" className='rounded-none' />}
+            defaultValue="janeDoe@gmail.com"
+            render={({ field }) => <Input {...field} label="email" />}
           />
         </div>
         <div className='mt-6'>
           <Controller
             name="password"
             control={control}
-            defaultValue=""
-            render={({ field }) => <Input {...field} type="password" label="Password" className='rounded-none' />}
+            defaultValue="123456"
+            render={({ field }) => <Input {...field} type="password" label="Password"/>}
           />
         </div>
-          <Button type="submit" className="mt-6 rounded-none" fullWidth variant="outlined">
+          <Button type="submit" className="mt-6" fullWidth variant="outlined">
             Iniciar Sesión
           </Button>
       </form>
       <div>
       </div>
-      <Typography variant='h6' className='mt-6 text-center'>
-        ¿No tienes Cuenta ? <a href="/Register">Registrate </a>
+      <Typography variant='paragraph' className='mt-6'>
+        ¿No tienes Cuenta? <Link to="/register" className='font-bold'>Registrate</Link>
       </Typography>
-      <Typography variant='h6' className='mt-6 text-center sm:text-left'>
-        al continuar, aceptas nuestros <a href="/login">Términos de servicio</a> y <a href="/login">Política de privacidad</a>
+      <Typography variant='paragraph' className='mt-6 sm:text-left'>
+        Al continuar, aceptas nuestros Términos de servicio y Política de privacidad
       </Typography>
-
     </Card>
-
   )
 }
 
