@@ -33,14 +33,14 @@ function NavbarSearch ({ profile, role }) {
         <div>
           <Navbar className="max-w-full mx-auto w-full px-4 py-2">
             <div className="flex items-center justify-between text-blue-gray-900 lg:flex-row">
-              <Typography
-                as="a"
-                href="#"
-                variant="h6"
-                className="cursor-pointer py-1.5 lg:ml-2 text-center lg:text-left"
-              >
-                Juniors.TECH
-              </Typography>
+              <Link to="/home">
+                <Typography
+                  variant="h6"
+                  className="cursor-pointer py-1.5 lg:ml-2 text-center lg:text-left"
+                  >
+                  Juniors.TECH
+                </Typography>
+              </Link>
               <div className="relative flex w-full gap-2 md:w-max">
                 <Input
                   type="search"

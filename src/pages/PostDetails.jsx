@@ -31,7 +31,7 @@ const PostDetails = () => {
   }
   return (
     <HolyGrailLayout>
-      <main className='mx-auto max-w-[60rem]'>
+      <main className='max-w-[60rem]'>
         <Post post={query.data} />
         <div className='pt-4 pl-0 bg-blue-gray-100'>
           {

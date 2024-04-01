@@ -3,6 +3,8 @@ import { ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/24/outline'
 import { Card, CardBody, Typography, List, CardFooter, Button, IconButton } from '@material-tailwind/react'
 import { CardFooterPost } from '../../shared/components/CardFooterPost'
 import { useAuthStore } from '../../stores/authStore'
+import { FormattedDate } from '../../shared/components/FormattedDate'
+import { Link } from 'react-router-dom'
 
 const PostList = ({ orderBy, orderDirection }) => {
   const [posts, setPosts] = useState([])
@@ -10,7 +12,7 @@ const PostList = ({ orderBy, orderDirection }) => {
   const [currentPage, setCurrentPage] = React.useState(1)
   const currUserId = useAuthStore((state) => state.id)
   const postsPerPage = 4
-  
+
   useEffect(() => {
     fetch('/api/v1/posts')
       .then(response => response.json())
@@ -58,30 +60,32 @@ const PostList = ({ orderBy, orderDirection }) => {
   return (
     <div className="main-content">
       {currentPosts.map((post) => (
-        <Card key={post.id} className='max-w-[48rem] my-3'>
-          <List className='flex-row mx-4'>
-            <Typography variant='small' color='blue-gray' className='font-normal mx-1'>
-              {post.category}
-            </Typography>
-            <Typography variant='small' color='gray' className='font-normal'>
-              {post.created_at.slice(2, 10)}
-            </Typography>
-          </List>
-          <CardBody>
-            <Typography variant='h5' color='blue-gray' className='mb-3'>
-              {post.title}
-            </Typography>
-            <Typography>{post.body}</Typography>
-          </CardBody>
-          <CardFooter>
-            <CardFooterPost
-              voteDirection={post.vote_direction}
-              voteCount={post.vote_count}
-              commentCount={post.comment_count}
-              owner={true}
-            />
-          </CardFooter>
-        </Card>
+        <Link key={post.id} to={`/posts/${post.id}`}>
+          <Card className='max-w-[48rem] my-3'>
+            <List className='flex-row mx-4'>
+              <Typography variant='small' color='blue-gray' className='font-normal mx-1'>
+                {post.category}
+              </Typography>
+              <Typography variant='small' color='gray' className='font-normal'>
+                <FormattedDate date={post.created_at}/>
+              </Typography>
+            </List>
+            <CardBody>
+              <Typography variant='h5' color='blue-gray' className='mb-3'>
+                {post.title}
+              </Typography>
+              <Typography>{post.body}</Typography>
+            </CardBody>
+            <CardFooter>
+              <CardFooterPost
+                voteDirection={post.vote_direction}
+                voteCount={post.vote_count}
+                commentCount={post.comment_count}
+                owner={post.author_id === currUserId}
+              />
+            </CardFooter>
+          </Card>
+        </Link>
       ))}
       <div className='flex items-center gap-4'>
         <Button
