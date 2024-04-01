@@ -23,7 +23,6 @@ const useLoginUser = () => {
     mutationFn: getUser,
     onSuccess: (data) => {
       queryClient.invalidateQueries('users')
-      console.log(data)
       setId(data[0].id)
       setUser(data[0].username)
       setRole(data[0].role)
