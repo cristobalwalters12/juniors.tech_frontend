@@ -77,7 +77,6 @@ const voteComment = http.post('/api/v1/posts/:postId/comments/:commentId/vote', 
   const comment = dataComments.find(currComment => currComment.id === commentId)
   const { vote_direction: currVote } = comment
 
-  console.log({ commentId, newVote, currVote, voteCount: comment.vote_count })
   // unvote
   if (newVote === currVote) {
     comment.vote_direction = 0

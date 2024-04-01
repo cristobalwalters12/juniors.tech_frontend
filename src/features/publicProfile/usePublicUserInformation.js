@@ -7,7 +7,6 @@ const usePublicUserInformation = () => {
     mutationFn: getPublicProfile,
     onSuccess: (data) => {
       queryClient.invalidateQueries('publicProfile')
-      console.log(data)
     }
   })
 

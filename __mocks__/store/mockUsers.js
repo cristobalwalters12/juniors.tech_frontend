@@ -42,7 +42,6 @@ const addUsers = http.post('api/v1/sign-up', async ({ request }) => {
   const id = arrayUsers.length + 1
 
   arrayUsers.push({ id, email, username, password, birthdate })
-  console.log(arrayUsers)
 
   return HttpResponse.json({ message: 'User created' }, { status: 201 })
 })

@@ -11,6 +11,7 @@ import {
   Drawer
 } from '@material-tailwind/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { ROLES } from '../../config/roles'
 
 function NavbarSearch ({ profile, role }) {
   const [openNav, setOpenNav] = useState(false)
@@ -139,7 +140,7 @@ function NavbarSearch ({ profile, role }) {
                   {profile}
                 </Typography>
                 <Typography variant="h6" color="blue-gray">
-                  Rol: {role}
+                  Rol: {role.join(', ')}
                 </Typography>
               </div>
             </div>
@@ -151,6 +152,11 @@ function NavbarSearch ({ profile, role }) {
                       Ir al perfil
                     </Button>
                   </Link>
+                  {role.includes(ROLES.ADMIN) && <Link to='/admin-panel'>
+                    <Button variant="text" className='m-4' color="blue-gray">
+                      Ir al panel de admin
+                    </Button>
+                  </Link>}
                 </li>
                 <li>
                 <Link to="/register">

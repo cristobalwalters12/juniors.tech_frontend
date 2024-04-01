@@ -9,7 +9,6 @@ const useCreateUser = () => {
     mutationFn: createUser,
     onSuccess: (data) => {
       queryClient.invalidateQueries('users')
-      console.log(data)
       setErrorMessage('')
     },
     onError: (error) => {
