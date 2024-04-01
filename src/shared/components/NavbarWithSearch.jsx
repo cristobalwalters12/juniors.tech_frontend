@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { Navbar, Collapse, Typography, Button, IconButton, Input } from '@material-tailwind/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
+import { useAuthStore } from '../../stores/authStore'
 
 export function NavbarSearch () {
   const [openNav, setOpenNav] = useState(false)
+  const cerrarSesion = useAuthStore((state) => state.logout)
 
   return (
     <Navbar className="max-w-full mx-auto w-full rounded-none px-4 py-2">
@@ -45,11 +47,9 @@ export function NavbarSearch () {
               Crear Publicación
             </Button>
           </Link>
-          <Link to="/">
-            <Button variant="gradient" size="sm">
-              Cerrar Sesión
-            </Button>
-          </Link>
+          <Button onClick={cerrarSesion} variant="gradient" size="sm">
+            Cerrar Sesión
+          </Button>
         </div>
         <IconButton
           variant="text"

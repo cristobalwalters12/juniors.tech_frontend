@@ -12,7 +12,8 @@ const useAuthStore = create(
       setToken: (token) => set({ token, isAuth: token !== null }),
       setUser: (user) => set({ user }),
       setId: (id) => set({ id }),
-      setRole: (role) => set({ role })
+      setRole: (role) => set({ role }),
+      logout: () => set({ token: null, isAuth: false, user: null, id: null, role: null })
     }),
     {
       name: 'authStore',
