@@ -12,11 +12,12 @@ import {
 } from '@material-tailwind/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ROLES } from '../../config/roles'
+import { useAuthStore } from '../../stores/authStore'
 
 function NavbarSearch ({ profile, role }) {
   const [openNav, setOpenNav] = useState(false)
   const [openRight, setOpenRight] = useState(false)
-
+  const cerrarSesion = useAuthStore((state) => state.logout)
   const openDrawerRight = () => setOpenRight(true)
   const closeDrawerRight = () => setOpenRight(false)
 
@@ -39,7 +40,7 @@ function NavbarSearch ({ profile, role }) {
                   variant="h6"
                   className="cursor-pointer py-1.5 lg:ml-2 text-center lg:text-left"
                   >
-                  Juniors.TECH
+                  Juniors.tech
                 </Typography>
               </Link>
               <div className="relative flex w-full gap-2 md:w-max">
@@ -77,9 +78,9 @@ function NavbarSearch ({ profile, role }) {
                 />
               </Button>
               <div className="hidden lg:block">
-                  <Button onClick={handleClick} variant="text" size="sm" color="black">
-                    Crear Publicación
-                  </Button>
+                <Button onClick={handleClick} variant="text" size="sm" color="black">
+                  Crear Publicación
+                </Button>
               </div>
               <IconButton
                 variant="text"
@@ -98,7 +99,7 @@ function NavbarSearch ({ profile, role }) {
             </div>
             <Collapse open={openNav}>
               <div className="flex flex-col w-full gap-2 lg:hidden">
-                <Link to="/login">
+                <Link to="/posts/new">
                   <Button
                     variant="outlined"
                     size="sm"
@@ -159,11 +160,9 @@ function NavbarSearch ({ profile, role }) {
                   </Link>}
                 </li>
                 <li>
-                <Link to="/register">
-                  <Button variant="gradient" size="sm" fullWidth>
-                    Cerrar Sesión
-                  </Button>
-                </Link>
+                <Button onClick={cerrarSesion} variant="gradient" size="sm" fullWidth>
+                  Cerrar Sesión
+                </Button>
                 </li>
               </ul>
             </div>
