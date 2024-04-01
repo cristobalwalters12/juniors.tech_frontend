@@ -1,5 +1,5 @@
 import { Typography } from '@material-tailwind/react'
-import HolyGrailLayout from '../layouts/HolyGrailLayout'
+import HolyGrailLayout from '../layouts/SearchLayout'
 import SavePostForm from '../features/posts/SavePostForm'
 
 const CreatePost = () => {

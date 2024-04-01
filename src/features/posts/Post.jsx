@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../stores/authStore'
 
 const Post = ({ post }) => {
+  console.log({ post })
   const currUserId = useAuthStore((state) => state.id)
   const owner = post.author_id === currUserId
   const navigate = useNavigate()

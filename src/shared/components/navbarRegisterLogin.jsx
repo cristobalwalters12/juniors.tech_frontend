@@ -6,7 +6,7 @@ import {
   IconButton
 } from '@material-tailwind/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 function NavList () {
   const location = useLocation()
@@ -19,9 +19,9 @@ function NavList () {
         color="blue-gray"
         className="p-1 font-medium"
       >
-          <a href={isRegisterRoute ? '/Login' : '/Register'} className="flex items-center hover:text-blue-500 transition-colors">
+          <Link to={isRegisterRoute ? '/login' : '/register'} className="flex items-center hover:text-blue-500 transition-colors">
           {isRegisterRoute ? 'Iniciar sesión' : 'Registrarse'}
-        </a>
+        </Link>
       </Typography>
     </ul>
   )
@@ -44,14 +44,14 @@ function NavbarRegisterLogin () {
   return (
     <Navbar className="mx-auto max-w-screen-xl px-6 py-3">
       <div className="flex items-center justify-between text-blue-gray-900">
+        <Link to="/home">
         <Typography
-          as="a"
-          href="#"
           variant="h6"
           className="mr-4 cursor-pointer py-1.5"
-        >
+          >
           Juniors.TECH
         </Typography>
+          </Link>
         <div className="hidden lg:block">
           <NavList />
         </div>

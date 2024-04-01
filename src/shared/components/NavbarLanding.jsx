@@ -31,7 +31,6 @@ export function NavbarLanding () {
       <div className="flex items-center justify-between text-blue-gray-900">
         <Link to="/home">
           <Typography
-            href="#"
             variant="h6"
             className="mr-4 cursor-pointer py-1.5 lg:ml-2"
           >
@@ -67,12 +66,12 @@ export function NavbarLanding () {
       </div>
       <Collapse open={openNav}>
         <div className="flex w-full flex-col gap-2 lg:hidden">
-          <Link to="/login">
+          <Link to="/register">
             <Button variant="outlined" size="sm" color="blue-gray" fullWidth>
               Registrarse
             </Button>
           </Link>
-          <Link to="/register">
+          <Link to="/login">
             <Button variant="gradient" size="sm" fullWidth>
               Iniciar Sesión
             </Button>
