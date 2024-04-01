@@ -3,17 +3,16 @@ import { http, HttpResponse } from 'msw'
 const getUsers = http.get('api/v1/users', () => {
   return HttpResponse.json({
     users: [
-      { id: 1, name: 'John Doe', username: 'johndoe', email: 'jhonDoe@gmail.com', password: '123456' },
-      { id: 2, name: 'Jane Doe', username: 'janedoe', email: 'janeDoe@gmail.com', password: '123456' }
-
+      { id: 1, name: 'John Doe', username: 'johndoe', email: 'jhonDoe@gmail.com', password: '123456', role: ['usuario'] },
+      { id: 2, name: 'Jane Doe', username: 'janedoe', email: 'janeDoe@gmail.com', password: '123456', role: ['usuario', 'administrador'] }
     ]
   },
   { status: 200 })
 })
 
 const arrayUsers = [
-  { id: 1, name: 'John Doe', username: 'johndoe', email: 'jhonDoe@gmail.com', password: '123456' },
-  { id: 2, name: 'Jane Doe', username: 'janedoe', email: 'janeDoe@gmail.com', password: '123456' }
+  { id: 1, name: 'John Doe', username: 'johndoe', email: 'jhonDoe@gmail.com', password: '123456', role: ['usuario'] },
+  { id: 2, name: 'Jane Doe', username: 'janedoe', email: 'janeDoe@gmail.com', password: '123456', role: ['usuario', 'administrador'] }
 ]
 
 const getUserById = http.get('api/v1/users/:id', ({ params }) => {
@@ -73,7 +72,7 @@ const UserData = http.get('api/v1/user-data', async ({ request }) => {
   if (!user) {
     return HttpResponse.json({ error: 'Usuario No Encontrado' }, { status: 404 })
   }
-  return HttpResponse.json([{ id: user.id, username: user.username, role: 'usuario' }], { status: 200 })
+  return HttpResponse.json([{ id: user.id, username: user.username, role: user.role }], { status: 200 })
 })
 
 const PublicUserInformation = [
