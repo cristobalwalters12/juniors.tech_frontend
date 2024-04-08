@@ -4,8 +4,11 @@ const API_PATHS = {
   login: '/login',
   register: '/sign-up',
   users: '/users',
+  userData: '/user-data',
+  publicProfile: '/publicProfile',
   posts: '/posts',
   comments: '/comments'
+
 }
 
 export { API_BASE_URL, API_PATHS }

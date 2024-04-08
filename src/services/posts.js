@@ -11,4 +11,11 @@ const createPost = async (post) => {
   return data
 }
 
-export { getPosts, createPost }
+const getPostById = async (id) => {
+  const { data } = await baseApi.get(`${API_PATHS.posts}/${id}`)
+  return data
+}
+
+const editPost = async ({ id, post }) => await baseApi.put(`${API_PATHS.posts}/${id}`, post)
+
+export { getPosts, createPost, getPostById, editPost }

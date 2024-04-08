@@ -1,76 +1,140 @@
+import React from 'react'
 import {
-  Card,
-  Typography,
-  List,
-  ListItem,
-  ListItemPrefix,
-  ListItemSuffix,
-  Chip
+  List, ListItem, Card, Typography, Accordion,
+  AccordionHeader,
+  AccordionBody
 } from '@material-tailwind/react'
-import {
-  PresentationChartBarIcon,
-  ShoppingBagIcon,
-  UserCircleIcon,
-  Cog6ToothIcon,
-  InboxIcon,
-  PowerIcon
-} from '@heroicons/react/24/solid'
+import { ChevronDownIcon } from '@heroicons/react/24/outline'
 
-export function DefaultSidebar () {
+export default function ListDefault ({ handleAscendente, handleDescendente }) {
+  const [open, setOpen] = React.useState({
+    junior: 0,
+    dev: 0,
+    instructor: 0
+  })
+
+  const handleOpen = (key, value) => {
+    setOpen(prevState => ({
+      ...prevState,
+      [key]: prevState[key] === value ? 0 : value
+    }))
+  }
+
+  const isOpen = (key, value) => open[key] === value
+
   return (
-    <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
-      <div className="mb-2 p-4">
-        <Typography variant="h5" color="blue-gray">
-          Sidebar
-        </Typography>
-      </div>
+    <Card >
       <List>
-        <ListItem>
-          <ListItemPrefix>
-            <PresentationChartBarIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Dashboard
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <ShoppingBagIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          E-Commerce
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <InboxIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Inbox
-          <ListItemSuffix>
-            <Chip
-              value="14"
-              size="sm"
-              variant="ghost"
-              color="blue-gray"
-              className="rounded-full"
-            />
-          </ListItemSuffix>
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <UserCircleIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Profile
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <Cog6ToothIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Settings
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <PowerIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Log Out
-        </ListItem>
+        <Typography variant="h4" color="blue-gray">
+          Ordenar por
+        </Typography>
+        <ListItem onClick={handleDescendente}>Más votados</ListItem>
+        <ListItem onClick={handleAscendente}>Menos votados</ListItem>
       </List>
+      <Accordion
+        open={isOpen('junior', 1)}
+        icon={
+          <ChevronDownIcon
+            strokeWidth={2.5}
+            className={`mx-auto h-4 w-4 transition-transform ${isOpen('junior', 1) ? 'rotate-180' : ''}`}
+          />
+        }
+      >
+        <ListItem className="p-0" selected={isOpen('junior', 1)}>
+          <AccordionHeader onClick={() => handleOpen('junior', 1)} className="border-b-0 p-3">
+          <Typography variant="h4" color="blue-gray">
+            Juniors.tech
+          </Typography>
+          </AccordionHeader>
+        </ListItem>
+        <AccordionBody className="py-1">
+          <List className="p-0">
+            <ListItem>
+              Acerca del proyecto
+            </ListItem>
+            <ListItem>
+              Políticas de privacidad
+            </ListItem>
+            <ListItem>
+              Términos de uso
+            </ListItem>
+          </List>
+        </AccordionBody>
+      </Accordion>
+      <Accordion
+        open={isOpen('dev', 2)}
+        icon={
+          <ChevronDownIcon
+            strokeWidth={2.5}
+            className={`mx-auto h-4 w-4 transition-transform ${isOpen('dev', 2) ? 'rotate-180' : ''}`}
+          />
+        }
+      >
+        <ListItem className="p-0" selected={isOpen('dev', 2)}>
+          <AccordionHeader onClick={() => handleOpen('dev', 2)} className="border-b-0 p-3">
+            <Typography variant="h4" color="blue-gray">
+              Desarrolladores
+            </Typography>
+          </AccordionHeader>
+        </ListItem>
+        <AccordionBody className="py-1">
+          <List className="p-0">
+            <a href="https://github.com/achaverrar">
+              <ListItem>
+                Ayxa Chaverra
+              </ListItem>
+            </a>
+            <a href="https://github.com/cristobalwalters12">
+              <ListItem>
+                Cristóbal Walters
+              </ListItem>
+            </a>
+            <a href="https://github.com/lukitas0606">
+              <ListItem>
+                Nicolás Contreras
+              </ListItem>
+            </a>
+            <a href="https://github.com/jonaisenberg">
+              <ListItem>
+                Jonathan Araos
+              </ListItem>
+            </a>
+          </List>
+        </AccordionBody>
+      </Accordion>
+      <Accordion
+        open={isOpen('Instructor', 3)}
+        icon={
+          <ChevronDownIcon
+            strokeWidth={2.5}
+            className={`mx-auto h-4 w-4 transition-transform ${isOpen('Instructor', 3) ? 'rotate-180' : ''}`}
+          />
+        }
+      >
+        <ListItem className="p-0" selected={isOpen('Instructor', 3)}>
+          <AccordionHeader onClick={() => handleOpen('Instructor', 3)} className="border-b-0 p-3">
+            <Typography variant="h4" color="blue-gray">
+              Instructores
+            </Typography>
+          </AccordionHeader>
+        </ListItem>
+        <AccordionBody className="py-1">
+          <List className="p-0">
+            <ListItem>
+              Emiliano Rotta
+            </ListItem>
+            <ListItem>
+              Fabián Pino
+            </ListItem>
+            <ListItem>
+              Raúl Farias
+            </ListItem>
+            <ListItem>
+              Loreto Bustos
+            </ListItem>
+          </List>
+        </AccordionBody>
+      </Accordion>
     </Card>
   )
 }
