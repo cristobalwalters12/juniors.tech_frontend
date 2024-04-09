@@ -1,4 +1,4 @@
-import RegisterForm from '../features/register/registerForm'
+import RegisterForm from '../features/register/RegisterForm'
 import RegisterFormEmail from '../features/registerEmail/RegisterFormEmail'
 import RegisterWords from '../features/register/RegisterWords'
 import NavbarRegisterLogin from '../shared/components/navbarRegisterLogin'
