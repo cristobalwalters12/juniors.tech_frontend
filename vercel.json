@@ -1,20 +1,8 @@
 {
-    "routes": [
-      { "src": "/", "dest": "/" },
-      { "src": "/register", "dest": "/" },
-      {"src":"/home", "dest":"/"},
-      {"src":"/login", "dest":"/"},
-      {"src":"/publicProfile", "dest":"/"},
-      {"src":"/posts/:id", "dest":"/"},
-      {"src":"/posts/new", "dest":"/"},
-      {"src":"/posts/:id/edit", "dest":"/"},
-      {"src":"/admin-panel", "dest":"/"},
-      {"src":"/admin-panel/role-management", "dest":"/"},
-      {"src":"/admin-panel/reports-management/posts-reports", "dest":"/"},
-      {"src":"/admin-panel/reports-management/comments-reports", "dest":"/"},
-      {"src":"/admin-panel/reports-management/users-reports", "dest":"/"},
-      {"src":"/admin-panel/category-management", "dest":"/"},
-      {"src":"*", "dest":"/"}
-
-    ]
-  }
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
