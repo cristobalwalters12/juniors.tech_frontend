@@ -1,8 +1,8 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 const API_PATHS = {
-  login: '/login',
-  register: '/sign-up',
+  login: '/auth/login',
+  register: '/users/sign-up',
   users: '/users',
   userData: '/user-data',
   publicProfile: '/publicProfile',

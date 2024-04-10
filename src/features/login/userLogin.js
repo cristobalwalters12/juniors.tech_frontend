@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { loginUser as loginUserService, getUser } from '../../services/users'
+import { loginUser as loginUserService } from '../../services/users'
 import { useAuthStore } from '../../stores/authStore'
 
 const useLoginUser = () => {
@@ -10,22 +10,15 @@ const useLoginUser = () => {
   const setRole = useAuthStore((state) => state.setRole)
   const loginUserMutation = useMutation({
     mutationFn: loginUserService,
-    onSuccess: (data) => {
+    onSuccess: (response) => {
+      const data = response.data
       queryClient.invalidateQueries('users')
-      setToken(data.token)
-      getUserMutation.mutate()
-    },
-    onError: (error) => {
-      console.log(error)
-    }
-  })
-  const getUserMutation = useMutation({
-    mutationFn: getUser,
-    onSuccess: (data) => {
-      queryClient.invalidateQueries('users')
-      setId(data[0].id)
-      setUser(data[0].username)
-      setRole(data[0].role)
+      setToken(data.accessToken)
+      setId(data.id)
+      setUser(data.username)
+      if (Array.isArray(data.roles) && data.roles.length > 0) {
+        setRole(data.roles[0])
+      }
     },
     onError: (error) => {
       console.log(error)
@@ -34,8 +27,7 @@ const useLoginUser = () => {
 
   return {
     loginUser: loginUserMutation.mutate,
-    getUser: getUserMutation.mutate,
-    isError: loginUserMutation.isError || getUserMutation.isError
+    isError: loginUserMutation.isError
   }
 }
 
