@@ -10,7 +10,7 @@ import { useAuthStore } from '../../stores/authStore'
 
 const NonDeletedComment = ({ toggleOpenReplies, comment }) => {
   const currUserId = useAuthStore((state) => state.id)
-  const owner = comment.author_id === currUserId
+  const owner = comment.authorId === currUserId
   const [replying, setReplying] = useState(false)
   const [editing, setEditing] = useState(false)
   const showEditingForm = () => setEditing(true)
@@ -22,24 +22,25 @@ const NonDeletedComment = ({ toggleOpenReplies, comment }) => {
   const { deleteComment } = useDeleteComment()
 
   const submitReply = (reply) => {
-    if (reply.parent_id === undefined) reply.parent_id = comment.id
     saveComment.mutate({
-      postId: comment.post_id,
-      comment: reply
+      postId: comment.postId,
+      parentId: reply.parentId || comment.id,
+      body: reply.body,
+      commentId: reply.id
     })
     hideEditingForm()
   }
 
   const handleDelete = () => {
     deleteComment({
-      postId: comment.post_id,
+      postId: comment.postId,
       commentId: comment.id
     })
   }
 
   const downVote = () => {
     voteComment.mutate({
-      postId: comment.post_id,
+      postId: comment.postId,
       commentId: comment.id,
       voteDirection: -1
     })
@@ -47,7 +48,7 @@ const NonDeletedComment = ({ toggleOpenReplies, comment }) => {
 
   const upVote = () => {
     voteComment.mutate({
-      postId: comment.post_id,
+      postId: comment.postId,
       commentId: comment.id,
       voteDirection: 1
     })
@@ -58,7 +59,7 @@ const NonDeletedComment = ({ toggleOpenReplies, comment }) => {
           color="transparent"
           shadow={false}
           onClick={toggleOpenReplies}
-          className={`w-full mt-3 p-3 pb-2 bg-white ${comment.comment_count > 0 ? 'cursor-pointer' : ''}`}
+          className={`w-full mt-3 p-3 pb-2 bg-white ${comment.commentCount > 0 ? 'cursor-pointer' : ''}`}
         >
           <CardHeader
             color="transparent"
@@ -66,23 +67,27 @@ const NonDeletedComment = ({ toggleOpenReplies, comment }) => {
             shadow={false}
             className="m-0 flex items-center gap-2"
             >
-            <Avatar
-              size="sm"
-              variant="circular"
-              src={comment.avatar}
-              alt={comment.username}
-              />
+              {
+              comment.avatarUrl
+                ? <Avatar
+                    size="sm"
+                    variant="circular"
+                    src={comment.avatarUrl}
+                    alt={comment.authorUsername}
+                    />
+                : <span className='rounded-full bg-blue-gray-300 h-8 w-9'></span>
+              }
             <div className="flex w-full flex-row gap-1.5 items-center">
               <Typography variant='small' className='font-bold' color="blue-gray">
-                {comment.username}
+                {comment.authorUsername}
               </Typography>
               <Typography variant='small' color="blue-gray" className='font-normal'>
                 <span className='font-extrabold'> &middot; </span>
-                <FormattedDate date={comment.created_at} />
+                <FormattedDate date={comment.createdAt} />
               </Typography>
-              {comment.updated_at && <Typography variant='small' color="blue-gray" className='font-normal'>
+              {comment.updatedAt && <Typography variant='small' color="blue-gray" className='font-normal'>
                 <span> &middot; (Editado) </span>
-                <FormattedDate date={comment.updated_at} />
+                <FormattedDate date={comment.updatedAt} />
               </Typography>}
             </div>
           </CardHeader>
@@ -101,9 +106,9 @@ const NonDeletedComment = ({ toggleOpenReplies, comment }) => {
           </CardBody>
             {!editing && (
               <CardFooter
-                voteDirection={comment.vote_direction}
-                voteCount={comment.vote_count}
-                commentCount={comment.comment_count}
+                voteDirection={comment.voteDirection}
+                voteCount={comment.voteCount}
+                commentCount={comment.commentCount}
                 owner={owner}
                 openReplyForm={openReplyForm}
                 showEditingForm={showEditingForm}

@@ -14,13 +14,13 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ROLES } from '../../config/roles'
 import { useAuthStore } from '../../stores/authStore'
 
-function NavbarSearch ({ profile, roles }) {
+function NavbarSearch ({ profile, role }) {
   const [openNav, setOpenNav] = useState(false)
   const [openRight, setOpenRight] = useState(false)
   const cerrarSesion = useAuthStore((state) => state.logout)
   const openDrawerRight = () => setOpenRight(true)
   const closeDrawerRight = () => setOpenRight(false)
-
+  const roles = useAuthStore(state => state.roles)
   const handleNavToggle = () => setOpenNav(!openNav)
 
   const navigate = useNavigate()
@@ -153,7 +153,7 @@ function NavbarSearch ({ profile, roles }) {
                       Ir al perfil
                     </Button>
                   </Link>
-                  {roles && roles.includes(ROLES.ADMIN) && <Link to='/admin-panel'>
+                  {role && role.includes(ROLES.ADMIN) && <Link to='/admin-panel'>
                     <Button variant="text" className='m-4' color="blue-gray">
                       Ir al panel de admin
                     </Button>

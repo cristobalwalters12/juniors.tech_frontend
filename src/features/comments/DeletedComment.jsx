@@ -9,7 +9,7 @@ const DeletedComment = ({ toggleOpenReplies, comment }) => {
         color="transparent"
         shadow={false}
         onClick={toggleOpenReplies}
-        className={`w-full mt-3 p-3 pb-2 bg-white ${comment.comment_count > 0 ? 'cursor-pointer' : ''}`}
+        className={`w-full mt-3 p-3 pb-2 bg-white ${comment.commentCount > 0 ? 'cursor-pointer' : ''}`}
       >
         <CardHeader
           color="transparent"
@@ -24,7 +24,7 @@ const DeletedComment = ({ toggleOpenReplies, comment }) => {
             </Typography>
             <Typography variant='small' color="blue-gray" className='font-normal'>
               <span className='font-extrabold'> &middot; </span>
-              <FormattedDate date={comment.created_at} />
+              <FormattedDate date={comment.createdAt} />
             </Typography>
           </div>
         </CardHeader>
@@ -34,7 +34,7 @@ const DeletedComment = ({ toggleOpenReplies, comment }) => {
           </Typography>
         </CardBody>
         <DisabledCardFooter
-          commentCount={comment.comment_count}
+          commentCount={comment.commentCount}
           className="pl-11"
         />
       </Card>

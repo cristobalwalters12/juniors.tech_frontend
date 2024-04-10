@@ -7,8 +7,10 @@ const API_PATHS = {
   userData: '/user-data',
   publicProfile: '/publicProfile',
   posts: '/posts',
-  comments: '/comments'
-
+  comments: '/comments',
+  mod: '/mod',
+  search: '/search',
+  categories: '/categories'
 }
 
 export { API_BASE_URL, API_PATHS }
