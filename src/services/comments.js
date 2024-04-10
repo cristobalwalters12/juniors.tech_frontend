@@ -23,7 +23,7 @@ const getComments = async (postId) => {
 
 const saveComment = async ({ postId, parentId, commentId, body }) => {
   let result = null
-  if (commentId !== null) {
+  if (commentId === undefined) {
     result = await baseApi.post(`${API_PATHS.posts}/${postId}/comments`, { parentId, body })
   } else {
     result = await baseApi.put(`${API_PATHS.posts}/${postId}/comments/${commentId}`, { body })

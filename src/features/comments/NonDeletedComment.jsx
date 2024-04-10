@@ -25,7 +25,8 @@ const NonDeletedComment = ({ toggleOpenReplies, comment }) => {
     saveComment.mutate({
       postId: comment.postId,
       parentId: reply.parentId || comment.id,
-      ...reply
+      body: reply.body,
+      commentId: reply.id
     })
     hideEditingForm()
   }
