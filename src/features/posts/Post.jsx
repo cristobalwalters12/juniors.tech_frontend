@@ -19,7 +19,7 @@ import { useAuthStore } from '../../stores/authStore'
 
 const Post = ({ post }) => {
   const currUserId = useAuthStore((state) => state.id)
-  const owner = post.author_id === currUserId
+  const owner = post.authorId === currUserId
   const navigate = useNavigate()
 
   return (
@@ -44,15 +44,15 @@ const Post = ({ post }) => {
               </Typography>
               <div className="flex items-center gap-1.5">
                 <Typography variant="small" color="blue-gray" className='font-normal'>
-                  {post.username}
+                  {post.authorUsername}
                 </Typography>
                 <span className='font-semibold'>&middot;</span>
                 <Typography variant="small" color="blue-gray" className='font-normal'>
-                  <FormattedDate date={post.created_at} />
+                  <FormattedDate date={post.createdAt} />
                 </Typography>
-                {post.updated_at && <Typography variant='small' color="blue-gray" className='font-normal'>
+                {post.updatedAt && <Typography variant='small' color="blue-gray" className='font-normal'>
                   <span> &middot; (Editado) </span>
-                  <FormattedDate date={post.updated_at} />
+                  <FormattedDate date={post.updatedAt} />
                 </Typography>}
               </div>
             </div>
@@ -89,7 +89,7 @@ const Post = ({ post }) => {
           <Typography variant='h4'>{post.title}</Typography>
           <Typography>{post.body}</Typography>
         </CardBody>
-        <CardFooter voteDirection={post.vote_direction} voteCount={post.vote_count} commentCount={post.comment_count} owner={false} />
+        <CardFooter voteDirection={post.voteDirection} voteCount={post.voteCount} commentCount={post.commentCount} owner={false} />
       </Card>
     </article>
   )
