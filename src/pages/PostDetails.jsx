@@ -32,10 +32,10 @@ const PostDetails = () => {
   }
 
   const submitReply = (reply) => {
-    reply.parentId = null
     saveComment.mutate({
       postId: id,
-      comment: reply
+      parentId: id,
+      ...reply
     })
     closeReplyForm()
   }

@@ -22,10 +22,10 @@ const NonDeletedComment = ({ toggleOpenReplies, comment }) => {
   const { deleteComment } = useDeleteComment()
 
   const submitReply = (reply) => {
-    if (reply.parentId === undefined) reply.parentId = comment.id
     saveComment.mutate({
       postId: comment.postId,
-      comment: reply
+      parentId: reply.parentId || comment.id,
+      ...reply
     })
     hideEditingForm()
   }
