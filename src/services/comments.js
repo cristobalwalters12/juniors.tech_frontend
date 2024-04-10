@@ -2,8 +2,8 @@ import { baseApi } from '../api/baseApi'
 import { API_PATHS } from '../config/constants'
 
 const getComments = async (postId) => {
-  const { data } = await baseApi.get(`${API_PATHS.posts}/${postId}/comments`)
-  return data.map(comment => ({
+  const { data: { data: comments } } = await baseApi.get(`${API_PATHS.posts}/${postId}/comments`)
+  return comments.map(comment => ({
     id: comment.id,
     postId: comment.postId,
     parentId: comment.parentId,
