@@ -50,7 +50,7 @@ const RegisterForm = () => {
           <Controller
             name="email"
             control={control}
-            defaultValue="janeDoe@gmail.com"
+            defaultValue=""
             render={({ field }) => <Input {...field} label="email" />}
           />
         </div>
@@ -58,7 +58,7 @@ const RegisterForm = () => {
           <Controller
             name="password"
             control={control}
-            defaultValue="123456"
+            defaultValue=""
             render={({ field }) => <Input {...field} type="password" label="Password"/>}
           />
         </div>

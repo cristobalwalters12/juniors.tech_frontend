@@ -141,7 +141,7 @@ function NavbarSearch ({ profile, role }) {
                   {profile}
                 </Typography>
                 <Typography variant="h6" color="blue-gray">
-                  Rol: {role.join(', ')}
+                Rol: {Array.isArray(role) ? role.join(', ') : [role].join(', ')}
                 </Typography>
               </div>
             </div>
