@@ -44,7 +44,7 @@ const RegisterFormEmail = () => {
       }
       createUser(user, {
         onSuccess: () => {
-          navigate('/login')
+          navigate('/home')
         }
       })
     }
@@ -108,7 +108,6 @@ const RegisterFormEmail = () => {
           <div className='inputs'>
             <Input
               {...register('day')}
-              value={'10'}
               placeholder="1234567890"
               className="inputs !border-t-blue-gray-200 focus:!border-t-gray-900 rounded-none"
               labelProps={{
@@ -142,7 +141,6 @@ const RegisterFormEmail = () => {
           <div className='inputs ml-5'>
             <Input
               {...register('year')}
-              value={'1999'}
               placeholder="name@mail.com"
               className=" inputs !border-t-blue-gray-200 focus:!border-t-gray-900 rounded-none "
               labelProps={{
