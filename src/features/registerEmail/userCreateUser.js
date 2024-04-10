@@ -8,7 +8,7 @@ const useCreateUser = () => {
   const setToken = useAuthStore((state) => state.setToken)
   const setId = useAuthStore((state) => state.setId)
   const setUser = useAuthStore((state) => state.setUser)
-  const setRole = useAuthStore((state) => state.setRole)
+  const setRoles = useAuthStore((state) => state.setRoles)
   const createUserMutation = useMutation({
     mutationFn: createUser,
     onSuccess: (data) => {
@@ -16,7 +16,7 @@ const useCreateUser = () => {
       setToken(data.token)
       setId(data.user.id)
       setUser(data.user.username)
-      setRole(data.user.role)
+      setRoles(data.user.role)
       setErrorMessage('')
     },
     onError: (error) => {
