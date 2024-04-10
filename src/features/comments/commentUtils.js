@@ -2,11 +2,12 @@ const handleComments = (comments) => {
   const rootComments = []
   const commentsByParentId = {}
   comments.forEach((comment) => {
-    if (comment.parent_id === null) {
+    const { parentId, postId } = comment
+    if (parentId === postId) {
       rootComments.push(comment)
     } else {
-      commentsByParentId[comment.parent_id] ||= []
-      commentsByParentId[comment.parent_id].push(comment)
+      commentsByParentId[parentId] ||= []
+      commentsByParentId[parentId].push(comment)
     }
   })
 

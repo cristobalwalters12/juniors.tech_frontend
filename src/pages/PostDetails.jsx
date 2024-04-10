@@ -32,7 +32,7 @@ const PostDetails = () => {
   }
 
   const submitReply = (reply) => {
-    reply.parent_id = null
+    reply.parentId = null
     saveComment.mutate({
       postId: id,
       comment: reply
