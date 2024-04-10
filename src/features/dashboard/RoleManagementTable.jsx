@@ -9,14 +9,13 @@ import {
   DialogFooter,
   Input
 } from '@material-tailwind/react'
-import mockUsers from '../../../__mocks__/store/mockUsers'
 
 const TABLE_HEAD = ['Name', 'Acciones']
 
 export function RoleManagementTable () {
-  const [openDialogs, setOpenDialogs] = React.useState(mockUsers.map(() => false)) // Usa tus datos de usuario mock
+  const [tableRows, setTableRows] = React.useState([])
+  const [openDialogs, setOpenDialogs] = React.useState([])
   const [confirmIndex, setConfirmIndex] = React.useState(null)
-  const [tableRows, setTableRows] = React.useState(mockUsers.map((user) => ({ name: user.name }))) // Usa tus datos de usuario mock
   const [openAddDialog, setOpenAddDialog] = React.useState(false)
   const [newModeratorName, setNewModeratorName] = React.useState('')
 
