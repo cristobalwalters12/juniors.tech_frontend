@@ -6,17 +6,20 @@ import {
   Card,
   Input,
   Button,
+  Select,
+  Option,
   Typography
 } from '@material-tailwind/react'
 import { TextEditor } from './TextEditor'
-import { SelectCategories } from './SelectCategories'
 import { useEditPost } from './useEditPost'
 import { useNavigate } from 'react-router-dom'
+import { useGetCategories } from './useGetCategories'
 
-const SavePostForm = ({ id, category_id: categoryId = '', title = '', body = '' }) => {
+const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '' }) => {
   const navigate = useNavigate()
   const createPost = useCreatePost()
   const editPost = useEditPost()
+  const query = useGetCategories()
   const {
     register,
     handleSubmit,
@@ -26,7 +29,7 @@ const SavePostForm = ({ id, category_id: categoryId = '', title = '', body = '' 
   } = useForm({
     mode: 'onTouched',
     resolver: joiResolver(postSchema),
-    defaultValues: { categoryId: categoryId.toString(), title, body }
+    defaultValues: { categoryId, title, body }
   })
 
   const onSubmit = (data) => {
@@ -48,20 +51,23 @@ const SavePostForm = ({ id, category_id: categoryId = '', title = '', body = '' 
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Categoría
           </Typography>
-          <Controller
-            name="categoryId"
-            defaultValue=""
-            control={control}
-            render={({ field }) => {
-              const { ref, ...rest } = field
-              return (
-                <SelectCategories
-                  id="categoryId"
-                  {...rest}
-                  label="Categoría"
-                />)
-            }}
-          />
+          {query.isLoading
+            ? <Select>
+                <Option>{category}</Option>
+              </Select>
+            : <Controller
+                name="categoryId"
+                defaultValue={categoryId}
+                control={control}
+                render={({ field }) => {
+                  const { ref, ...rest } = field
+                  return (
+                    <Select id="categoryId" {...rest} label="Categoría">
+                      {query?.data.map(({ id, name }) => <Option key={id} value={id}>{name}</Option>)}
+                    </Select>)
+                }}
+              />
+            }
           {errors.categoryId && (
             <Typography variant="small" color="red" className="font-normal">
               {errors.categoryId.message}

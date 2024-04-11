@@ -15,7 +15,7 @@ const EditPost = () => {
     return <Navigate to="/not-found" />
   }
 
-  if (query?.data?.author_id !== currUserId) {
+  if (query?.data?.authorId !== currUserId) {
     return <Navigate to="/home" />
   }
 
