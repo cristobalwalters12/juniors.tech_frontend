@@ -25,7 +25,7 @@ function App () {
       <Route path="/home" element={<Home />} />
       <Route path="/register"element= {<Register/>}/>
       <Route path="/login"element= {<Login/>}/>
-      <Route path="/publicProfile" element={<PublicUserProfile />} />
+      <Route path="/publicProfile/:username" element={<PublicUserProfile />} />
       <Route path="/posts/:id" element={<PostDetails />} />
       <Route path='*' element={<NotFound />} />
 
