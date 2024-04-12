@@ -157,9 +157,9 @@ function NavbarSearch ({ profile }) {
             <div className="mt-4">
               <ul className="list-none list-inside">
                 <li>
-                  <Link to='/publicProfile'>
+                <Link to={`/publicProfile/${profile}`}>
                     <Button variant="text" className='m-4' color="blue-gray">
-                      Ir al perfil
+                      Ir al perfila
                     </Button>
                   </Link>
                   {roles && roles.includes(ROLES.ADMIN) && <Link to='/admin-panel'>

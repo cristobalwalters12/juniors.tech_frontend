@@ -9,11 +9,13 @@ const useAuthStore = create(
       user: null,
       id: null,
       roles: [],
+      userImageURL: null,
       setToken: (token) => set({ token, isAuth: token !== null }),
       setUser: (user) => set({ user }),
       setId: (id) => set({ id }),
       setRoles: (roles) => set({ roles }),
-      logout: () => set({ token: null, isAuth: false, user: null, id: null, roles: [] })
+      setuserImageURL: (userImageURL) => set({ userImageURL }),
+      logout: () => set({ token: null, isAuth: false, user: null, id: null, roles: [], userImageURL: null })
     }),
     {
       name: 'authStore',

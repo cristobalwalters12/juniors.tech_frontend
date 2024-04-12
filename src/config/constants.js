@@ -5,7 +5,7 @@ const API_PATHS = {
   register: '/users/sign-up',
   users: '/users',
   userData: '/user-data',
-  publicProfile: '/publicProfile',
+  publicProfile: '/users/:username',
   posts: '/posts',
   comments: '/comments',
   mod: '/mod',
