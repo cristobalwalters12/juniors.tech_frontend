@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getPublicProfile } from '../../services/users'
 
-const usePublicUserInformation = () => {
+const usePublicUserInformation = (username) => {
   const queryClient = useQueryClient()
   const publicProfileMutation = useMutation({
-    mutationFn: getPublicProfile,
+    mutationFn: () => getPublicProfile(username),
     onSuccess: (data) => {
       queryClient.invalidateQueries('publicProfile')
     }
