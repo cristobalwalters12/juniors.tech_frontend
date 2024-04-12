@@ -4,6 +4,8 @@ import { Card, CardBody, Typography, List, CardFooter, Button, IconButton } from
 import { CardFooterPost } from '../../shared/components/CardFooterPost'
 import { useAuthStore } from '../../stores/authStore'
 import { FormattedDate } from '../../shared/components/FormattedDate'
+import { useGetPosts } from '../../features/posts/useGetPosts'
+
 import { Link } from 'react-router-dom'
 
 const PostList = ({ orderBy, orderDirection }) => {
@@ -12,12 +14,13 @@ const PostList = ({ orderBy, orderDirection }) => {
   const [currentPage, setCurrentPage] = React.useState(1)
   const currUserId = useAuthStore((state) => state.id)
   const postsPerPage = 4
+  const { data: postsData } = useGetPosts()
 
   useEffect(() => {
-    fetch('/api/v1/posts')
-      .then(response => response.json())
-      .then(data => setPosts(data))
-  }, [])
+    if (postsData) {
+      setPosts(postsData.data.posts)
+    }
+  }, [postsData])
 
   const totalPosts = posts ? posts.length : 0
   const totalPages = Math.ceil(totalPosts / postsPerPage)

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Sidebar from '../shared/components/Sidebar'
 import VerifyUser from '../pages/VerifyUser'
 import PostList from '../features/posts/PostList'
+import { UserSearch } from '../features/users/userSearch'
 
 const SearchLayout = () => {
   const [orderDirection, setOrderDirection] = useState('desc')
@@ -30,6 +31,7 @@ const SearchLayout = () => {
         handleOrderChange={handleOrderChange}
       />
     </aside>
+    <UserSearch />
     <PostList orderBy={orderBy} orderDirection={orderDirection} />
   </div>
 </div>
