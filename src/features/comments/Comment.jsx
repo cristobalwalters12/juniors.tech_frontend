@@ -12,7 +12,7 @@ const Comment = ({ comment, getRepliesById }) => {
   return (
     <>
       {
-        comment.deleted_at !== null
+        comment.deletedAt !== null
           ? (
           <DeletedComment
             comment={comment}

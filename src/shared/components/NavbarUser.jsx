@@ -20,7 +20,7 @@ function NavbarSearch ({ profile, role }) {
   const cerrarSesion = useAuthStore((state) => state.logout)
   const openDrawerRight = () => setOpenRight(true)
   const closeDrawerRight = () => setOpenRight(false)
-
+  const roles = useAuthStore(state => state.roles)
   const handleNavToggle = () => setOpenNav(!openNav)
 
   const navigate = useNavigate()
@@ -141,19 +141,19 @@ function NavbarSearch ({ profile, role }) {
                   {profile}
                 </Typography>
                 <Typography variant="h6" color="blue-gray">
-                Rol: {Array.isArray(role) ? role.join(', ') : [role].join(', ')}
+                Rol: {Array.isArray(roles) ? roles.join(', ') : [roles].join(', ')}
                 </Typography>
               </div>
             </div>
             <div className="mt-4">
               <ul className="list-none list-inside">
                 <li>
-                  <Link to='/publicProfile'>
+                <Link to={`/publicProfile/${profile}`}>
                     <Button variant="text" className='m-4' color="blue-gray">
-                      Ir al perfil
+                      Ir al perfila
                     </Button>
                   </Link>
-                  {role.includes(ROLES.ADMIN) && <Link to='/admin-panel'>
+                  {role && role.includes(ROLES.ADMIN) && <Link to='/admin-panel'>
                     <Button variant="text" className='m-4' color="blue-gray">
                       Ir al panel de admin
                     </Button>

@@ -5,34 +5,47 @@ import {
   Typography
 } from '@material-tailwind/react'
 import { useEffect, Fragment } from 'react'
-import { useAuthStore } from '../../stores/authStore'
 import { usePublicUserInformation } from './usePublicUserInformation'
+import { useParams } from 'react-router-dom'
+import Nestbutton from './NestButton'
+import { useAuthStore } from '../../stores/authStore'
 const PublicProfileComponent = () => {
-  const user = useAuthStore((state) => state.user)
-  const { publicProfile, data } = usePublicUserInformation()
-
+  const { username } = useParams()
+  const { publicProfile, data } = usePublicUserInformation(username)
+  const idUser = useAuthStore(state => state.id)
   useEffect(() => {
-    publicProfile({ username: user })
-  }, [publicProfile, user])
+    publicProfile({ username })
+  }, [publicProfile, username])
 
+  const validateid = () => {
+    if (idUser === data?.id) {
+      return true
+    }
+    return false
+  }
   return (
       <Card className="mt-6">
         <div className='flex m-6'>
         <Avatar src="https://docs.material-tailwind.com/img/face-2.jpg" alt="avatar" size='xxl' />
-          <div className='ml-5'>
-            <Typography color="black" variant='h2'>
-              {user}
-            </Typography>
-            <Typography color="black">
-              Miembro por N meses
-            </Typography>
-            <Typography color="black">
-            {data?.employmentStatus}
-            </Typography>
-            <Typography color="black">
-            {data?.country}
-            </Typography>
-          </div>
+        <div className='flex'>
+        <div className='ml-5'>
+          <Typography color="black" variant='h2'>
+            {data?.username} ({data?.pronoun})
+          </Typography>
+          <Typography color="black">
+            Miembro por N meses
+          </Typography>
+          <Typography color="black">
+          {data?.employmentStatusId}
+          </Typography>
+          <Typography color="black">
+          {data?.countryId}
+          </Typography>
+        </div>
+        <div className='ml-36'>
+          <Nestbutton isSameUser={validateid()} />
+        </div>
+      </div>
         </div>
         <CardBody>
           <Typography color="black" variant='h2'>
@@ -41,7 +54,7 @@ const PublicProfileComponent = () => {
           <div className='flex mt-6 gap-6'>
             <div>
               <Typography color="black" variant='h3'>
-                {data?.numberOfPosts}
+                {data?.postCount}
               </Typography>
               <Typography color="black">
                 Publicaciones
@@ -49,7 +62,7 @@ const PublicProfileComponent = () => {
             </div>
             <div>
               <Typography color="black" variant='h3'>
-                {data?.comments}
+                {data?.commentCount}
               </Typography>
               <Typography color="black">
                 Comentarios
@@ -57,7 +70,7 @@ const PublicProfileComponent = () => {
             </div>
             <div>
               <Typography color="black" variant='h3'>
-                {data?.likes}
+                {data?.score}
               </Typography>
               <Typography color="black">
                 Puntos
@@ -69,7 +82,7 @@ const PublicProfileComponent = () => {
               Acerca de mi
             </Typography>
             <Typography color="black" className='mt-4'>
-              {data?.About}
+              {data?.about}
             </Typography>
           </div>
           <div className='mt-6'>
@@ -78,14 +91,15 @@ const PublicProfileComponent = () => {
               Idioma
             </Typography>
             <div className='flex gap-6 mt-4'>
-              {data?.Languaje.map((lang, index) => (
-                <Fragment key={index}>
-                  <Typography color='black'>
-                    {lang}
-                  </Typography>
-                  {index < data.Languaje.length - 1 && <Typography color='black'>-</Typography>}
-                </Fragment>
-              ))}
+            {data?.languages && data.languages.map((lang, index) => (
+            <Fragment key={index}>
+              <Typography color='black'>
+                {lang}
+              </Typography>
+              {index < data.languages.length - 1 && <Typography color='black'>-</Typography>}
+            </Fragment>
+            ))}
+
             </div>
           </div>
           </div>
@@ -94,14 +108,7 @@ const PublicProfileComponent = () => {
               Áreas de interés en IT
             </Typography>
             <div className='flex gap-6 mt-4'>
-              {data?.it_field.map((field, index) => (
-                <Fragment key={index}>
-                  <Typography color='black'>
-                    {field}
-                  </Typography>
-                  {index < data.it_field.length - 1 && <Typography color='black'>-</Typography>}
-                </Fragment>
-              ))}
+            {data?.itField }
             </div>
           </div>
           <div className='mt-6'>
@@ -109,14 +116,14 @@ const PublicProfileComponent = () => {
               Lenguajes y Herramientas
             </Typography>
             <div className='flex gap-6 mt-4'>
-              {data?.technologies.map((tech, index) => (
-                <Fragment key={index}>
-                  <Typography color='black'>
-                    {tech}
-                  </Typography>
-                  {index < data.technologies.length - 1 && <Typography color='black'>-</Typography>}
-                </Fragment>
-              ))}
+            {data?.technologies && data.technologies.map((tech, index) => (
+            <Fragment key={index}>
+              <Typography color='black'>
+                {tech}
+              </Typography>
+              {index < data.technologies.length - 1 && <Typography color='black'>-</Typography>}
+            </Fragment>
+            ))}
             </div>
           </div>
           <div className='mt-6'>
@@ -124,11 +131,11 @@ const PublicProfileComponent = () => {
               Redes
             </Typography>
             <div className='flex gap-6 flex-col mt-4'>
-              {data?.socialNetwork && (
-                <Typography color='black'>
-                  <a href={data.socialNetwork.toString()}>Linkedin</a>
+              {data?.social_networks && data.social_networks.map((network, index) => (
+                network && <Typography color='black' key={index}>
+                  <a href={network.toString()}>Red Social {index + 1}</a>
                 </Typography>
-              )}
+              ))}
             </div>
           </div>
           <div className='mt-6'>

@@ -5,12 +5,12 @@ const HolyGrailLayout = ({ children }) => {
   return (
     <div className="flex min-h-screen flex-col">
       <header className=" p-4"><VerifyUser /></header>
-      <div className="flex flex-1">
-        <aside className="w-1/3 p-4 max-w-[18rem]">
+      <div className="flex">
+        <aside className="p-4 max-w-[18rem]">
           <Sidebar
           />
         </aside>
-        <main className='flex flex-col'>
+        <main className='flex-1'>
           {children}
         </main>
       </div>

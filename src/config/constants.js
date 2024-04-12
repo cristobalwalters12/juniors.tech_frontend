@@ -5,10 +5,12 @@ const API_PATHS = {
   register: '/users/sign-up',
   users: '/users',
   userData: '/user-data',
-  publicProfile: '/publicProfile',
+  publicProfile: '/users/:username',
   posts: '/posts',
-  comments: '/comments'
-
+  comments: '/comments',
+  mod: '/mod',
+  search: '/search',
+  categories: '/categories'
 }
 
 export { API_BASE_URL, API_PATHS }
