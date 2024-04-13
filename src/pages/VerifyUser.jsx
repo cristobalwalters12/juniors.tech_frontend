@@ -4,14 +4,13 @@ import { useAuthStore } from '../stores/authStore'
 
 function VerifyUser () {
   const user = useAuthStore((state) => state.user)
-  const role = useAuthStore((state) => state.role)
 
   if (!user) {
     return <Navbar />
   }
 
   return (
-    <NavbarUser profile={user} role={role} />
+    <NavbarUser profile={user} />
   )
 }
 

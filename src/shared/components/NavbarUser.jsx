@@ -13,17 +13,34 @@ import {
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ROLES } from '../../config/roles'
 import { useAuthStore } from '../../stores/authStore'
+// import { useDebounce } from '../../features/hook/useDebounce'
 
-function NavbarSearch ({ profile }) {
+function NavbarUser ({ profile }) {
   const [openNav, setOpenNav] = useState(false)
   const [openRight, setOpenRight] = useState(false)
+  const [searchInput, setSearchInput] = useState('')
+  // const [post, setPost] = useState([])
   const cerrarSesion = useAuthStore((state) => state.logout)
   const roles = useAuthStore(state => state.roles)
   const openDrawerRight = () => setOpenRight(true)
   const closeDrawerRight = () => setOpenRight(false)
   const handleNavToggle = () => setOpenNav(!openNav)
+  // const debounceValue = useDebounce()
+
+  // useEffect(() => {
+  //   const getPost = async () => {
+  //     const posts = await fetch(`/search/posts/${debounceValue}`)
+  //     const result = await posts.json()
+  //     setPost(result)
+  //   }
+  //   searchInput ? getPost() : setPost([])
+  // }, [debounceValue, searchInput])
 
   const navigate = useNavigate()
+
+  const handleChange = ({ traget }) => {
+    setSearchInput(traget.value)
+  }
 
   const handleClick = () => {
     navigate('/posts/new')
@@ -47,6 +64,8 @@ function NavbarSearch ({ profile }) {
                 <Input
                   type="search"
                   color="black"
+                  value={searchInput}
+                  onChange={handleChange}
                   label="Buscar en Juniors.tech"
                   className="pr-12"
                   containerProps={{
@@ -159,7 +178,7 @@ function NavbarSearch ({ profile }) {
                 <li>
                 <Link to={`/publicProfile/${profile}`}>
                     <Button variant="text" className='m-4' color="blue-gray">
-                      Ir al perfila
+                      Ir al perfil
                     </Button>
                   </Link>
                   {roles && roles.includes(ROLES.ADMIN) && <Link to='/admin-panel'>
@@ -182,4 +201,4 @@ function NavbarSearch ({ profile }) {
   )
 }
 
-export default NavbarSearch
+export default NavbarUser

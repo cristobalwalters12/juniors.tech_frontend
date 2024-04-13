@@ -16,7 +16,7 @@ export function UserSearch () {
 
   useEffect(() => {
     if (usersData) {
-      setUsers(usersData.data.users)
+      setUsers(usersData.data.user)
     }
   }, [usersData])
 

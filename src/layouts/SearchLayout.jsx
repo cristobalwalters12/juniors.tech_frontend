@@ -6,7 +6,7 @@ import { UserSearch } from '../features/users/userSearch'
 
 const SearchLayout = () => {
   const [orderDirection, setOrderDirection] = useState('desc')
-  const [orderBy, setOrderBy] = useState('vote_count')
+  const [orderBy, setOrderBy] = useState('voteCount')
 
   const handleAscendente = () => {
     setOrderDirection('asc')
