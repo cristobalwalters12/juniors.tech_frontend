@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
+// import Home from './pages/Home'
 import CreatePost from './pages/CreatePost'
 import EditPost from './pages/EditPost'
 import PostDetails from './pages/PostDetails'
@@ -17,12 +17,13 @@ import UsersReport from './pages/UsersReportsManagement'
 import PublicUserProfile from './pages/PublicUserProfile'
 import RequireAuth from './shared/components/RequireAuth'
 import { ROLES } from './config/roles'
+import SearchPosts from './pages/SearchPosts'
 
 function App () {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/home" element={<Home />} />
+      <Route path="/search/posts" element={<SearchPosts />} />
       <Route path="/register"element= {<Register/>}/>
       <Route path="/login"element= {<Login/>}/>
       <Route path="/publicProfile/:username" element={<PublicUserProfile />} />

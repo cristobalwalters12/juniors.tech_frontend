@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import {
   Navbar,
@@ -13,17 +13,36 @@ import {
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ROLES } from '../../config/roles'
 import { useAuthStore } from '../../stores/authStore'
+import { useDebounce } from '../../features/hook/useDebounce'
+import { getSearchPost } from '../../services/search'
 
-function NavbarSearch ({ profile, role }) {
+function NavbarUser ({ profile }) {
   const [openNav, setOpenNav] = useState(false)
   const [openRight, setOpenRight] = useState(false)
+  const [searchInput, setSearchInput] = useState('')
+  const [post, setPost] = useState([])
   const cerrarSesion = useAuthStore((state) => state.logout)
+  const roles = useAuthStore(state => state.roles)
   const openDrawerRight = () => setOpenRight(true)
   const closeDrawerRight = () => setOpenRight(false)
-  const roles = useAuthStore(state => state.roles)
   const handleNavToggle = () => setOpenNav(!openNav)
+  const debounceValue = useDebounce()
+
+  useEffect(() => {
+    const getPost = async () => {
+      const posts = await getSearchPost() // aqui faltan cosas
+      const result = await posts.json()
+      setPost(result)
+    }
+    searchInput ? getPost() : setPost([])
+  }, [debounceValue, searchInput])
 
   const navigate = useNavigate()
+
+  const handleChange = ({ traget }) => {
+    setSearchInput(traget.value)
+  }
+  console.log('postValue', post)
 
   const handleClick = () => {
     navigate('/posts/new')
@@ -43,10 +62,12 @@ function NavbarSearch ({ profile, role }) {
                   Juniors.tech
                 </Typography>
               </Link>
-              <div className="relative flex w-full gap-2 md:w-max">
+              <div className="relative flex-initial w-64 gap-2 sm:w-auto md:w-max">
                 <Input
                   type="search"
                   color="black"
+                  value={searchInput}
+                  onChange={handleChange}
                   label="Buscar en Juniors.tech"
                   className="pr-12"
                   containerProps={{
@@ -64,20 +85,7 @@ function NavbarSearch ({ profile, role }) {
                   Buscar
                 </Button>
               </div>
-              <Button
-                onClick={openDrawerRight}
-                variant="text"
-                className="rounded-full p-1"
-              >
-                <Avatar
-                  variant="circular"
-                  alt="avatar"
-                  className="cursor-pointer"
-                  src="https://docs.material-tailwind.com/img/face-2.jpg"
-                  size="lg"
-                />
-              </Button>
-              <div className="hidden lg:block">
+              <div className="hidden lg:block flex-initial pl-21">
                 <Button onClick={handleClick} variant="text" size="sm" color="black">
                   Crear Publicación
                 </Button>
@@ -96,6 +104,21 @@ function NavbarSearch ({ profile, role }) {
                   <Bars3Icon className="h-6 w-6" strokeWidth={2} />
                     )}
               </IconButton>
+              <div className="hidden lg:inline-block">
+                <Button
+                  onClick={openDrawerRight}
+                  variant="text"
+                  className="rounded-full p-1"
+                >
+                  <Avatar
+                    variant="circular"
+                    alt="avatar"
+                    className="cursor-pointer"
+                    src="https://docs.material-tailwind.com/img/face-2.jpg"
+                    size="lg"
+                  />
+                </Button>
+              </div>
             </div>
             <Collapse open={openNav}>
               <div className="flex flex-col w-full gap-2 lg:hidden">
@@ -109,6 +132,16 @@ function NavbarSearch ({ profile, role }) {
                     Crear Publicación
                   </Button>
                 </Link>
+                <Link to='/publicProfile'>
+                <Button
+                    variant="outlined"
+                    size="sm"
+                    color="blue-gray"
+                    fullWidth
+                  >
+                      Ir al perfil
+                    </Button>
+                  </Link>
               </div>
             </Collapse>
           </Navbar>
@@ -119,9 +152,6 @@ function NavbarSearch ({ profile, role }) {
             className="p-4"
           >
             <div className="mb-6 flex items-center justify-between">
-              <Typography variant="h5" color="blue-gray">
-                {profile}
-              </Typography>
               <IconButton
                 variant="text"
                 color="blue-gray"
@@ -150,10 +180,10 @@ function NavbarSearch ({ profile, role }) {
                 <li>
                 <Link to={`/publicProfile/${profile}`}>
                     <Button variant="text" className='m-4' color="blue-gray">
-                      Ir al perfila
+                      Ir al perfil
                     </Button>
                   </Link>
-                  {role && role.includes(ROLES.ADMIN) && <Link to='/admin-panel'>
+                  {roles && roles.includes(ROLES.ADMIN) && <Link to='/admin-panel'>
                     <Button variant="text" className='m-4' color="blue-gray">
                       Ir al panel de admin
                     </Button>
@@ -173,4 +203,4 @@ function NavbarSearch ({ profile, role }) {
   )
 }
 
-export default NavbarSearch
+export default NavbarUser

@@ -6,7 +6,7 @@ import {
 } from '@material-tailwind/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 
-export default function ListDefault ({ handleAscendente, handleDescendente }) {
+export default function Sidebar ({ handleAscendente, handleDescendente }) {
   const [open, setOpen] = React.useState({
     junior: 0,
     dev: 0,
