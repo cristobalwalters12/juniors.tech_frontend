@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import Sidebar from '../shared/components/Sidebar'
-import VerifyUser from '../pages/VerifyUser'
+import VerifyUser from './VerifyUser'
 import PostList from '../features/posts/PostList'
-import { UserSearch } from '../features/users/userSearch'
+// import { UserSearch } from '../features/users/userSearch'
 
-const SearchLayout = () => {
+const SearchPosts = ({ children }) => {
   const [orderDirection, setOrderDirection] = useState('desc')
   const [orderBy, setOrderBy] = useState('voteCount')
-
   const handleAscendente = () => {
     setOrderDirection('asc')
   }
@@ -31,12 +30,13 @@ const SearchLayout = () => {
         handleOrderChange={handleOrderChange}
       />
     </aside>
-    <UserSearch />
+    {/* <UserSearch /> */}
     <PostList orderBy={orderBy} orderDirection={orderDirection} />
+    {/* { children } */}
   </div>
 </div>
 
   )
 }
 
-export default SearchLayout
+export default SearchPosts

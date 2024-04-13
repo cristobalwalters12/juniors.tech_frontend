@@ -67,7 +67,6 @@ const PostList = ({ orderBy, orderDirection }) => {
   })
 
   const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost)
-  console.log('postList', currentPosts)
   return (
     <div className="main-content">
       {currentPosts.map((post) => (

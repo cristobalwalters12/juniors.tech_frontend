@@ -12,7 +12,6 @@ import {
 export function UserSearch () {
   const [users, setUsers] = useState([])
   const { data: usersData } = useGetUsers()
-  console.log(usersData)
 
   useEffect(() => {
     if (usersData) {

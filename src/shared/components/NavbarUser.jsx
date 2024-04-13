@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import {
   Navbar,
@@ -13,34 +13,36 @@ import {
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ROLES } from '../../config/roles'
 import { useAuthStore } from '../../stores/authStore'
-// import { useDebounce } from '../../features/hook/useDebounce'
+import { useDebounce } from '../../features/hook/useDebounce'
+import { getSearchPost } from '../../services/search'
 
 function NavbarUser ({ profile }) {
   const [openNav, setOpenNav] = useState(false)
   const [openRight, setOpenRight] = useState(false)
   const [searchInput, setSearchInput] = useState('')
-  // const [post, setPost] = useState([])
+  const [post, setPost] = useState([])
   const cerrarSesion = useAuthStore((state) => state.logout)
   const roles = useAuthStore(state => state.roles)
   const openDrawerRight = () => setOpenRight(true)
   const closeDrawerRight = () => setOpenRight(false)
   const handleNavToggle = () => setOpenNav(!openNav)
-  // const debounceValue = useDebounce()
+  const debounceValue = useDebounce()
 
-  // useEffect(() => {
-  //   const getPost = async () => {
-  //     const posts = await fetch(`/search/posts/${debounceValue}`)
-  //     const result = await posts.json()
-  //     setPost(result)
-  //   }
-  //   searchInput ? getPost() : setPost([])
-  // }, [debounceValue, searchInput])
+  useEffect(() => {
+    const getPost = async () => {
+      const posts = await getSearchPost() // aqui faltan cosas
+      const result = await posts.json()
+      setPost(result)
+    }
+    searchInput ? getPost() : setPost([])
+  }, [debounceValue, searchInput])
 
   const navigate = useNavigate()
 
   const handleChange = ({ traget }) => {
     setSearchInput(traget.value)
   }
+  console.log('postValue', post)
 
   const handleClick = () => {
     navigate('/posts/new')
