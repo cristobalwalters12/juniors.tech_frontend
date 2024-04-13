@@ -1,40 +1,66 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import {
   Card,
   Typography,
   Button,
   Dialog,
   DialogHeader,
-  DialogBody,
   DialogFooter,
+  DialogBody,
   Input
 } from '@material-tailwind/react'
-import mockUsers from '../../../__mocks__/store/mockUsers'
+import { getMods, addModerator, removeModerator } from '../../services/mods'
+import { useAuthStore } from '../../stores/authStore'
 
-const TABLE_HEAD = ['Name', 'Acciones']
+const TABLE_HEAD = ['Nombre', 'Acciones']
 
 export function RoleManagementTable () {
-  const [openDialogs, setOpenDialogs] = React.useState(mockUsers.map(() => false)) // Usa tus datos de usuario mock
-  const [confirmIndex, setConfirmIndex] = React.useState(null)
-  const [tableRows, setTableRows] = React.useState(mockUsers.map((user) => ({ name: user.name }))) // Usa tus datos de usuario mock
-  const [openAddDialog, setOpenAddDialog] = React.useState(false)
-  const [newModeratorName, setNewModeratorName] = React.useState('')
+  const [openDialogIndex, setOpenDialogIndex] = useState(null)
+  const [tableRows, setTableRows] = useState([])
+  const [newModeratorName, setNewModeratorName] = useState('')
+  const [openAddDialog, setOpenAddDialog] = useState(false)
+
+  useEffect(() => {
+    fetchModerators()
+  }, [])
+
+  const roles = useAuthStore((state) => {
+    return state.roles
+  })
+  const isAdmin = roles.some(rol => rol === 'administrador')
+
+  const fetchModerators = async () => {
+    try {
+      const response = await getMods()
+      const moderators = response.data
+      setTableRows(moderators)
+    } catch (error) {
+      console.error('Error al obtener los moderadores:', error)
+    }
+  }
 
   const handleOpenDialog = (index) => {
-    setOpenDialogs((prev) => prev.map((_, i) => (i === index)))
-    setConfirmIndex(index)
+    setOpenDialogIndex(index)
   }
 
   const handleCloseDialog = () => {
-    setOpenDialogs((prev) => prev.map(() => false))
-    setConfirmIndex(null)
+    setOpenDialogIndex(null)
   }
 
-  const handleConfirm = () => {
-    const updatedRows = [...tableRows]
-    updatedRows.splice(confirmIndex, 1)
-    setTableRows(updatedRows)
-    handleCloseDialog()
+  const handleConfirmDelete = async () => {
+    try {
+      if (isAdmin) {
+        await removeModerator(tableRows[openDialogIndex].username)
+        const updatedRows = [...tableRows]
+        updatedRows.splice(openDialogIndex, 1)
+        setTableRows(updatedRows)
+        handleCloseDialog()
+      } else {
+        console.error('No tienes permisos para eliminar un moderador.')
+      }
+    } catch (error) {
+      console.error('Error al eliminar el moderador:', error)
+    }
   }
 
   const handleOpenAddDialog = () => {
@@ -46,21 +72,31 @@ export function RoleManagementTable () {
     setNewModeratorName('')
   }
 
-  const handleAddModerator = () => {
-    console.log('Agregando moderador:', newModeratorName)
-    setTableRows([...tableRows, { name: newModeratorName }])
-    handleCloseAddDialog()
+  const handleAddModerator = async () => {
+    try {
+      if (isAdmin) {
+        console.log({ isAdmin })
+        await addModerator(newModeratorName)
+        const updatedRows = [...tableRows, { username: newModeratorName }]
+        setTableRows(updatedRows)
+        handleCloseAddDialog()
+      } else {
+        console.error('No tienes permisos para agregar un moderador.')
+      }
+    } catch (error) {
+      console.error('Error al agregar el moderador:', error)
+    }
   }
 
   return (
     <div>
-      <Card className="w-full overflow-hidden md:w-3/4">
+      <Card className="w-full overflow-hidden md:w-3/4 max-h-[400px]">
         <div className="overflow-x-auto">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
                 {TABLE_HEAD.map((head) => (
-                  <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                  <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-2">
                     <Typography
                       variant="small"
                       color="blue-gray"
@@ -73,97 +109,39 @@ export function RoleManagementTable () {
               </tr>
             </thead>
             <tbody>
-              {tableRows.map(({ name }, index) => {
-                const isLast = index === tableRows.length - 1
-                const classes = isLast ? 'p-4' : 'p-4 border-b border-blue-gray-50'
-
+              {tableRows.map(({ username }, index) => {
                 return (
-                  <React.Fragment key={name}>
-                    <tr>
-                      <td className={classes}>
-                        <Typography variant="small" color="blue-gray" className="font-normal">
-                          {name}
-                        </Typography>
-                      </td>
-                      <td className={`${classes} bg-blue-gray-50/50`}>
-                        <Typography
-                          onClick={() => handleOpenDialog(index)}
-                          as="a"
-                          href="#"
-                          variant="small"
-                          color="blue-gray"
-                          className="font-medium hover:bg-blue-200 p-2 rounded-md"
-                        >
-                          Quitar rol de moderador
-                        </Typography>
-                      </td>
-                    </tr>
-                    <Dialog open={openDialogs[index]} handler={handleCloseDialog}>
-                      <DialogHeader>
-                        <Typography variant="h5" color="blue-gray">
-                          Quitar el rol de moderador a {name}
-                        </Typography>
-                      </DialogHeader>
-                      <DialogBody divider className="grid place-items-center gap-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="h-16 w-16 text-red-500"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z"
-                            clipRule="evenodd" />
-                        </svg>
-                        <Typography className="text-center font-normal" variant='h3' color='blue-gray'>
-                          ¿Estás seguro?
-                        </Typography>
-                      </DialogBody>
-                      <DialogFooter className="space-x-2">
-                        <Button variant="text" color="blue-gray" onClick={handleCloseDialog}>
-                          Cancelar
-                        </Button>
-                        <Button variant="gradient" onClick={handleConfirm}>
-                          Confirmar
-                        </Button>
-                      </DialogFooter>
-                    </Dialog>
-                  </React.Fragment>
+                  <tr key={index}>
+                    <td className="p-2">
+                      <Typography variant="small" color="blue-gray" className="font-normal">
+                        {username}
+                      </Typography>
+                    </td>
+                    <td className="p-2">
+                      <Button
+                        onClick={() => handleOpenDialog(index)}
+                        color="red"
+                        variant='text'
+                        size="sm"
+                      >
+                        Eliminar
+                      </Button>
+                    </td>
+                  </tr>
                 )
               })}
             </tbody>
           </table>
         </div>
       </Card>
-      <div className="mt-7 flex justify-start">
-        <Button variant='outline' color='white' onClick={handleOpenAddDialog}>Agregar moderador</Button>
-        <Dialog open={openAddDialog} size="xs" handler={handleCloseAddDialog}>
-          <div className="flex items-center justify-between">
-            <DialogHeader className="flex flex-col items-start">
-              <Typography className="mb-1" variant="h4">
-                Agregar moderador
-              </Typography>
-            </DialogHeader>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="mr-3 h-5 w-5 cursor-pointer"
-              onClick={handleCloseAddDialog}
-            >
-              <path
-                fillRule="evenodd"
-                d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
+      <div className="mt-3 flex justify-start">
+        <Button variant='outlined' color='black' onClick={handleOpenAddDialog}>Agregar moderador</Button>
+        <Dialog open={openAddDialog} size="sm" onClose={handleCloseAddDialog}>
+          <DialogHeader>
+            <Typography variant="h5">Agregar moderador</Typography>
+          </DialogHeader>
           <DialogBody>
-            <div className="grid gap-6">
-              <Typography className="-mb-1" color="blue-gray" variant="h6">
-                Nombre del moderador
-              </Typography>
+            <div className="grid gap-3">
               <Input
                 label="Nombre"
                 value={newModeratorName}
@@ -175,12 +153,28 @@ export function RoleManagementTable () {
             <Button variant="text" color="gray" onClick={handleCloseAddDialog}>
               Cancelar
             </Button>
-            <Button variant="gradient" color="gray" onClick={handleAddModerator}>
+            <Button variant="gradient" onClick={handleAddModerator}>
               Agregar moderador
             </Button>
           </DialogFooter>
         </Dialog>
       </div>
+      <Dialog open={openDialogIndex !== null} size="sm" onClose={handleCloseDialog}>
+        <DialogHeader>
+          <Typography variant="h5" color="blue-gray">
+            ¿Estás seguro que deseas eliminar al moderador{' '}
+            {tableRows[openDialogIndex]?.username}?
+          </Typography>
+        </DialogHeader>
+        <DialogFooter className="space-x-2">
+          <Button variant="text" color="blue-gray" onClick={handleCloseDialog}>
+            Cancelar
+          </Button>
+          <Button variant="gradient" onClick={handleConfirmDelete}>
+            Confirmar
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </div>
   )
 }
