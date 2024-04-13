@@ -75,7 +75,6 @@ export function RoleManagementTable () {
   const handleAddModerator = async () => {
     try {
       if (isAdmin) {
-        console.log({ isAdmin })
         await addModerator(newModeratorName)
         const updatedRows = [...tableRows, { username: newModeratorName }]
         setTableRows(updatedRows)
