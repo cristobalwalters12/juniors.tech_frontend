@@ -148,9 +148,7 @@ export function CategoryManagementTable () {
                             }}
                             color="blue-gray"
                             variant='text'
-                            buttonType="link"
                             size="sm"
-                            ripple="light"
                           >
                             Editar
                           </Button>
@@ -158,9 +156,7 @@ export function CategoryManagementTable () {
                             onClick={() => handleOpenDialog(index)}
                             color="red"
                             variant='text'
-                            buttonType="link"
                             size="sm"
-                            ripple="light"
                           >
                             Eliminar
                           </Button>
