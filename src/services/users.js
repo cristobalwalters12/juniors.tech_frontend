@@ -21,8 +21,9 @@ const loginUser = async (user) => {
   return data
 }
 
-const getPublicProfile = async (user) => {
-  const { data } = await baseApi.post(API_PATHS.publicProfile, user)
+const getPublicProfile = async (username) => {
+  const url = API_PATHS.publicProfile.replace(':username', username)
+  const { data } = await baseApi.get(url)
   return data
 }
 export { getUser, createUser, loginUser, getUsers, getPublicProfile }
