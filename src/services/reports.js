@@ -1,5 +1,5 @@
 import { baseApi } from '../api/baseApi'
-import { API_PATHS } from '../config/constants'
+import { API_PATHS } from '../config/constants/apiUrls'
 
 const getPostReports = async () => {
   try {

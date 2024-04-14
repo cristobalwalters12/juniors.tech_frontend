@@ -5,15 +5,15 @@ function ReportManagementSelector () {
   const navigate = useNavigate()
 
   const handleSelectPublicaciones = () => {
-    navigate('/admin-panel/reports-management/posts-reports')
+    navigate('/admin/reports/posts')
   }
 
   const handleSelectComentarios = () => {
-    navigate('/admin-panel/reports-management/comments-reports')
+    navigate('/admin/reports/comments')
   }
 
   const handleSelectUsuarios = () => {
-    navigate('/admin-panel/reports-management/users-reports')
+    navigate('/admin/reports/users')
   }
 
   return (

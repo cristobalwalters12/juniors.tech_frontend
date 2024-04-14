@@ -1,5 +1,5 @@
 import { Outlet, Navigate, useLocation } from 'react-router-dom'
-import { useAuthStore } from '../../stores/authStore'
+import { useAuthStore } from '../../../stores/authStore'
 
 const RequireAuth = ({ allowedRoles }) => {
   const isAuth = useAuthStore((state) => state.isAuth)
