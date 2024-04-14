@@ -17,7 +17,7 @@ import {
   TrashIcon
 } from '@heroicons/react/24/outline'
 
-const CardFooter = ({
+const CustomCardFooter = ({
   voteDirection,
   voteCount,
   commentCount,
@@ -101,4 +101,4 @@ const CardFooter = ({
   )
 }
 
-export { CardFooter }
+export { CustomCardFooter }

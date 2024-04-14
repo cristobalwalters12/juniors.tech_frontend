@@ -9,7 +9,7 @@ import './css/loginForm.css'
 import { useLoginUser } from './userLogin'
 import { Link, useNavigate } from 'react-router-dom'
 
-const RegisterForm = () => {
+const LoginForm = ({ onClose, onSwitch }) => {
   const { control, handleSubmit } = useForm()
   const { loginUser } = useLoginUser()
   const navigate = useNavigate()
@@ -21,29 +21,16 @@ const RegisterForm = () => {
     }
     loginUser(user, {
       onSuccess: () => {
-        navigate('/home')
+        onClose
+          ? onClose()
+          : navigate('/home')
       }
     })
   }
   return (
-    <Card color="white" shadow={false} className="w-full card-size">
+    <Card color="white" shadow={false} className="w-full">
       <Typography variant="h2" color="blue-gray" className='text-center mt-4'>
         Inicia Sesión
-      </Typography>
-      <div className=''>
-        <Button className="mt-6" fullWidth variant="outlined">
-          Con tu cuenta de Google
-        </Button>
-        <Button className="mt-6" fullWidth variant="outlined">
-          Con tu cuenta de LinkedIn
-        </Button>
-        <Button className="mt-6" fullWidth variant="outlined">
-          Con tu cuenta de GitHub
-        </Button>
-      </div>
-
-      <Typography variant="h4" color="blue-gray" className='text-center mt-6'>
-        O con tu
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='mt-6'>
@@ -69,7 +56,13 @@ const RegisterForm = () => {
       <div>
       </div>
       <Typography variant='paragraph' className='mt-6'>
-        ¿No tienes Cuenta? <Link to="/register" className='font-bold'>Registrate</Link>
+        ¿No tienes Cuenta? <span>
+          {
+            onSwitch
+              ? <button onClick={onSwitch} className='font-bold'>Registrate</button>
+              : <Link to="/register" className='font-bold'>Registrate</Link>
+          }
+        </span>
       </Typography>
       <Typography variant='paragraph' className='mt-6 sm:text-left'>
         Al continuar, aceptas nuestros Términos de servicio y Política de privacidad
@@ -78,4 +71,4 @@ const RegisterForm = () => {
   )
 }
 
-export default RegisterForm
+export default LoginForm
