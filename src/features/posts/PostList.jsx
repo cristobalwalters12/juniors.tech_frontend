@@ -1,23 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/24/outline'
-import { Card, CardBody, Typography, List, CardFooter, Button, IconButton } from '@material-tailwind/react'
-import { CardFooterPost } from '../../shared/components/CardFooterPost'
+import { Card, CardBody, Typography, List, Button, IconButton } from '@material-tailwind/react'
+import { CardFooter } from '../../shared/components/CardFooter'
 import { useAuthStore } from '../../stores/authStore'
 import { FormattedDate } from '../../shared/components/FormattedDate'
+import { useGetPosts } from '../../features/posts/useGetPosts'
+
 import { Link } from 'react-router-dom'
 
 const PostList = ({ orderBy, orderDirection }) => {
   const [posts, setPosts] = useState([])
-  const [active, setActive] = React.useState(1)
-  const [currentPage, setCurrentPage] = React.useState(1)
+  const [active, setActive] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1)
   const currUserId = useAuthStore((state) => state.id)
   const postsPerPage = 4
+  const { data: postsData, isLoading, isError } = useGetPosts()
 
   useEffect(() => {
-    fetch('/api/v1/posts')
-      .then(response => response.json())
-      .then(data => setPosts(data))
-  }, [])
+    if (postsData) {
+      setPosts(postsData.data.posts)
+    }
+  }, [postsData])
+
+  if (isLoading) {
+    return <div>Cargando...</div>
+  }
+
+  if (isError) {
+    return <div>Error al obtener los posts</div>
+  }
 
   const totalPosts = posts ? posts.length : 0
   const totalPages = Math.ceil(totalPosts / postsPerPage)
@@ -56,36 +67,33 @@ const PostList = ({ orderBy, orderDirection }) => {
   })
 
   const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost)
-
   return (
     <div className="main-content">
       {currentPosts.map((post) => (
-        <Link key={post.id} to={`/posts/${post.id}`}>
-          <Card className='max-w-[48rem] my-3'>
-            <List className='flex-row mx-4'>
-              <Typography variant='small' color='blue-gray' className='font-normal mx-1'>
-                {post.category}
-              </Typography>
-              <Typography variant='small' color='gray' className='font-normal'>
-                <FormattedDate date={post.created_at}/>
-              </Typography>
-            </List>
-            <CardBody>
-              <Typography variant='h5' color='blue-gray' className='mb-3'>
-                {post.title}
-              </Typography>
-              <Typography>{post.body}</Typography>
-            </CardBody>
-            <CardFooter>
-              <CardFooterPost
-                voteDirection={post.vote_direction}
-                voteCount={post.vote_count}
-                commentCount={post.comment_count}
-                owner={post.author_id === currUserId}
-              />
-            </CardFooter>
-          </Card>
-        </Link>
+            <Link key={post.id} to={`/posts/${post.id}`}>
+              <Card className='max-w-[48rem] my-3'>
+                <List className='flex-row mx-4'>
+                  <Typography variant='small' color='blue-gray' className='font-normal mx-1'>
+                    {post.category}
+                  </Typography>
+                  <Typography variant='small' color='gray' className='font-normal'>
+                    <FormattedDate date={post.createdAt}/>
+                  </Typography>
+                </List>
+                <CardBody>
+                  <Typography variant='h5' color='blue-gray' className='mb-3'>
+                    {post.title}
+                  </Typography>
+                  <Typography>{post.body || ''}</Typography>
+                </CardBody>
+                <CardFooter
+                    voteDirection={post.voteDirection}
+                    voteCount={post.voteCount}
+                    commentCount={post.commentCount}
+                    owner={post.author_id === currUserId}
+                  />
+              </Card>
+            </Link>
       ))}
       <div className='flex items-center gap-4'>
         <Button
