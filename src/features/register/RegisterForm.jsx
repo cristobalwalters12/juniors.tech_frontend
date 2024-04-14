@@ -5,10 +5,11 @@ import {
   Typography
 } from '@material-tailwind/react'
 import './css/registerForm.css'
+import { Link } from 'react-router-dom'
 
-const RegisterForm = ({ onEmailClick }) => {
+const RegisterForm = ({ onEmailClick, onClose, onSwitch }) => {
   return (
-    <Card color="white" shadow={false} className="w-full card-size">
+    <Card color="white" shadow={false} className="w-full">
         <Typography variant="h2" color="blue-gray" className='text-center mt-4'>
           Regístrate
         </Typography>
@@ -23,7 +24,6 @@ const RegisterForm = ({ onEmailClick }) => {
           Con tu cuenta de GitHub
         </Button>
         </div>
-
         <Typography variant="h4" color="blue-gray" className='text-center mt-6'>
           O con tu
         </Typography>
@@ -32,13 +32,18 @@ const RegisterForm = ({ onEmailClick }) => {
           Correo Electronico
         </Button>
         </div>
-        <Typography variant='h6' className='mt-6 text-center'>
-          ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
+        <Typography variant='paragraph' className='mt-6'>
+          ¿Ya tienes una cuenta? <span>
+          {
+            onSwitch
+              ? <button onClick={onSwitch} className='font-bold'>Inicia sesión </button>
+              : <Link to="/login" className='font-bold'>Inicia sesión</Link>
+          }
+        </span>
         </Typography>
         <Typography variant='h6' className='mt-6 text-center sm:text-left'>
-          al continuar, aceptas nuestros <a href="/login">Términos de servicio</a> y <a href="/login">Política de privacidad</a>
+          al continuar, aceptas nuestros <Link to="/login">Términos de servicio</Link> y <Link to="/login">Política de privacidad</Link>
         </Typography>
-
       </Card>
   )
 }

@@ -1,6 +1,6 @@
 import { Card, CardBody, CardHeader, Typography } from '@material-tailwind/react'
 import { FormattedDate } from '../../shared/components/FormattedDate'
-import { DisabledCardFooter } from '../../shared/components/DisabledCardFooter'
+import { DisabledCardFooter } from '../../shared/components/Cards/DisabledCardFooter'
 
 const DeletedComment = ({ toggleOpenReplies, comment }) => {
   return (

@@ -8,7 +8,7 @@ const useLoginUser = () => {
   const setId = useAuthStore((state) => state.setId)
   const setUser = useAuthStore((state) => state.setUser)
   const setRoles = useAuthStore((state) => state.setRoles)
-  const setuserImageURL = useAuthStore((state) => state.setuserImageURL)
+  const setAvatarUrl = useAuthStore((state) => state.setAvatarUrl)
   const loginUserMutation = useMutation({
     mutationFn: loginUserService,
     onSuccess: (response) => {
@@ -17,7 +17,7 @@ const useLoginUser = () => {
       setToken(data.accessToken)
       setId(data.id)
       setUser(data.username)
-      setuserImageURL(data.userImageURL)
+      setAvatarUrl(data.userImageURL)
       if (Array.isArray(data.roles)) {
         setRoles(data.roles)
       }

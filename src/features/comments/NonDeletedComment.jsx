@@ -3,10 +3,10 @@ import { FormattedDate } from '../../shared/components/FormattedDate'
 import { CreateCommentForm } from './SaveCommentForm'
 import { useSaveComment } from './useSaveComment'
 import { useState } from 'react'
-import { CardFooter } from '../../shared/components/CardFooter'
 import { useDeleteComment } from './useDeleteComment'
 import { useVoteComment } from './useVoteComment'
 import { useAuthStore } from '../../stores/authStore'
+import { CustomCardFooter } from '../../shared/components/Cards/CustomCardFooter'
 
 const NonDeletedComment = ({ toggleOpenReplies, comment }) => {
   const currUserId = useAuthStore((state) => state.id)
@@ -105,7 +105,7 @@ const NonDeletedComment = ({ toggleOpenReplies, comment }) => {
             }
           </CardBody>
             {!editing && (
-              <CardFooter
+              <CustomCardFooter
                 voteDirection={comment.voteDirection}
                 voteCount={comment.voteCount}
                 commentCount={comment.commentCount}

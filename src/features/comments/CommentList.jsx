@@ -12,7 +12,7 @@ const CommentList = ({ postId }) => {
   }, [postId])
 
   return (
-    <div className="p-3 pt-1 bg-blue-gray-100">
+    <div className="p-3 pt-1">
       {rootComments?.map(comment =>
         <Comment
           key={comment.id}

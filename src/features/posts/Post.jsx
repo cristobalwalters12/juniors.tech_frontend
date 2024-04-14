@@ -13,9 +13,9 @@ import {
   ArrowLeftIcon, DocumentTextIcon, EllipsisVerticalIcon, FlagIcon, PencilIcon, TrashIcon
 } from '@heroicons/react/24/outline'
 import { FormattedDate } from '../../shared/components/FormattedDate'
-import { CardFooter } from '../../shared/components/CardFooter'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../stores/authStore'
+import { CustomCardFooter } from '../../shared/components/Cards/CustomCardFooter'
 
 const Post = ({ post }) => {
   const currUserId = useAuthStore((state) => state.id)
@@ -89,7 +89,7 @@ const Post = ({ post }) => {
           <Typography variant='h4'>{post.title}</Typography>
           <Typography>{post.body}</Typography>
         </CardBody>
-        <CardFooter voteDirection={post.voteDirection} voteCount={post.voteCount} commentCount={post.commentCount} owner={false} />
+        <CustomCardFooter voteDirection={post.voteDirection} voteCount={post.voteCount} commentCount={post.commentCount} owner={false} />
       </Card>
     </article>
   )
