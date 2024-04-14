@@ -21,6 +21,7 @@ import DashboardLayout from './layouts/DashboardLayout'
 import PersistAuth from './shared/components/Auth/PersistAuth'
 import RequireAuth from './shared/components/Auth/RequireAuth'
 import AuthenticateForm from './shared/components/Auth/AuthenticateForm'
+import RequireAccountOwner from './shared/components/Auth/RequireAccountOwner'
 
 function App () {
   return (
@@ -41,7 +42,7 @@ function App () {
       <Route element={<DashboardLayout/>}>
         <Route path="/home" element={<SearchPosts />} />
         <Route path="/search/posts" element={<SearchPosts />} />
-        <Route path="/profile/:username" element={<PublicProfileComponent />} />
+        <Route path="/users/:username" element={<PublicProfileComponent />} />
         <Route path="/posts/:id" element={<PostDetails />} />
       </Route>
 
@@ -49,6 +50,14 @@ function App () {
         <Route element={<DashboardLayout/>}>
           <Route path="/posts/new" element={<CreatePost />} />
           <Route path="/posts/:id/edit" element={<EditPost />} />
+        </Route>
+      </Route>
+
+      <Route element={<RequireAccountOwner />} >
+        <Route element={<DashboardLayout/>}>
+          <Route path="/users/:username/edit" element={<PublicProfileComponent />} />
+          <Route path="/users/:username/change-password" element={<PublicProfileComponent />} />
+          <Route path="/users/:username/deactivate-account" element={<PublicProfileComponent />} />
         </Route>
       </Route>
 

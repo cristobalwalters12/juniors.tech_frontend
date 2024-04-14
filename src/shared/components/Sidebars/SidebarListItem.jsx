@@ -12,13 +12,3 @@ const SidebarListItem = ({ children, onClick: handleClick, className, selected, 
 }
 
 export default SidebarListItem
-/*
-<ListItem
-            className={`text-sm bg-accent-dark transition-all focus:bg-primary-dark hover:bg-primary-dark active:bg-primary-dark focus:text-accent-light  hover:text-accent-light active:text-accent-light focus:opacity-80 hover:opacity-95 active:opacity-80 tracking-wide shadow-md ${className || ''}`}
-            onClick={handleClick}
-            selected={selected}
-            {...otherProps}
-            >
-              {children}
-          </ListItem>)
-          */
