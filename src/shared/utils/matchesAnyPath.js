@@ -3,7 +3,7 @@ const matchesAnyPath = (pathname, pathOrPaths) => {
     return pathname === pathOrPaths
   }
   const allowedPaths = pathOrPaths.join('|')
-  return RegExp(`(${allowedPaths}).*`).test(pathname)
+  return RegExp(`^(${allowedPaths}).*`).test(pathname)
 }
 
 export { matchesAnyPath }
