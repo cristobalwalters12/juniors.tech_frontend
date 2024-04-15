@@ -4,11 +4,10 @@ import {
   AccordionHeader,
   AccordionBody
 } from '@material-tailwind/react'
-import { ChevronDownIcon, CodeBracketIcon, AcademicCapIcon } from '@heroicons/react/24/solid'
+import { ChevronDownIcon, CodeBracketIcon, AcademicCapIcon, ArrowTrendingUpIcon } from '@heroicons/react/24/solid'
 import Logo from '../Logo'
 import SidebarListItem from './SidebarListItem'
 import { DEVELOPERS, INSTRUCTORS } from '../../../config/constants/aboutUs'
-import SortIcon from '../Icons/SortIcon'
 import SidebarListHeader from './SidebarListHeader'
 
 export default function SidebarHome () {
@@ -36,10 +35,11 @@ export default function SidebarHome () {
     <Card shadow={false} className='bg-accent-dark text-grey-dark h-full overflow-x-clip overflow-y-auto'>
       <List className='text-inherit pb-0'>
         <Typography variant="h2" className='flex gap-1 items-center text-grey-light mb-3 text-md'>
-          <SortIcon /> Ordenar por
+          <ArrowTrendingUpIcon width="1.7em" strokeWidth={20} fill="#508DDD" />
+          Ver publicaciones
         </Typography>
-        <SidebarListItem onClick={handleDescendente}>Más votados</SidebarListItem>
-        <SidebarListItem onClick={handleAscendente}>Menos votados</SidebarListItem>
+        <SidebarListItem onClick={handleDescendente}>Más votadas</SidebarListItem>
+        <SidebarListItem onClick={handleAscendente}>Más recientes</SidebarListItem>
       </List>
       <hr className='border-primary-dark my-2'/>
       <Accordion

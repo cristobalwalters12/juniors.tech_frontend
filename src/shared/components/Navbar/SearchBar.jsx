@@ -4,25 +4,14 @@ import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useSearchParams } from 'react-router-dom'
 
 const SearchBar = ({ className }) => {
-  const [searchParams, setSearchParams] = useSearchParams({
-    title: '',
-    category: '',
-    sort: '',
-    order: 'DESC',
-    page: '',
-    limit: ''
-  })
+  const [searchParams, setSearchParams] = useSearchParams()
   const title = searchParams.get('title')
 
   const handleChange = (e) => {
-    e.preventDefault()
-    setSearchParams(prev => {
-      prev.set(e.target.id, e.target.value)
-      return prev
-    }, { replace: true }
-    )
+    setSearchParams(prev => ({ ...prev, title: e.target.value }), { replace: true })
   }
-  const handleReset = (e) => {
+
+  const handleReset = () => {
     setSearchParams({}, { replace: true })
   }
 

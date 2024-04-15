@@ -10,7 +10,7 @@ import NavTextButton from './NavTextButton'
 import RequireAuthOnClick from '../Auth/RequireAuthOnClick'
 import NavbarMenu from './NavbarMenu'
 
-const fullNavbarShowsIn = ['/admin', '/search', '/posts', '/profile', '/home']
+const fullNavbarShowsIn = ['/admin', '/search', '/posts', '/users', '/home']
 
 const CustomNavbar = () => {
   const loggedIn = useAuthStore(state => state.isAuth)
