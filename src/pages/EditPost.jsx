@@ -1,6 +1,5 @@
 import { Navigate, useParams } from 'react-router-dom'
 import SavePostForm from '../features/posts/SavePostForm'
-import HolyGrailLayout from '../layouts/HolyGrailLayout'
 import { Typography } from '@material-tailwind/react'
 import { useGetSinglePost } from '../features/posts/useGetSinglePost'
 import { useAuthStore } from '../stores/authStore'
@@ -20,12 +19,12 @@ const EditPost = () => {
   }
 
   return (
-    <HolyGrailLayout>
+    <>
       <Typography variant="h4" color="blue-gray">
         Edita tu publicación
       </Typography>
       <SavePostForm {...query.data}/>
-    </HolyGrailLayout>
+    </>
   )
 }
 

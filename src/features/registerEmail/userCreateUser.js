@@ -9,6 +9,7 @@ const useCreateUser = () => {
   const setId = useAuthStore((state) => state.setId)
   const setUser = useAuthStore((state) => state.setUser)
   const setRoles = useAuthStore((state) => state.setRoles)
+  const setAvatarUrl = useAuthStore((state) => state.setAvatarUrl)
   const createUserMutation = useMutation({
     mutationFn: createUser,
     onSuccess: (data) => {
@@ -17,6 +18,7 @@ const useCreateUser = () => {
       setId(data.user.id)
       setUser(data.user.username)
       setRoles(data.user.role)
+      setAvatarUrl(data.user.userImageURL)
       setErrorMessage('')
     },
     onError: (error) => {

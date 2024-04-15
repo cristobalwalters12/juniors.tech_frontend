@@ -1,29 +1,18 @@
 import { Typography } from '@material-tailwind/react'
-
-const DEVELOPERS = [
-  { name: 'Jonathan Araos', path: 'https://github.com/jonaisenberg/' },
-  { name: 'Ayxa Chaverra', path: 'https://github.com/achaverrar/' },
-  { name: 'Cristobal Walters', path: 'https://github.com/cristobalwalters12/' },
-  { name: 'Nicolás Contreras', path: 'https://github.com/lukitas0606/' }
-]
-
-const INSTRUCTORS = [
-  'Emiliano Rotta',
-  'Fabian Pino',
-  'Loreto Bustos',
-  'Raúl Farias'
-]
+import { DEVELOPERS, INSTRUCTORS } from '../../config/constants/aboutUs'
+import { AcademicCapIcon, ChatBubbleLeftRightIcon, CodeBracketIcon } from '@heroicons/react/24/solid'
+import Logo from './Logo'
 
 export function Footer () {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-black text-white py-6">
-      <div className="container mx-auto px-4 flex flex-col items-center">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-4">
-          <div className="text-center">
+    <footer className="bg-accent-dark text-grey-dark pt-14 pb-6 px-4">
+      <div className="max-w-[40rem] mx-auto flex flex-col items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 mb-4 text-left">
+          <div className='w-fit mx-auto'>
             <Typography variant="h6" className="mb-4">
-              JUNIORS.TECH
+              <Logo accent1='text-grey-dark' accent2='text-grey-dark' />
             </Typography>
             <ul className="space-y-2">
               <Typography as="li">Acerca del proyecto</Typography>
@@ -31,33 +20,34 @@ export function Footer () {
               <Typography as="li">Términos de uso</Typography>
             </ul>
           </div>
-          <div className="text-center">
-            <Typography variant="h6" className="mb-4">
-              DESARROLLADORES
+          <div>
+            <Typography variant="h6" className="mb-4 flex items-center gap-2">
+              <CodeBracketIcon width="1em" className='min-w-6' />
+              Desarrolladores
             </Typography>
-            <div className="grid grid-cols-1 gap-2">
+            <div className="flex flex-col gap-2">
               {DEVELOPERS.map((developer, index) => (
                 <Typography key={index} as="p">
-                  <a href={developer.path} target="_blank" rel="noopener noreferrer">{developer.name}</a>
+                  <a href={developer.href} target="_blank" rel="noopener noreferrer" className='transition-colors ease-in-out duration-300 hover:text-accent-light'>{developer.name}</a>
                 </Typography>
               ))}
             </div>
           </div>
-          <div className="text-center">
-            <Typography variant="h6" className="mb-4">
-              INSTRUCTORES
+          <div>
+            <Typography variant="h6" className="mb-4 flex items-center gap-2">
+            <AcademicCapIcon strokeWidth={2} className='min-w-6 w-6 h-6' /> Instructores
             </Typography>
-            <div className="grid grid-cols-1 gap-2">
+            <div className="flex flex-col gap-2">
               {INSTRUCTORS.map((instructor, index) => (
                 <Typography key={index} as="p">
-                  {instructor}
+                  <a href={instructor.href} target="_blank" rel="noopener noreferrer" className='transition-colors ease-in-out duration-300 hover:text-accent-light'>{instructor.name}</a>
                 </Typography>
               ))}
             </div>
           </div>
         </div>
         <p className="text-center mt-8">
-          &copy; {currentYear} Todos los derechos reservados. Juniors.TECH
+          <ChatBubbleLeftRightIcon className='w-4 inline-block' /> &copy; {currentYear} Juniors.tech. Todos los derechos reservados.
         </p>
       </div>
     </footer>

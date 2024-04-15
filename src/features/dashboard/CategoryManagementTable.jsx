@@ -1,39 +1,58 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Card,
   Typography,
   Button,
   Dialog,
   DialogHeader,
-  DialogBody,
   DialogFooter,
+  DialogBody,
   Input
 } from '@material-tailwind/react'
+import { getCategories, addCategory, removeCategory, editCategory } from '../../services/categories'
 
 const TABLE_HEAD = ['Categoría', 'Acciones']
 
 export function CategoryManagementTable () {
-  const [openDialogs, setOpenDialogs] = useState([])
-  const [confirmIndex, setConfirmIndex] = useState(null)
+  const [openDialogIndex, setOpenDialogIndex] = useState(null)
   const [tableRows, setTableRows] = useState([])
-  const [openAddDialog, setOpenAddDialog] = useState(false)
   const [newCategoryName, setNewCategoryName] = useState('')
+  const [openAddDialog, setOpenAddDialog] = useState(false)
+  const [editName, setEditName] = useState('')
+  const [editIndex, setEditIndex] = useState(null)
+
+  useEffect(() => {
+    fetchCategories()
+  }, [])
+
+  const fetchCategories = async () => {
+    try {
+      const response = await getCategories()
+      const categories = response.data
+      setTableRows(categories)
+    } catch (error) {
+      console.error('Error al obtener las categorías:', error)
+    }
+  }
 
   const handleOpenDialog = (index) => {
-    setOpenDialogs(prev => prev.map((_, i) => i === index))
-    setConfirmIndex(index)
+    setOpenDialogIndex(index)
   }
 
   const handleCloseDialog = () => {
-    setOpenDialogs(prev => prev.map(() => false))
-    setConfirmIndex(null)
+    setOpenDialogIndex(null)
   }
 
-  const handleConfirm = () => {
-    const updatedRows = [...tableRows]
-    updatedRows.splice(confirmIndex, 1)
-    setTableRows(updatedRows)
-    handleCloseDialog()
+  const handleConfirmDelete = async () => {
+    try {
+      await removeCategory(tableRows[openDialogIndex].id)
+      const updatedRows = [...tableRows]
+      updatedRows.splice(openDialogIndex, 1)
+      setTableRows(updatedRows)
+      handleCloseDialog()
+    } catch (error) {
+      console.error('Error al eliminar la categoría:', error)
+    }
   }
 
   const handleOpenAddDialog = () => {
@@ -45,21 +64,40 @@ export function CategoryManagementTable () {
     setNewCategoryName('')
   }
 
-  const handleAddCategory = () => {
-    console.log('Agregando categoría:', newCategoryName)
-    setTableRows([...tableRows, { category: newCategoryName }])
-    handleCloseAddDialog()
+  const handleAddCategory = async () => {
+    try {
+      await addCategory(newCategoryName)
+      const response = await getCategories()
+      const updatedCategories = response.data
+      setTableRows(updatedCategories)
+      handleCloseAddDialog()
+    } catch (error) {
+      console.error('Error al agregar la categoría:', error)
+    }
+  }
+
+  const handleEditCategory = async (categoryId, updatedName) => {
+    try {
+      await editCategory(categoryId, updatedName)
+      const updatedRows = [...tableRows]
+      updatedRows[editIndex].name = updatedName
+      setTableRows(updatedRows)
+      setEditIndex(null)
+      setEditName('')
+    } catch (error) {
+      console.error('Error al editar la categoría:', error)
+    }
   }
 
   return (
     <div>
-      <Card className="w-full overflow-hidden md:w-3/4">
+      <Card className="w-full overflow-hidden md:w-3/4 max-h-[400px]">
         <div className="overflow-x-auto">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
                 {TABLE_HEAD.map((head) => (
-                  <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                  <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-2">
                     <Typography
                       variant="small"
                       color="blue-gray"
@@ -72,96 +110,74 @@ export function CategoryManagementTable () {
               </tr>
             </thead>
             <tbody>
-              {tableRows.map(({ category }, index) => {
-                const isLast = index === tableRows.length - 1
-                const classes = isLast ? 'p-4' : 'p-4 border-b border-blue-gray-50'
-
+              {tableRows.map(({ name }, index) => {
                 return (
-                  <React.Fragment key={category}>
-                    <tr>
-                      <td className={classes}>
+                  <tr key={index}>
+                    <td className="p-2">
+                      {editIndex === index
+                        ? (
+                        <Input
+                          value={editName}
+                          onChange={(e) => setEditName(e.target.value)}
+                        />
+                          )
+                        : (
                         <Typography variant="small" color="blue-gray" className="font-normal">
-                          {category}
+                          {name}
                         </Typography>
-                      </td>
-                      <td className={`${classes} bg-blue-gray-50/50`}>
-                        <Typography
-                          onClick={() => handleOpenDialog(index)}
-                          as="a"
-                          href="#"
-                          variant="small"
+                          )}
+                    </td>
+                    <td className="p-2">
+                      {editIndex === index
+                        ? (
+                        <Button
+                          onClick={() => handleEditCategory(tableRows[index].id, editName)}
                           color="blue-gray"
-                          className="font-medium hover:bg-blue-200 p-2 rounded-md"
+                          buttonType="filled"
+                          size="sm"
                         >
-                          Editar
-                        </Typography>
-                        <Typography
-                          onClick={() => handleOpenDialog(index)}
-                          as="a"
-                          href="#"
-                          variant="small"
-                          color="blue-gray"
-                          className="font-medium hover:bg-blue-200 p-2 rounded-md"
-                        >
-                          Eliminar
-                        </Typography>
-                      </td>
-                    </tr>
-                    <Dialog open={openDialogs[index]} handler={handleCloseDialog}>
-                      <DialogHeader>
-                        <Typography variant="h5" color="blue-gray">
-                          ¿Estás seguro que deseas eliminar la categoría {category}?
-                        </Typography>
-                      </DialogHeader>
-                      <DialogBody divider className="grid place-items-center gap-4">
-                        {/* Aquí puedes mostrar algún mensaje de confirmación */}
-                      </DialogBody>
-                      <DialogFooter className="space-x-2">
-                        <Button variant="text" color="blue-gray" onClick={handleCloseDialog}>
-                          Cancelar
+                          Guardar
                         </Button>
-                        <Button variant="gradient" onClick={handleConfirm}>
-                          Confirmar
-                        </Button>
-                      </DialogFooter>
-                    </Dialog>
-                  </React.Fragment>
+                          )
+                        : (
+                        <>
+                          <Button
+                            onClick={() => {
+                              setEditName(name)
+                              setEditIndex(index)
+                            }}
+                            color="blue-gray"
+                            variant='text'
+                            size="sm"
+                          >
+                            Editar
+                          </Button>
+                          <Button
+                            onClick={() => handleOpenDialog(index)}
+                            color="red"
+                            variant='text'
+                            size="sm"
+                          >
+                            Eliminar
+                          </Button>
+                        </>
+                          )}
+                    </td>
+                  </tr>
                 )
               })}
             </tbody>
           </table>
         </div>
       </Card>
-      <div className="mt-7 flex justify-start">
-        <Button variant="outline" color="white" onClick={handleOpenAddDialog}>
-          Agregar categoría
-        </Button>
-        <Dialog open={openAddDialog} size="xs" handler={handleCloseAddDialog}>
-          <div className="flex items-center justify-between">
-            <DialogHeader className="flex flex-col items-start">
-              <Typography className="mb-1" variant="h4">
-                Agregar categoría
-              </Typography>
-            </DialogHeader>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="mr-3 h-5 w-5 cursor-pointer"
-              onClick={handleCloseAddDialog}
-            >
-              <path
-                fillRule="evenodd"
-                d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
+      <div className="mt-3 flex justify-start">
+        <Button variant='outlined' color='black' onClick={handleOpenAddDialog}>Agregar categoría</Button>
+        <Dialog open={openAddDialog} size="sm" handler={handleCloseAddDialog}>
+          <DialogHeader>
+            <Typography variant="h5">Agregar categoría</Typography>
+          </DialogHeader>
           <DialogBody>
-            <div className="grid gap-6">
-              <Typography className="-mb-1" color="blue-gray" variant="h6">
-                Nombre de la categoría
-              </Typography>
+            <div className="grid gap-3">
               <Input
                 label="Nombre"
                 value={newCategoryName}
@@ -173,12 +189,28 @@ export function CategoryManagementTable () {
             <Button variant="text" color="gray" onClick={handleCloseAddDialog}>
               Cancelar
             </Button>
-            <Button variant="gradient" color="gray" onClick={handleAddCategory}>
+            <Button variant="gradient" onClick={handleAddCategory}>
               Agregar categoría
             </Button>
           </DialogFooter>
         </Dialog>
       </div>
+      <Dialog open={openDialogIndex !== null} size="sm" handler={handleCloseDialog}>
+        <DialogHeader>
+          <Typography variant="h5" color="blue-gray">
+            ¿Estás seguro que deseas eliminar la categoría{' '}
+            {tableRows[openDialogIndex]?.name}?
+          </Typography>
+        </DialogHeader>
+        <DialogFooter className="space-x-2">
+          <Button variant="text" color="blue-gray" onClick={handleCloseDialog}>
+            Cancelar
+          </Button>
+          <Button variant="gradient" onClick={handleConfirmDelete}>
+            Confirmar
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </div>
   )
 }

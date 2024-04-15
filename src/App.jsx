@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
 import CreatePost from './pages/CreatePost'
 import EditPost from './pages/EditPost'
 import PostDetails from './pages/PostDetails'
@@ -7,43 +6,82 @@ import { LandingPage } from './pages/LandingPage'
 import NotFound from './pages/NotFound'
 import Register from './pages/Register'
 import Login from './pages/Login'
-import AdminPanel from './pages/AdminPanel'
-import RoleManagement from './pages/RoleManagement'
-import ReportsManagement from './pages/ReportsManagement'
-import CategoryManagement from './pages/CategoryManagement'
-import PostsReport from './pages/PostsReportManagement'
-import CommentsReport from './pages/CommentsReportsManagement'
-import UsersReport from './pages/UsersReportsManagement'
-import PublicUserProfile from './pages/PublicUserProfile'
-import RequireAuth from './shared/components/RequireAuth'
-import { ROLES } from './config/roles'
+import { ROLES } from './config/constants/roles'
+import SearchPosts from './pages/SearchPosts'
+import StackedLayout from './layouts/StackedLayout'
+import Modal from './shared/components/Modal'
+import PublicProfileComponent from './features/publicProfile/publicProfileComponent'
+import { RoleManagementTable } from './features/dashboard/RoleManagementTable'
+import ReportManagementSelector from './features/dashboard/ReportManagementSelector'
+import { PostReportTable } from './features/dashboard/PostsReportManagementTable'
+import { CommentReportTable } from './features/dashboard/CommentReportsManagementTable'
+import { UserReportTable } from './features/dashboard/UserReportsManagement'
+import { CategoryManagementTable } from './features/dashboard/CategoryManagementTable'
+import DashboardLayout from './layouts/DashboardLayout'
+import PersistAuth from './shared/components/Auth/PersistAuth'
+import RequireAuth from './shared/components/Auth/RequireAuth'
+import AuthenticateForm from './shared/components/Auth/AuthenticateForm'
+import RequireAccountOwner from './shared/components/Auth/RequireAccountOwner'
 
 function App () {
   return (
+    <>
     <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/register"element= {<Register/>}/>
-      <Route path="/login"element= {<Login/>}/>
-      <Route path="/publicProfile" element={<PublicUserProfile />} />
-      <Route path="/posts/:id" element={<PostDetails />} />
-      <Route path='*' element={<NotFound />} />
-
-      <Route element={<RequireAuth allowedRoles={[ROLES.USER]} />} >
-        <Route path="/posts/new" element={<CreatePost />} />
-        <Route path="/posts/:id/edit" element={<EditPost />} />
+      <Route element={<PersistAuth/>}>
+        <Route element={<StackedLayout/>}>
+          <Route path="/register"element= {<Register/>}/>
+          <Route path="/login"element= {<Login/>}/>
+        </Route>
       </Route>
 
-      {<Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />} >
-        <Route path="/admin-panel" element={<AdminPanel />} />
-        <Route path="/admin-panel/role-management" element={<RoleManagement />} />
-        <Route path="/admin-panel/reports-management" element={<ReportsManagement />} />
-        <Route path="/admin-panel/reports-management/posts-reports" element={<PostsReport />} />
-        <Route path="/admin-panel/reports-management/comments-reports" element={<CommentsReport />} />
-        <Route path="/admin-panel/reports-management/users-reports" element={<UsersReport />} />
-        <Route path="/admin-panel/category-management" element={<CategoryManagement />} />
-      </Route>}
+      <Route element={<StackedLayout/>}>
+        <Route path="/" element={<LandingPage />} />
+        <Route path='*' element={<NotFound />} />
+      </Route>
+
+      <Route element={<DashboardLayout/>}>
+        <Route path="/home" element={<SearchPosts />} />
+        <Route path="/search/posts" element={<SearchPosts />} />
+        <Route path="/users/:username" element={<PublicProfileComponent />} />
+        <Route path="/posts/:id" element={<PostDetails />} />
+      </Route>
+
+      <Route element={<RequireAuth allowedRoles={[ROLES.USER]} />} >
+        <Route element={<DashboardLayout/>}>
+          <Route path="/posts/new" element={<CreatePost />} />
+          <Route path="/posts/:id/edit" element={<EditPost />} />
+        </Route>
+      </Route>
+
+      <Route element={<RequireAccountOwner />} >
+        <Route element={<DashboardLayout/>}>
+          <Route path="/users/:username/edit" element={<PublicProfileComponent />} />
+          <Route path="/users/:username/change-password" element={<PublicProfileComponent />} />
+          <Route path="/users/:username/deactivate-account" element={<PublicProfileComponent />} />
+        </Route>
+      </Route>
+
+      <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.MOD]} />} >
+        <Route path='/admin' element={<DashboardLayout/>}>
+          <Route path="/admin/roles" element={<RoleManagementTable />} />
+          <Route path="/admin/reports" element={<ReportManagementSelector />} />
+          <Route path="/admin/reports/posts" element={<PostReportTable />} />
+          <Route path="/admin/reports/comments" element={<CommentReportTable />} />
+          <Route path="/admin/reports/users" element={<UserReportTable />} />
+        </Route>
+      </Route>
+
+      <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />} >
+        <Route element={<DashboardLayout/>}>
+          <Route path="/admin/categories" element={<CategoryManagementTable />} />
+        </Route>
+      </Route>
     </Routes>
+
+    <Modal name="login">
+      <AuthenticateForm/>
+    </Modal>
+  </>
   )
 }
 

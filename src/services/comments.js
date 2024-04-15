@@ -1,5 +1,5 @@
 import { baseApi } from '../api/baseApi'
-import { API_PATHS } from '../config/constants'
+import { API_PATHS } from '../config/constants/apiUrls'
 
 const getComments = async (postId) => {
   const { data: { data: comments } } = await baseApi.get(`${API_PATHS.posts}/${postId}/comments`)

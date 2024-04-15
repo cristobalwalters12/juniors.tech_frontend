@@ -1,4 +1,3 @@
-import HolyGrailLayout from '../layouts/HolyGrailLayout'
 import { useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { Button } from '@material-tailwind/react'
@@ -40,10 +39,9 @@ const PostDetails = () => {
     closeReplyForm()
   }
   return (
-    <HolyGrailLayout>
-      <main className='max-w-[60rem]'>
+      <div className='max-w-[60rem]'>
         <Post post={query.data} />
-        <div className='pt-4 pl-0 bg-blue-gray-100'>
+        <div className='pt-4 pl-0 '>
           {
             replying
               ? <CreateCommentForm
@@ -61,8 +59,7 @@ const PostDetails = () => {
           }
         </div>
         <CommentList postId={id} />
-      </main>
-    </HolyGrailLayout>
+      </div>
   )
 }
 
