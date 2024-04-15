@@ -42,7 +42,7 @@ const ProfileMenu = () => {
           <ul>{roles.map(role => <li key={role}>- {role}</li>)}</ul>
           </MenuItem>
           <hr className="my-1" />
-          <MenuItem className='p-3 flex items-center gap-2' onClick={goTo('/profile')}>
+          <MenuItem className='p-3 flex items-center gap-2' onClick={goTo(`/profile/${username}`)}>
             <UserCircleIcon className="h-4 w-4" />
             Ver perfil
           </MenuItem>
