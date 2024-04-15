@@ -1,33 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/24/outline'
 import { Card, CardBody, Typography, List, Button, IconButton } from '@material-tailwind/react'
 import { useAuthStore } from '../../stores/authStore'
 import { FormattedDate } from '../../shared/components/FormattedDate'
-import { useGetPosts } from '../../features/posts/useGetPosts'
 
 import { Link } from 'react-router-dom'
-import { API_BASE_URL, API_PATHS } from '../../config/constants/apiUrls'
 import { CustomCardFooter } from '../../shared/components/Cards/CustomCardFooter'
 
-const PostList = ({ orderBy, orderDirection }) => {
-  const [posts, setPosts] = useState([])
+const PostList = ({ posts, totalMatches: totalPosts, totalPages, limit: postsPerPage, currPage }) => {
   const [active, setActive] = useState(1)
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(currPage)
   const currUserId = useAuthStore((state) => state.id)
-  const postsPerPage = 4
-  /* eslint-disable no-unused-vars */
-  const { data: postsData, isLoading, isError } = useGetPosts()
-
-  useEffect(() => {
-    fetch(`${API_BASE_URL}${API_PATHS.posts}`)
-      .then(response => response.json())
-      .then(({ data: { posts } }) => {
-        setPosts(posts)
-      })
-  }, [])
-
-  const totalPosts = posts ? posts.length : 0
-  const totalPages = Math.ceil(totalPosts / postsPerPage)
 
   const getItemProps = (index) => ({
     variant: active === index ? 'filled' : 'text',
@@ -52,20 +35,12 @@ const PostList = ({ orderBy, orderDirection }) => {
   }
 
   const indexOfLastPost = currentPage * postsPerPage
+  /* eslint-disable no-unused-vars */
   const indexOfFirstPost = indexOfLastPost - postsPerPage
 
-  const sortedPosts = [...posts].sort((a, b) => {
-    if (orderDirection === 'asc') {
-      return a[orderBy] - b[orderBy]
-    } else {
-      return b[orderBy] - a[orderBy]
-    }
-  })
-
-  const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost)
   return (
     <div>
-      {currentPosts.map((post) => (
+      {posts?.map((post) => (
         <Link key={post.id} to={`/posts/${post.id}`}>
           <Card className='max-w-[48rem] my-3'>
             <List className='flex-row mx-4'>
