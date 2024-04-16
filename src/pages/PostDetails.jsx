@@ -4,7 +4,7 @@ import { Button } from '@material-tailwind/react'
 import { useGetSinglePost } from '../features/posts/useGetSinglePost'
 import { Post } from '../features/posts/Post'
 import { CommentList } from '../features/comments/CommentList'
-import { CreateCommentForm } from '../features/comments/SaveCommentForm'
+import { SaveCommentForm } from '../features/comments/SaveCommentForm'
 import { useSaveComment } from '../features/comments/useSaveComment'
 import { useAuthStore } from '../stores/authStore'
 
@@ -44,9 +44,9 @@ const PostDetails = () => {
         <div className='pt-4 pl-0 '>
           {
             replying
-              ? <CreateCommentForm
-                  submitReply={submitReply}
-                  close={closeReplyForm}
+              ? <SaveCommentForm
+                  onSubmit={submitReply}
+                  onClose={closeReplyForm}
                   className="pl-3 pr-3 mb-0"
                 />
               : <Button

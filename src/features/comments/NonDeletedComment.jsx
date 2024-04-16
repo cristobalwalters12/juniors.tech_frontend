@@ -1,6 +1,6 @@
 import { Avatar, Card, CardBody, CardHeader, Typography } from '@material-tailwind/react'
 import { FormattedDate } from '../../shared/components/FormattedDate'
-import { CreateCommentForm } from './SaveCommentForm'
+import { SaveCommentForm } from './SaveCommentForm'
 import { useSaveComment } from './useSaveComment'
 import { useState } from 'react'
 import { useDeleteComment } from './useDeleteComment'
@@ -94,9 +94,9 @@ const NonDeletedComment = ({ toggleOpenReplies, comment }) => {
           <CardBody className="mb-0 p-0 pr-2 ml-11">
             {
               editing
-                ? <CreateCommentForm
-                    submitReply={submitReply}
-                    close={hideEditingForm}
+                ? <SaveCommentForm
+                    onSubmit={submitReply}
+                    onClose={hideEditingForm}
                     comment={comment}
                   />
                 : (<Typography variant='small' className='font-normal'>
@@ -120,7 +120,7 @@ const NonDeletedComment = ({ toggleOpenReplies, comment }) => {
         </Card>
         {
           replying &&
-          <CreateCommentForm
+          <SaveCommentForm
             submitReply={submitReply}
             close={closeReplyForm}
             className="pt-1"

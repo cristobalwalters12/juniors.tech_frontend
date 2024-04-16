@@ -4,7 +4,7 @@ import { commentSchema } from './commentSchema'
 import { Button, Typography } from '@material-tailwind/react'
 import { TextEditor } from '../posts/TextEditor'
 
-const CreateCommentForm = ({ comment = {}, submitReply, close, className }) => {
+const SaveCommentForm = ({ comment = {}, onSubmit, onClose, className }) => {
   const {
     register,
     handleSubmit,
@@ -16,12 +16,12 @@ const CreateCommentForm = ({ comment = {}, submitReply, close, className }) => {
     defaultValues: { body: comment.body || '' }
   })
 
-  const onSubmit = (data) => {
+  const saveComment = (data) => {
     if (comment.id) {
       comment.body = data.body
-      submitReply(comment)
+      onSubmit(comment)
     } else {
-      submitReply(data)
+      onSubmit(data)
       close()
       reset()
     }
@@ -29,7 +29,7 @@ const CreateCommentForm = ({ comment = {}, submitReply, close, className }) => {
 
   return (
     <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(saveComment)}
         className={`my-2 w-full pl-5 ${className || ''}`}
       >
         <div className="pb-1 flex flex-col gap-2 w-full">
@@ -58,4 +58,4 @@ const CreateCommentForm = ({ comment = {}, submitReply, close, className }) => {
   )
 }
 
-export { CreateCommentForm }
+export { SaveCommentForm }
