@@ -3,10 +3,11 @@ import { getPostById } from '../../services/posts'
 
 const useGetSinglePost = (id) => {
   return useQuery({
-    queryKey: ['post'],
+    queryKey: ['post', id],
     queryFn: () => getPostById(id),
     refetchOnWindowFocus: false,
-    retry: false
+    retry: false,
+    staleTime: 5 * 60 * 1000 // 5min
   })
 }
 
