@@ -1,6 +1,7 @@
 import {
   Card,
   CardBody,
+  CardFooter,
   Typography,
   Select,
   Option,
@@ -8,11 +9,12 @@ import {
   IconButton,
   Input,
   Radio,
-  Checkbox
+  Checkbox,
+  Button
 } from '@material-tailwind/react'
 import ProfileAvatar from '../../../shared/components/ProfileAvatar'
 import { useAuthStore } from '../../../stores/authStore'
-import { CountryDiccionary, PronounDiccionary, LanguageDictionary, EmploymentStatusDictionary, ItFieldDictionary } from '../Dictionary/index'
+import { CountryDiccionary, PronounDiccionary, LanguageDictionary, EmploymentStatusDictionary, ItFieldDictionary, EducationDictionary, TechnologyDictionary } from '../Dictionary/index'
 const EditUserProfile = () => {
   const user = useAuthStore(state => state.user)
 
@@ -159,18 +161,61 @@ const EditUserProfile = () => {
             <div className='flex flex-col'>
                 <div className='mt-6'>
                     <Typography color='black' variant='h3'>
-                        Área de especialidad en IT
+                        Formación en IT
                     </Typography>
                     <Typography color='black' className='mt-1 text-l'>
-                        Escoge tu principal área de interés
+                        Escoge todas las que apliquen
                     </Typography>
-
                 </div>
-
+                <div className="flex flex-col gap-2 mt-3">
+                    {EducationDictionary.map((education, index) => (
+                        <Checkbox key={index} value={education.id} label={education.name} />
+                    ))}
+                </div>
             </div>
-
+            <div className='mt-6'>
+                <Typography color='black' variant='h3'>
+                    Lenguajes y herramientas
+                </Typography>
+                <Typography color='black' className='mt-1 text-l'>
+                Escoge todas las que apliquen
+                </Typography>
+                <div className='flex flex-col sm:flex-row'>
+                    <div className="w-full sm:w-96">
+                        <Select label="Selecciona las Technologias">
+                            {TechnologyDictionary.map((technology) => (
+                                <Option key={technology.id}>{technology.name}</Option>
+                            ))}
+                        </Select>
+                    </div>
+                    <div className="w-full sm:w-96 mt-6 sm:mt-0 sm:ml-6">
+                        <Select label="Selecciona el Technologias">
+                            {TechnologyDictionary.map((technology) => (
+                                <Option key={technology.id}>{technology.name}</Option>
+                            ))}
+                        </Select>
+                    </div>
+                    <div className="w-full sm:w-96 mt-6 sm:mt-0 sm:ml-6">
+                        <Select label="Selecciona el Technologias">
+                            {TechnologyDictionary.map((technology) => (
+                                <Option key={technology.id}>{technology.name}</Option>
+                            ))}
+                        </Select>
+                    </div>
+                </div>
+            </div>
         </div>
         </CardBody>
+        <CardFooter>
+            <div className='flex flex-row'>
+                <div>
+                    <Button>Guardar</Button>
+                </div>
+                <div className='ml-6'>
+                    <Button color='gray'>Cancelar</Button>
+                </div>
+            </div>
+        </CardFooter>
     </Card>
 
   )
