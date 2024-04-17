@@ -36,7 +36,7 @@ const ContextMenu = ({
                 Eliminar
               </MenuItem>
             }
-              <MenuItem>
+              <MenuItem className='p-0'>
                 <RequireAuthOnClick onClickAuthenticated={handleReport} className='p-3 flex items-center gap-2'>
                   <FlagIcon className="h-4 w-4" />
                   Reportar
