@@ -21,7 +21,11 @@ const SaveCommentForm = ({ comment = {}, onClose, className }) => {
 
   const saveComment = ({ body }) => {
     saveCommentMutation
-      .mutateAsync({ ...comment, body })
+      .mutateAsync({
+        ...comment,
+        commentId: comment.id,
+        body
+      })
       .then(() => {
         onClose()
         reset()
