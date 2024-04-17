@@ -55,6 +55,4 @@ const getPostById = async (id) => {
   }
 }
 
-const editPost = async ({ id, post }) => await baseApi.put(`${API_PATHS.posts}/${id}`, post)
-
-export { getPosts, savePost, getPostById, editPost }
+export { getPosts, savePost, getPostById }

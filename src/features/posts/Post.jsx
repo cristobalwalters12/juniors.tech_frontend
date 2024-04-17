@@ -7,14 +7,18 @@ import {
 } from '@material-tailwind/react'
 import { ArrowLeftIcon, DocumentTextIcon } from '@heroicons/react/24/outline'
 import { FormattedDate } from '../../shared/components/FormattedDate'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { CustomCardFooter } from '../../shared/components/Cards/CustomCardFooter'
 import ContextMenu from '../../shared/components/Cards/ContextMenu'
 
 const Post = ({ post }) => {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const handleVote = () => {}
-  const handleEdit = () => {}
+
+  const handleEdit = () => {
+    navigate(`/posts/${post.id}/edit`)
+  }
+
   const handleShare = () => {}
   const handleReport = () => {}
   const handleDelete = () => {}
