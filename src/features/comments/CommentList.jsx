@@ -1,6 +1,7 @@
 import { handleComments } from './commentUtils'
 import { Comment } from './Comment'
 import { useGetComments } from './useGetComments'
+import { showErrorToast } from '../../shared/utils/showErrorToast'
 
 const CommentList = ({ postId }) => {
   const getCommentsQuery = useGetComments(postId)
@@ -11,6 +12,7 @@ const CommentList = ({ postId }) => {
   }
 
   if (getCommentsQuery?.isError) {
+    showErrorToast(getCommentsQuery.error, '')
     return <h2>{getCommentsQuery.error.message}</h2>
   }
 
