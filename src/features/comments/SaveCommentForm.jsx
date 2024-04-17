@@ -4,6 +4,7 @@ import { commentSchema } from './commentSchema'
 import { Button, Typography } from '@material-tailwind/react'
 import { TextEditor } from '../posts/TextEditor'
 import { useSaveComment } from './useSaveComment'
+import { showErrorToast } from '../../shared/utils/showErrorToast'
 
 const SaveCommentForm = ({ comment = {}, onClose, className }) => {
   const saveCommentMutation = useSaveComment()
@@ -24,8 +25,8 @@ const SaveCommentForm = ({ comment = {}, onClose, className }) => {
       .then(() => {
         onClose()
         reset()
-      }).catch(err => {
-        console.log(err.message)
+      }).catch((err) => {
+        showErrorToast(err)
       })
   }
 
