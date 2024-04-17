@@ -3,7 +3,7 @@ import { API_PATHS } from '../config/constants/apiUrls'
 
 const getCategories = async () => {
   try {
-    const { data } = await baseApi.get(API_PATHS.categories)
+    const { data: { data } } = await baseApi.get(API_PATHS.categories)
     return data
   } catch (error) {
     throw new Error('Error al obtener las categorías: ' + error.message)
