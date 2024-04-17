@@ -3,8 +3,10 @@ import { joiResolver } from '@hookform/resolvers/joi'
 import { commentSchema } from './commentSchema'
 import { Button, Typography } from '@material-tailwind/react'
 import { TextEditor } from '../posts/TextEditor'
+import { useSaveComment } from './useSaveComment'
 
-const SaveCommentForm = ({ comment = {}, onSubmit, onClose, className }) => {
+const SaveCommentForm = ({ comment = {}, onClose, className }) => {
+  const saveCommentMutation = useSaveComment()
   const {
     register,
     handleSubmit,
@@ -16,15 +18,15 @@ const SaveCommentForm = ({ comment = {}, onSubmit, onClose, className }) => {
     defaultValues: { body: comment.body || '' }
   })
 
-  const saveComment = (data) => {
-    if (comment.id) {
-      comment.body = data.body
-      onSubmit(comment)
-    } else {
-      onSubmit(data)
-      close()
-      reset()
-    }
+  const saveComment = ({ body }) => {
+    saveCommentMutation
+      .mutateAsync({ ...comment, body })
+      .then(() => {
+        onClose()
+        reset()
+      }).catch(err => {
+        console.log(err.message)
+      })
   }
 
   return (
@@ -46,10 +48,10 @@ const SaveCommentForm = ({ comment = {}, onSubmit, onClose, className }) => {
             </Typography>
           )}
           <div className="flex gap-2">
-            <Button size="sm" color="red" variant="text" className="rounded-md" onClick={close}>
+            <Button size="sm" color="red" disabled={saveCommentMutation.isPending} variant="text" className="rounded-md" onClick={onClose}>
               Cancelar
             </Button>
-            <Button type="submit" disabled={!isValid} size="sm" className="rounded-md">
+            <Button type="submit" disabled={!isValid || saveCommentMutation.isPending} loading={saveCommentMutation.isPending} size="sm" className="rounded-md">
               Publicar
             </Button>
           </div>

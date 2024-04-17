@@ -1,43 +1,24 @@
 import { useState } from 'react'
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import { Button } from '@material-tailwind/react'
 import { useGetSinglePost } from '../features/posts/useGetSinglePost'
 import { Post } from '../features/posts/Post'
 import { CommentList } from '../features/comments/CommentList'
 import { SaveCommentForm } from '../features/comments/SaveCommentForm'
-import { useSaveComment } from '../features/comments/useSaveComment'
-import { useAuthStore } from '../stores/authStore'
+import RequireAuthOnClick from '../shared/components/Auth/RequireAuthOnClick'
 
 const PostDetails = () => {
-  const { id } = useParams()
-  const isAuth = useAuthStore((state) => state.isAuth)
+  const { id: postId } = useParams()
   const [replying, setReplying] = useState(false)
-  const query = useGetSinglePost(id)
-  const navigate = useNavigate()
-  const saveComment = useSaveComment()
-  const openReplyForm = () => {
-    if (!isAuth) {
-      navigate('/login')
-    }
-    setReplying(true)
-  }
-  const closeReplyForm = () => {
-    setReplying(false)
-  }
+  const query = useGetSinglePost(postId)
+  const toggleReplyForm = () => setReplying(prevState => !prevState)
 
   if (query.isLoading) return <h1>Cargando...</h1>
   if (query.isError) {
     return <Navigate to="/not-found" />
   }
+  const newComment = { postId, parentId: postId }
 
-  const submitReply = (reply) => {
-    saveComment.mutate({
-      postId: id,
-      parentId: id,
-      ...reply
-    })
-    closeReplyForm()
-  }
   return (
       <div className='max-w-[60rem]'>
         <Post post={query.data} />
@@ -45,20 +26,18 @@ const PostDetails = () => {
           {
             replying
               ? <SaveCommentForm
-                  onSubmit={submitReply}
-                  onClose={closeReplyForm}
+                  comment={newComment}
+                  onClose={toggleReplyForm}
                   className="pl-3 pr-3 mb-0"
                 />
-              : <Button
-                  className='ml-3'
-                  variant='filled'
-                  onClick={openReplyForm}
-                >
-                  Agregar comentario
-                </Button>
+              : <RequireAuthOnClick onClickAuthenticated={toggleReplyForm}>
+                  <Button className='ml-3' variant='filled'>
+                    Agregar comentario
+                  </Button>
+                </RequireAuthOnClick>
           }
         </div>
-        <CommentList postId={id} />
+        <CommentList postId={postId} />
       </div>
   )
 }
