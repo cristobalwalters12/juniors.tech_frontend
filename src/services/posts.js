@@ -6,9 +6,32 @@ const getPosts = async () => {
   return data
 }
 
-const createPost = async (post) => {
-  const { data } = await baseApi.post(API_PATHS.posts, post)
-  return data
+const savePost = async ({ id: postId, categoryId, title, body }) => {
+  let result = null
+  const post = { categoryId, title, body }
+  if (postId) {
+    result = await baseApi.put(`${API_PATHS.posts}/${postId}`, post)
+  } else {
+    result = await baseApi.post(API_PATHS.posts, post)
+  }
+  const { data } = result.data
+  return {
+    id: data.id,
+    title: data.title,
+    body: data.body,
+    categoryId: data.categoryId,
+    category: data.category,
+    slug: data.slug,
+    authorId: data.authorId,
+    authorUsername: data.username,
+    avatarUrl: data.avatarUrl,
+    voteCount: data.voteCount,
+    commentCount: data.commentCount,
+    createdAt: data.createdAt,
+    updatedAt: data.updatedAt,
+    hasOpenReport: data.hasOpenReport,
+    voteDirection: data.voteDirection
+  }
 }
 
 const getPostById = async (id) => {
@@ -34,4 +57,4 @@ const getPostById = async (id) => {
 
 const editPost = async ({ id, post }) => await baseApi.put(`${API_PATHS.posts}/${id}`, post)
 
-export { getPosts, createPost, getPostById, editPost }
+export { getPosts, savePost, getPostById, editPost }

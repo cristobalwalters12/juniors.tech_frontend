@@ -1,6 +1,6 @@
 import { useForm, Controller } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
-import { useCreatePost } from './useCreatePost'
+import { useSavePost } from './useSavePost'
 import { postSchema } from './postSchema'
 import {
   Card,
@@ -11,14 +11,13 @@ import {
   Typography
 } from '@material-tailwind/react'
 import { TextEditor } from './TextEditor'
-import { useEditPost } from './useEditPost'
 import { useNavigate } from 'react-router-dom'
 import { useGetCategories } from './useGetCategories'
+import { showErrorToast } from '../../shared/utils/showErrorToast'
 
 const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '' }) => {
   const navigate = useNavigate()
-  const createPost = useCreatePost()
-  const editPost = useEditPost()
+  const savePostMutation = useSavePost()
   const query = useGetCategories()
   const {
     register,
@@ -33,12 +32,12 @@ const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '
   })
 
   const onSubmit = (data) => {
-    if (id) {
-      editPost.mutate({ id, post: data })
-    } else {
-      createPost.mutate(data)
+    savePostMutation.mutateAsync({ id, ...data }).then((post) => {
       reset()
-    }
+      navigate(`/posts/${post.id}`, { replace: true })
+    }).catch(err => {
+      showErrorToast(err, 'Error al crear publicación')
+    })
   }
 
   return (
@@ -62,7 +61,14 @@ const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '
                 render={({ field }) => {
                   const { ref, ...rest } = field
                   return (
-                    <Select id="categoryId" {...rest} label="Categoría">
+                    <Select
+                      id="categoryId" {...rest}
+                      label="Categoría"
+                      className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                      labelProps={{
+                        className: 'hidden'
+                      }}
+                      >
                       {query?.data.map(({ id, name }) => <Option key={id} value={id}>{name}</Option>)}
                     </Select>)
                 }}
@@ -77,9 +83,12 @@ const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '
             Título
           </Typography>
           <Input
-            id="title"
-            variant="outlined"
-            label="Título"
+            id='title'
+            placeholder="Título"
+            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+            labelProps={{
+              className: 'hidden'
+            }}
             {...register('title')}
           />
           {errors.title && (
@@ -90,7 +99,7 @@ const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Descripción
           </Typography>
-          <TextEditor id="body" label="Descripción" register={register} registerKey="body"/>
+          <TextEditor id="body" label="Descripción" register={register} registerKey="body" className="bg-transparent" />
           {errors.body && (
             <Typography variant="small" color="red" className="font-normal">
               {errors.body.message}
@@ -100,7 +109,11 @@ const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '
             <Button onClick={() => navigate(-1)} size="sm" color="red" variant="text" className="rounded-md">
               Cancelar
             </Button>
-            <Button type="submit" disabled={!isValid || editPost.isPending} size="sm" className="rounded-md">
+            <Button
+              type="submit"
+              disabled={!isValid || savePostMutation.isPending}
+              loading={savePostMutation.isPending}
+              size="sm" className="rounded-md">
               Publicar
             </Button>
           </div>
