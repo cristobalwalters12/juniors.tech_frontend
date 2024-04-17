@@ -20,10 +20,24 @@ const loginUser = async (user) => {
   const { data } = await baseApi.post(API_PATHS.login, user)
   return data
 }
+const editUser = async (user) => {
+  const url = API_PATHS.editProfile.replace(':username', user.usernameId)
+  const { data } = await baseApi.put(url, user)
+  return data
+}
 
 const getPublicProfile = async (username) => {
   const url = API_PATHS.publicProfile.replace(':username', username)
   const { data } = await baseApi.get(url)
   return data
 }
-export { getUser, createUser, loginUser, getUsers, getPublicProfile }
+const desactivateAccount = async (user) => {
+  const url = API_PATHS.desactivateAccount.replace(':id', user.usernameId)
+  const { data } = await baseApi.put(url, user)
+  return data
+}
+const changePassword = async (user) => {
+  const { data } = await baseApi.post(API_PATHS.changePassword, user)
+  return data
+}
+export { getUser, createUser, loginUser, getUsers, getPublicProfile, editUser, desactivateAccount, changePassword }

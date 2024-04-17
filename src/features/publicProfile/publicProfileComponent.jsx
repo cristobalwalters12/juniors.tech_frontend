@@ -1,6 +1,5 @@
 import {
   Card,
-  Avatar,
   CardBody,
   Typography
 } from '@material-tailwind/react'
@@ -9,6 +8,7 @@ import { usePublicUserInformation } from './usePublicUserInformation'
 import { useParams } from 'react-router-dom'
 import Nestbutton from './NestButton'
 import { useAuthStore } from '../../stores/authStore'
+import ProfileAvatar from '../../shared/components/ProfileAvatar'
 const PublicProfileComponent = () => {
   const { username } = useParams()
   const { publicProfile, data } = usePublicUserInformation(username)
@@ -26,25 +26,27 @@ const PublicProfileComponent = () => {
   return (
       <Card className="mt-6">
         <div className='flex m-6'>
-        <Avatar src="https://docs.material-tailwind.com/img/face-2.jpg" alt="avatar" size='xxl' />
+          <ProfileAvatar alt="avatar" size='xxl' />
         <div className='flex'>
-        <div className='ml-5'>
-          <Typography color="black" variant='h2'>
-            {data?.username} ({data?.pronoun})
-          </Typography>
-          <Typography color="black">
-            Miembro por N meses
-          </Typography>
-          <Typography color="black">
-          {data?.employmentStatusId}
-          </Typography>
-          <Typography color="black">
-          {data?.countryId}
-          </Typography>
+          <div>
+          <div className='ml-5'>
+            <Typography color="black" variant='h2'>
+              {data?.username} ({data?.pronoun})
+            </Typography>
+            <Typography color="black">
+                Miembro por N meses
+            </Typography>
+            <Typography color="black">
+            {data?.employmentStatus}
+            </Typography>
+            <Typography color="black">
+            {data?.country}
+            </Typography>
         </div>
-        <div className='ml-36'>
+        <div className='sm:ml-36'>
           <Nestbutton isSameUser={validateid()} />
         </div>
+          </div>
       </div>
         </div>
         <CardBody>
@@ -94,12 +96,11 @@ const PublicProfileComponent = () => {
             {data?.languages && data.languages.map((lang, index) => (
             <Fragment key={index}>
               <Typography color='black'>
-                {lang}
+                {lang || 'N/A'}
               </Typography>
               {index < data.languages.length - 1 && <Typography color='black'>-</Typography>}
             </Fragment>
             ))}
-
             </div>
           </div>
           </div>
@@ -131,11 +132,11 @@ const PublicProfileComponent = () => {
               Redes
             </Typography>
             <div className='flex gap-6 flex-col mt-4'>
-              {data?.social_networks && data.social_networks.map((network, index) => (
-                network && <Typography color='black' key={index}>
-                  <a href={network.toString()}>Red Social {index + 1}</a>
-                </Typography>
-              ))}
+            {data?.social_networks && data.social_networks.map((network, index) => (
+              network && <Typography color='black' key={index}>
+                <a href={network.toString() || '#'}>{data?.social_networks}{index + 1}</a>
+              </Typography>
+            ))}
             </div>
           </div>
           <div className='mt-6'>
