@@ -19,22 +19,22 @@ function ReportManagementSelector () {
   return (
     <div className="flex flex-col items-center space-y-4 gap-4">
       <Button
-        className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-blue-gray-600 text-xl"
+        className="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-gray-600 text-lg normal-case"
         onClick={handleSelectPublicaciones}
       >
-        Gestionar Reportes de Publicaciones
+        Gestionar reportes de publicaciones
       </Button>
       <Button
-        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-gray-600 text-lg"
+        className="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-gray-600 text-lg normal-case"
         onClick={handleSelectComentarios}
       >
-        Gestionar Reportes de Comentarios
+        Gestionar reportes de comentarios
       </Button>
       <Button
-        className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-blue-gray-600 text-lg"
+        className="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-gray-600 text-lg normal-case"
         onClick={handleSelectUsuarios}
       >
-        Gestionar Reportes de Usuarios
+        Gestionar reportes de usuarios
       </Button>
     </div>
   )
