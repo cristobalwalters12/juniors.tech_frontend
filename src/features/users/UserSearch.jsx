@@ -40,11 +40,18 @@ const UserSearch = () => {
                     <div className="flex items-center justify-between sm:mt-2">
                       <div className="flex items-center">
                         <div className="flex flex-col">
-                          <div className="w-full flex-none text-lg text-gray-800 font-bold leading-none">{user.username}</div>
+                          <div className="w-full flex-none text-lg text-gray-800 font-bold leading-none">
+                            <div>
+                              <span>{user.username} </span>
+                              {user.country_id && (<>
+                            <span>{user.country_id}</span></>)}
+                            </div>
+                          </div>
                           <div className="flex-auto text-gray-500 my-1">
                             <span className="mr-3 ">{user.score} {user.score === 1 ? 'punto' : 'puntos'}</span>
+                            {user.open_to_work && (<>
                             <span className="mr-3 border-r border-gray-200  max-h-0"></span>
-                            {user.open_to_work && (<span>Abierto a ofertas</span>)}
+                            <span>Abierto a ofertas</span></>)}
                           </div>
                         </div>
                       </div>
