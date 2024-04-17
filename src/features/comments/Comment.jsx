@@ -14,10 +14,12 @@ import { CustomCardFooter } from '../../shared/components/Cards/CustomCardFooter
 import { useDeleteComment } from './useDeleteComment'
 import { showErrorToast } from '../../shared/utils/showErrorToast'
 import { toast } from 'react-toastify'
+import { useVoteComment } from './useVoteComment'
 
 const Comment = ({ comment, getRepliesById }) => {
   const [editing, setEditing] = useState(false)
   const deleteCommentMutation = useDeleteComment()
+  const voteOnCommentMutation = useVoteComment()
   // const [replying, setReplying] = useState(false)
   // const [showReplies, setShowReplies] = useState(false)
   const showEditingForm = () => setEditing(true)
@@ -27,9 +29,20 @@ const Comment = ({ comment, getRepliesById }) => {
   // const toggleReplies = () => setShowReplies(prevState => !prevState)
   const toggleReplies = () => {}
 
-  const handleVote = () => {}
+  const handleVote = (voteDirection) => {
+    voteOnCommentMutation.mutateAsync({
+      postId: comment.postId,
+      commentId: comment.id,
+      voteDirection
+    }).catch(err => {
+      console.log({ err })
+      showErrorToast(err, 'Error al intentar votar')
+    })
+  }
+
   const handleShare = () => {}
   const handleReport = () => {}
+
   const handleDelete = () => {
     deleteCommentMutation
       .mutateAsync({

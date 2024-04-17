@@ -28,7 +28,7 @@ const CustomCardFooter = ({
   return (
     <div className={`mt-1 flex items-center ${className}`}>
       <div className="flex items-center gap-1">
-        <Button variant="text" disabled={isDeleted} onClick={handleVote(-1)} className="rounded-full p-1.5">
+        <Button variant="text" disabled={isDeleted} onClick={handleVote(1)} className="rounded-full p-1.5">
           <ArrowUpIcon className={`h-4 w-4 ${resource.voteDirection === 1 ? 'text-blue-600' : ''}`} />
         </Button>
         {!isDeleted &&
