@@ -11,6 +11,7 @@ import {
 } from '@material-tailwind/react'
 import { getMods, addModerator, removeModerator } from '../../services/mods'
 import { useAuthStore } from '../../stores/authStore'
+import { toast } from 'react-toastify'
 
 const TABLE_HEAD = ['Nombre', 'Acciones']
 
@@ -55,11 +56,14 @@ export function RoleManagementTable () {
         updatedRows.splice(openDialogIndex, 1)
         setTableRows(updatedRows)
         handleCloseDialog()
+        toast.success('Moderador eliminado correctamente.')
       } else {
         console.error('No tienes permisos para eliminar un moderador.')
+        toast.error('No tienes permisos para eliminar un moderador.')
       }
     } catch (error) {
       console.error('Error al eliminar el moderador:', error)
+      toast.error('Error al eliminar el moderador.')
     }
   }
 
@@ -79,11 +83,14 @@ export function RoleManagementTable () {
         const updatedRows = [...tableRows, { username: newModeratorName }]
         setTableRows(updatedRows)
         handleCloseAddDialog()
+        toast.success('Moderador agregado correctamente.')
       } else {
         console.error('No tienes permisos para agregar un moderador.')
+        toast.error('No tienes permisos para agregar un moderador.')
       }
     } catch (error) {
       console.error('Error al agregar el moderador:', error)
+      toast.error('Error al agregar el moderador.')
     }
   }
 
@@ -142,9 +149,11 @@ export function RoleManagementTable () {
           <DialogBody>
             <div className="grid gap-3">
               <Input
-                label="Nombre"
+                type='text'
+                placeholder="Nombre"
                 value={newModeratorName}
                 onChange={(e) => setNewModeratorName(e.target.value)}
+                className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
               />
             </div>
           </DialogBody>
