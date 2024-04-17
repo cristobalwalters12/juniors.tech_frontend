@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { EllipsisVerticalIcon, FlagIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
-import { Button, Menu, MenuHandler, MenuItem, MenuList } from '@material-tailwind/react'
+import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, Menu, MenuHandler, MenuItem, MenuList } from '@material-tailwind/react'
 import { useAuthStore } from '../../../stores/authStore'
 import { ROLES } from '../../../config/constants/roles'
 import RequireAuthOnClick from '../Auth/RequireAuthOnClick'
@@ -7,16 +8,23 @@ import RequireAuthOnClick from '../Auth/RequireAuthOnClick'
 const ContextMenu = ({
   ownerId,
   onEdit: handleEdit,
-  onDelete: handleDelete,
+  onDelete,
   onReport: handleReport
 }) => {
+  const [openDialog, setOpenDialog] = useState(false)
+  const toggleOpenDialog = () => setOpenDialog(prev => !prev)
   const userId = useAuthStore(state => state.id)
   const roles = useAuthStore(state => state.roles)
   const isCurrUserOwner = ownerId === userId
   const isCurrUserAdminOrMod = roles.some(role => role === ROLES.ADMIN || role === ROLES.MOD)
   const hasSpecialPermissions = isCurrUserOwner || isCurrUserAdminOrMod
 
-  return (
+  const handleDelete = () => {
+    onDelete()
+    toggleOpenDialog()
+  }
+  return (<>
+
           <Menu>
             <MenuHandler>
               <Button variant="text" className="rounded-full p-1.5">
@@ -31,7 +39,7 @@ const ContextMenu = ({
               </MenuItem>
             }
             {hasSpecialPermissions &&
-              <MenuItem className='p-3 flex items-center gap-2' onClick={handleDelete}>
+              <MenuItem className='p-3 flex items-center gap-2' onClick={toggleOpenDialog}>
                 <TrashIcon className="h-4 w-4" />
                 Eliminar
               </MenuItem>
@@ -44,6 +52,24 @@ const ContextMenu = ({
               </MenuItem>
             </MenuList>
           </Menu>
+          <Dialog open={openDialog} handler={toggleOpenDialog} size='xs'>
+          <DialogHeader>Eliminar</DialogHeader>
+          <DialogBody>¿De verdad quieres eliminar este recurso?</DialogBody>
+          <DialogFooter>
+            <Button
+              variant="text"
+              color="gray"
+              onClick={toggleOpenDialog}
+              className="mr-1"
+            >
+              <span>Cancelar</span>
+            </Button>
+            <Button variant="gradient" color="red" onClick={handleDelete}>
+              <span>Confirmar</span>
+            </Button>
+          </DialogFooter>
+        </Dialog>
+        </>
   )
 }
 

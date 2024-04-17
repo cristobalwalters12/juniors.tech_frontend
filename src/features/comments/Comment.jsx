@@ -35,7 +35,7 @@ const Comment = ({ comment, getRepliesById }) => {
       .mutateAsync({
         postId: comment.postId,
         commentId: comment.id
-      }).then(
+      }).then(() =>
         toast('Comentario eliminado con éxito')
       )
       .catch(err => showErrorToast(err, 'Error al eliminar comentario'))
