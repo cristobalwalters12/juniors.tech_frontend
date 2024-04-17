@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Navigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { Button } from '@material-tailwind/react'
 import { useGetSinglePost } from '../features/posts/useGetSinglePost'
 import { Post } from '../features/posts/Post'
@@ -12,8 +12,16 @@ import { showErrorToast } from '../shared/utils/showErrorToast'
 const PostDetails = () => {
   const { id: postId } = useParams()
   const [replying, setReplying] = useState(false)
+  const navigate = useNavigate()
   const getSinglePostQuery = useGetSinglePost(postId)
   useDocumentTitle(getSinglePostQuery.data?.title, getSinglePostQuery.isFetched)
+
+  useEffect(() => {
+    if (getSinglePostQuery.data) {
+      const { id, slug } = getSinglePostQuery.data
+      navigate(`/posts/${id}/${slug}`, { replace: true })
+    }
+  }, [getSinglePostQuery.data, navigate])
 
   const toggleReplyForm = () => setReplying(prevState => !prevState)
 
