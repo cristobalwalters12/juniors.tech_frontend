@@ -14,6 +14,7 @@ import ContextMenu from '../../shared/components/Cards/ContextMenu'
 const Post = ({ post }) => {
   // const navigate = useNavigate()
   const handleVote = () => {}
+  const handleEdit = () => {}
   const handleShare = () => {}
   const handleReport = () => {}
   const handleDelete = () => {}
@@ -55,7 +56,12 @@ const Post = ({ post }) => {
             </div>
           </div>
           <div className='flex items-center'>
-            <ContextMenu />
+            <ContextMenu
+              ownerId={post.authorId}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              onReport={handleReport}
+            />
           </div>
         </CardHeader>
         <CardBody className="mb-2 p-0 flex flex-col gap-2">
