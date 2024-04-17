@@ -1,65 +1,68 @@
 import { useGetUsers } from './useGetUsers'
 import { useEffect, useState } from 'react'
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Typography,
-  CardFooter,
-  Avatar
-} from '@material-tailwind/react'
+import { Avatar } from '@material-tailwind/react'
+import { Link } from 'react-router-dom'
 
-export function UserSearch () {
+const UserSearch = () => {
   const [users, setUsers] = useState([])
-  const { data: usersData } = useGetUsers()
+  const { isLoading, usersAll, isError, error } = useGetUsers()
 
   useEffect(() => {
-    if (usersData) {
-      setUsers(usersData.data.user)
+    if (usersAll) {
+      setUsers(usersAll.data)
     }
-  }, [usersData])
+  }, [usersAll])
+
+  if (isLoading) return (<h1 className='text-blue-gray-50'>Cargando...</h1>)
+
+  if (isError) return (<h1 className='text-blue-gray-50'>{error.message}</h1>)
+
+  console.log('usuarios', users)
 
   return (
     <>
-      {users.map((user) => (
-        <Card color="transparent" key={user.id} shadow={false} className="w-full max-w-[26rem]">
-          <CardHeader
-            color="transparent"
-            floated={false}
-            shadow={false}
-            className="mx-0 flex items-center gap-4 pt-0 pb-8"
-          >
-            <Avatar
-              size="lg"
-              variant="circular"
-              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-              alt="tania andrew"
-            />
-            <div className="flex w-full flex-col gap-0.5">
-              <div className="flex items-center justify-between">
-                <Typography variant="h5" color="blue-gray">
-                  {user.username} . {user.country}
-                </Typography>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-center bg-cover">
+        {users.map((user) => (
+          <div key={user.id} className="max-w-3xl w-full mx-auto z-10">
+            <div className="flex flex-col">
+              <div className="bg-white border border-white shadow-lg  rounded-3xl p-4 m-4">
+                <div className="flex-none sm:flex">
+                  <div className="relative h-32 w-32   sm:mb-0 mb-3">
+                    <Avatar
+                      size="lg"
+                      className="w-32 h-32 object-cover rounded-2xl"
+                      variant="circular"
+                      src={user.avatar_url}
+                      alt={user.username}
+                    />
+                  </div>
+                  <div className="flex-auto sm:ml-5 justify-evenly">
+                    <div className="flex items-center justify-between sm:mt-2">
+                      <div className="flex items-center">
+                        <div className="flex flex-col">
+                          <div className="w-full flex-none text-lg text-gray-800 font-bold leading-none">{user.username}</div>
+                          <div className="flex-auto text-gray-500 my-1">
+                            <span className="mr-3 ">{user.score} {user.score === 1 ? 'punto' : 'puntos'}</span>
+                            <span className="mr-3 border-r border-gray-200  max-h-0"></span>
+                            {user.open_to_work && (<span>Abierto a ofertas</span>)}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex text-sm text-gray-500">
+                        <Link to={`/users/${user.username}`}>
+                          <button className="flex-no-shrink bg-green-400 hover:bg-green-500 px-5 ml-4 py-2 text-xs shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-300 hover:border-green-500 text-white rounded-full transition ease-in duration-300">Ir al perfil</button>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <Typography color="blue-gray">Frontend Lead @ Google</Typography>
             </div>
-          </CardHeader>
-          <CardBody className="mb-6 p-0">
-            <Typography>
-              {user.score} . {user.username}
-            </Typography>
-            <Typography>
-              {user.score} . {user.username}
-            </Typography>
-            <Typography>
-              {user.score} . {user.username}
-            </Typography>
-          </CardBody>
-          <CardFooter>
-            <div>react</div>
-          </CardFooter>
-        </Card>
-      ))}
+          </div>
+        ))}
+      </div>
     </>
   )
 }
+
+export default UserSearch
