@@ -11,9 +11,13 @@ import { Link } from 'react-router-dom'
 import { FormattedDate } from '../../shared/components/FormattedDate'
 import { SaveCommentForm } from './SaveCommentForm'
 import { CustomCardFooter } from '../../shared/components/Cards/CustomCardFooter'
+import { useDeleteComment } from './useDeleteComment'
+import { showErrorToast } from '../../shared/utils/showErrorToast'
+import { toast } from 'react-toastify'
 
 const Comment = ({ comment, getRepliesById }) => {
   const [editing, setEditing] = useState(false)
+  const deleteCommentMutation = useDeleteComment()
   // const [replying, setReplying] = useState(false)
   // const [showReplies, setShowReplies] = useState(false)
   const showEditingForm = () => setEditing(true)
@@ -26,7 +30,16 @@ const Comment = ({ comment, getRepliesById }) => {
   const handleVote = () => {}
   const handleShare = () => {}
   const handleReport = () => {}
-  const handleDelete = () => {}
+  const handleDelete = () => {
+    deleteCommentMutation
+      .mutateAsync({
+        postId: comment.postId,
+        commentId: comment.id
+      }).then(
+        toast('Comentario eliminado con éxito')
+      )
+      .catch(err => showErrorToast(err, 'Error al eliminar comentario'))
+  }
 
   const Avatar = (
     <UserAvatar

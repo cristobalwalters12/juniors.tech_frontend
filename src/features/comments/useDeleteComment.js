@@ -4,14 +4,28 @@ import { deleteComment } from '../../services/comments'
 const useDeleteComment = () => {
   const queryClient = useQueryClient()
 
-  const deleteCommentMutation = useMutation({
+  return useMutation({
     mutationFn: deleteComment,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['comments'] })
+    onMutate: (payload) => payload,
+    onSuccess: (result, variables, context) => {
+      queryClient.setQueryData(
+        ['comments', context.postId],
+        (prevComments) => prevComments.map(comment => {
+          if (comment.id !== context.commentId) return comment
+          return {
+            ...comment,
+            body: 'Comentario eliminado',
+            authorId: null,
+            authorUsername: null,
+            avatarUrl: null,
+            voteCount: null,
+            deletedAt: (new Date()).toISOString(),
+            voteDirection: 0
+          }
+        })
+      )
+    }
   })
-
-  return {
-    deleteComment: deleteCommentMutation.mutate
-  }
 }
 
 export { useDeleteComment }
