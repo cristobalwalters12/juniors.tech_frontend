@@ -1,8 +1,73 @@
+import {
+  Card,
+  Typography,
+  Input,
+  Button,
+  CardBody
+} from '@material-tailwind/react'
+import { useAuthStore } from '../../stores/authStore'
+import ProfileAvatar from '../../shared/components/ProfileAvatar'
+import { useForm } from 'react-hook-form'
+import { useUserChangePassword } from './userUserchangePassword'
+import { useNavigate } from 'react-router-dom'
+
 const ChangePassword = () => {
+  const user = useAuthStore(state => state.user)
+  const navigate = useNavigate()
+
+  const { change } = useUserChangePassword()
+  const { register, handleSubmit } = useForm()
+
+  const onSubmit = data => {
+    const userData = {
+      password: data.password,
+      newPassword: data.newPassword
+    }
+    change(userData, {
+      onSuccess: () => {
+        navigate(`/users/${user}`)
+      }
+    })
+  }
   return (
-        <div>
-        ChangePassword
+    <Card className="mt-6">
+      <div className='flex mt-6 ml-6 flex-col'>
+            <Typography color='black' variant='h3'>
+                Editar Perfil
+            </Typography>
+            <Typography color='black' className='mt-3 text-xl'>
+                {user}
+            </Typography>
         </div>
+        <div className='flex ml-6  flex-col' >
+            <ProfileAvatar alt="avatar" size='xxl' className='mt-6' />
+        </div>
+      <CardBody>
+        <Typography color='black' variant='h3'>
+          Cambiar Contraseña
+        </Typography>
+        <form onSubmit={handleSubmit(onSubmit)}>
+        <div className='w-full sm:w-6/12'>
+        <Typography color='black' className='mt-3'>
+          Contraseña Actual
+          </Typography>
+          <Input type="password" label="Contraseña" {...register('password', { required: true })} />
+        </div>
+        <div className='w-full sm:w-6/12'>
+        <Typography color='black' className='mt-3'>
+          Contraseña Nueva
+          </Typography>
+          <Input type="password" label="Contraseña" {...register('newPassword', { required: true })} />
+        </div>
+        <div className='mt-6'>
+        <Button type="submit">
+          Cambiar Contraseña
+        </Button>
+        </div>
+        </form>
+      </CardBody>
+
+    </Card>
   )
 }
 

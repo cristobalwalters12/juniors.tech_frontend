@@ -14,12 +14,15 @@ import ProfileAvatar from '../../shared/components/ProfileAvatar'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useUserDesactivateAccount } from './useUserDesactivateAccount'
+import { useNavigate } from 'react-router-dom'
 const DesactivateAccount = () => {
   const user = useAuthStore(state => state.user)
   const idUser = useAuthStore(state => state.id)
+  const { logout } = useAuthStore()
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(!open)
   const { desactivate } = useUserDesactivateAccount()
+  const navigate = useNavigate()
 
   const { register, handleSubmit } = useForm()
   const handleConfirm = () => {
@@ -32,15 +35,17 @@ const DesactivateAccount = () => {
       usernameId: idUser,
       password: data.password
     }
-    desactivate(user)
+    desactivate(user, {
+      onSuccess: () => {
+        navigate('/register')
+        logout()
+      }
+    })
   }
 
   return (
     <Card className="mt-6">
       <div className='flex mt-6 ml-6 flex-col'>
-            <Typography color='black' variant='h3'>
-                Editar Perfil
-            </Typography>
             <Typography color='black' className='mt-3 text-xl'>
                 {user}
             </Typography>
