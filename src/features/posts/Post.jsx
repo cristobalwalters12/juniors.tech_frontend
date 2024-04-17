@@ -21,6 +21,11 @@ const Post = ({ post }) => {
   const currUserId = useAuthStore((state) => state.id)
   const owner = post.authorId === currUserId
   const navigate = useNavigate()
+  const handleVote = () => {}
+  const handleShare = () => {}
+  const handleReport = () => {}
+  const handleDelete = () => {}
+  const handleShowReplies = () => {}
 
   return (
     <article className='pl-4 pb-3'>
@@ -89,7 +94,14 @@ const Post = ({ post }) => {
           <Typography variant='h4'>{post.title}</Typography>
           <Typography>{post.body}</Typography>
         </CardBody>
-        <CustomCardFooter voteDirection={post.voteDirection} voteCount={post.voteCount} commentCount={post.commentCount} owner={false} />
+        <CustomCardFooter
+          post={post}
+          onShowReplies={handleShowReplies}
+          onVote={handleVote}
+          onShare={handleShare}
+          onReport={handleReport}
+          onDelete={handleDelete}
+        />
       </Card>
     </article>
   )

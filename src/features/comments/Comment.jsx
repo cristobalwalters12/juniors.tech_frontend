@@ -1,25 +1,40 @@
 import {
-  Collapse
+  Card,
+  CardBody,
+  CardHeader,
+  // Collapse,
+  Typography
 } from '@material-tailwind/react'
 import { useState } from 'react'
-import { useAuthStore } from '../../stores/authStore'
+import UserAvatar from '../../shared/components/UserAvatar'
+import { Link } from 'react-router-dom'
+import { FormattedDate } from '../../shared/components/FormattedDate'
+import { SaveCommentForm } from './SaveCommentForm'
+import { CustomCardFooter } from '../../shared/components/Cards/CustomCardFooter'
 
 const Comment = ({ comment, getRepliesById }) => {
-  const userId = useAuthStore(state => state.id)
   const [editing, setEditing] = useState(false)
-  const [replying, setReplying] = useState(false)
+  // const [replying, setReplying] = useState(false)
+  // const [showReplies, setShowReplies] = useState(false)
   const showEditingForm = () => setEditing(true)
   const hideEditingForm = () => setEditing(false)
-  const openReplyForm = () => setReplying(true)
-  const closeReplyForm = () => setReplying(false)
+  // const openReplyForm = () => setReplying(true)
+  // const closeReplyForm = () => setReplying(false)
+  // const toggleReplies = () => setShowReplies(prevState => !prevState)
+  const toggleReplies = () => {}
 
-  const isOwner = userId === comment.authorId
+  const handleVote = () => {}
+  const handleShare = () => {}
+  const handleReport = () => {}
+  const handleDelete = () => {}
+
   const Avatar = (
     <UserAvatar
     avatarUrl={comment.avatarUrl}
     username={comment.authorUsername || 'Usuario eliminado'}
     className="w-10" />
   )
+
   return (
     <>
       <Card
@@ -58,7 +73,6 @@ const Comment = ({ comment, getRepliesById }) => {
         {
           editing
             ? <SaveCommentForm
-                onSubmit={editComment}
                 onClose={hideEditingForm}
                 comment={comment}
               />
@@ -66,12 +80,15 @@ const Comment = ({ comment, getRepliesById }) => {
                 <Typography variant='small' className={`font-normal ${comment.deletedAt ? 'text-gray-600' : ''}`}>
                   {comment.body}
                 </Typography>
-                { !comment.deletedAt &&
-                  <CustomCardFooter
-                    isOwner={isOwner}
-                    comment={comment}
-                    onEdit={showEditingForm}
-                  />}
+                <CustomCardFooter
+                  comment={comment}
+                  onEdit={showEditingForm}
+                  onShowReplies={toggleReplies}
+                  onVote={handleVote}
+                  onShare={handleShare}
+                  onReport={handleReport}
+                  onDelete={handleDelete}
+                />
               </>)
         }
         </CardBody>
