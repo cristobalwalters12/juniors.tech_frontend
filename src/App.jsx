@@ -22,10 +22,13 @@ import PersistAuth from './shared/components/Auth/PersistAuth'
 import RequireAuth from './shared/components/Auth/RequireAuth'
 import AuthenticateForm from './shared/components/Auth/AuthenticateForm'
 import RequireAccountOwner from './shared/components/Auth/RequireAccountOwner'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App () {
   return (
     <>
+    <ToastContainer/>
     <Routes>
       <Route element={<PersistAuth/>}>
         <Route element={<StackedLayout/>}>
