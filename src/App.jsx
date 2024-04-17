@@ -12,6 +12,8 @@ import StackedLayout from './layouts/StackedLayout'
 import Modal from './shared/components/Modal'
 import PublicProfileComponent from './features/publicProfile/publicProfileComponent'
 import EditUserProfile from './features/editUserProfile/editUser/EditUserProfile'
+import ChangePassword from './features/changePassword/ChangePassword'
+import DesactivateAccount from './features/desactivateAccount/DesactivateAccount'
 import { RoleManagementTable } from './features/dashboard/RoleManagementTable'
 import ReportManagementSelector from './features/dashboard/ReportManagementSelector'
 import { PostReportTable } from './features/dashboard/PostsReportManagementTable'
@@ -60,8 +62,8 @@ function App () {
       <Route element={<RequireAccountOwner />} >
         <Route element={<DashboardLayout/>}>
           <Route path="/users/:username/edit" element={<EditUserProfile />} />
-          <Route path="/users/:username/change-password" element={<PublicProfileComponent />} />
-          <Route path="/users/:username/deactivate-account" element={<PublicProfileComponent />} />
+          <Route path="/users/:username/change-password" element={<ChangePassword />} />
+          <Route path="/users/:username/deactivate-account" element={<DesactivateAccount />} />
         </Route>
       </Route>
 

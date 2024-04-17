@@ -1,23 +1,23 @@
 const PronounDiccionary = [
   {
-    id: 'X_cRRyLmCz',
-    name: 'él'
+    value: 'X_cRRyLmCz',
+    label: 'él'
   },
   {
-    id: 'CDh1hg1KkW',
-    name: 'ella'
+    value: 'CDh1hg1KkW',
+    label: 'ella'
   },
   {
-    id: 'vPWAO-ofrt',
-    name: 'él/ella'
+    value: 'vPWAO-ofrt',
+    label: 'él/ella'
   },
   {
-    id: 'XKcoEKN2uw',
-    name: 'otro'
+    value: 'XKcoEKN2uw',
+    label: 'otro'
   },
   {
-    id: 'RzIUai6HWL',
-    name: 'no especifica'
+    value: 'RzIUai6HWL',
+    label: 'no especifica'
   }
 ]
 

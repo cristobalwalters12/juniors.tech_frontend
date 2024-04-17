@@ -1,175 +1,175 @@
 const TechnologyDictionary = [
   {
-    id: 'PvBVCscP0n',
-    name: '.NET'
+    value: 'PvBVCscP0n',
+    label: '.NET'
   },
   {
-    id: 'xgo2DY83a5',
-    name: 'Angular.js'
+    value: 'xgo2DY83a5',
+    label: 'Angular.js'
   },
   {
-    id: 'x5WNYy3dzB',
-    name: 'C'
+    value: 'x5WNYy3dzB',
+    label: 'C'
   },
   {
-    id: 'MvqkJXD9qf',
-    name: 'C#'
+    value: 'MvqkJXD9qf',
+    label: 'C#'
   },
   {
-    id: 'DqjOS2k0mx',
-    name: 'C++'
+    value: 'DqjOS2k0mx',
+    label: 'C++'
   },
   {
-    id: '_mnxA7nz8c',
-    name: 'CSS'
+    value: '_mnxA7nz8c',
+    label: 'CSS'
   },
   {
-    id: 'Z72uD58Xwn',
-    name: 'Django'
+    value: 'Z72uD58Xwn',
+    label: 'Django'
   },
   {
-    id: 'rjxKjNMxay',
-    name: 'Docker'
+    value: 'rjxKjNMxay',
+    label: 'Docker'
   },
   {
-    id: '036xmBG9c7',
-    name: 'Express.js'
+    value: '036xmBG9c7',
+    label: 'Express.js'
   },
   {
-    id: 'P8VB6O_N4O',
-    name: 'FastAPI'
+    value: 'P8VB6O_N4O',
+    label: 'FastAPI'
   },
   {
-    id: 'o5QMNUpshP',
-    name: 'Flask'
+    value: 'o5QMNUpshP',
+    label: 'Flask'
   },
   {
-    id: '9XlOiQq80M',
-    name: 'Git'
+    value: '9XlOiQq80M',
+    label: 'Git'
   },
   {
-    id: 'aWWTfXi741',
-    name: 'GitHub'
+    value: 'aWWTfXi741',
+    label: 'GitHub'
   },
   {
-    id: 'cdNhaefY5W',
-    name: 'Go'
+    value: 'cdNhaefY5W',
+    label: 'Go'
   },
   {
-    id: 'xeihZzY2mL',
-    name: 'Golang'
+    value: 'xeihZzY2mL',
+    label: 'Golang'
   },
   {
-    id: 'XXZROnTUjP',
-    name: 'HTML'
+    value: 'XXZROnTUjP',
+    label: 'HTML'
   },
   {
-    id: 'QhKk9l1Fhr',
-    name: 'Java'
+    value: 'QhKk9l1Fhr',
+    label: 'Java'
   },
   {
-    id: '_84RNpgyTx',
-    name: 'Javascript'
+    value: '_84RNpgyTx',
+    label: 'Javascript'
   },
   {
-    id: 'n2u7DOmxah',
-    name: 'Jest'
+    value: 'n2u7DOmxah',
+    label: 'Jest'
   },
   {
-    id: '5ZEpJKZV47',
-    name: 'Kotlin'
+    value: '5ZEpJKZV47',
+    label: 'Kotlin'
   },
   {
-    id: 'xEDu_l6J8p',
-    name: 'Kubernetes'
+    value: 'xEDu_l6J8p',
+    label: 'Kubernetes'
   },
   {
-    id: '26b6GVbDZf',
-    name: 'Laravel'
+    value: '26b6GVbDZf',
+    label: 'Laravel'
   },
   {
-    id: 'FEGZwwLIN4',
-    name: 'Matlab'
+    value: 'FEGZwwLIN4',
+    label: 'Matlab'
   },
   {
-    id: '3GL4zuCJix',
-    name: 'MongoDB'
+    value: '3GL4zuCJix',
+    label: 'MongoDB'
   },
   {
-    id: 'I13rLZULz9',
-    name: 'Nest.js'
+    value: 'I13rLZULz9',
+    label: 'Nest.js'
   },
   {
-    id: 'TUGS1Z5izO',
-    name: 'Node.js'
+    value: 'TUGS1Z5izO',
+    label: 'Node.js'
   },
   {
-    id: 'B7arQIaop_',
-    name: 'Perl'
+    value: 'B7arQIaop_',
+    label: 'Perl'
   },
   {
-    id: '2I8Q4leKhM',
-    name: 'PHP'
+    value: '2I8Q4leKhM',
+    label: 'PHP'
   },
   {
-    id: '50ecu8Q6OZ',
-    name: 'Python'
+    value: '50ecu8Q6OZ',
+    label: 'Python'
   },
   {
-    id: '5-ST4H3u8R',
-    name: 'R'
+    value: '5-ST4H3u8R',
+    label: 'R'
   },
   {
-    id: '5jGWi7r4Z9',
-    name: 'React.js'
+    value: '5jGWi7r4Z9',
+    label: 'React.js'
   },
   {
-    id: 'Yu9Z4_jnpY',
-    name: 'Redis'
+    value: 'Yu9Z4_jnpY',
+    label: 'Redis'
   },
   {
-    id: 'zjgBnU7Xkt',
-    name: 'Ruby'
+    value: 'zjgBnU7Xkt',
+    label: 'Ruby'
   },
   {
-    id: 'fU90OeYqSK',
-    name: 'Ruby on Rails'
+    value: 'fU90OeYqSK',
+    label: 'Ruby on Rails'
   },
   {
-    id: 'BMqEtSEy-h',
-    name: 'Rust'
+    value: 'BMqEtSEy-h',
+    label: 'Rust'
   },
   {
-    id: 'cOb9lGFZOR',
-    name: 'Scala'
+    value: 'cOb9lGFZOR',
+    label: 'Scala'
   },
   {
-    id: 'oIYPxiJ0-o',
-    name: 'Spring'
+    value: 'oIYPxiJ0-o',
+    label: 'Spring'
   },
   {
-    id: 'FUuPq-qBsx',
-    name: 'SQL'
+    value: 'FUuPq-qBsx',
+    label: 'SQL'
   },
   {
-    id: '121bcFfPXf',
-    name: 'StoryBook'
+    value: '121bcFfPXf',
+    label: 'StoryBook'
   },
   {
-    id: '1oCUvjJGGn',
-    name: 'Swift'
+    value: '1oCUvjJGGn',
+    label: 'Swift'
   },
   {
-    id: 'UhEGbr04_n',
-    name: 'TypeScript'
+    value: 'UhEGbr04_n',
+    label: 'TypeScript'
   },
   {
-    id: 'kVrilUMYLX',
-    name: 'Unity'
+    value: 'kVrilUMYLX',
+    label: 'Unity'
   },
   {
-    id: 'gQJgY5AZmi',
-    name: 'Vue.js'
+    value: 'gQJgY5AZmi',
+    label: 'Vue.js'
   }
 ]
 

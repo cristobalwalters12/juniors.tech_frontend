@@ -1,87 +1,87 @@
 const ItFieldDictionary = [
   {
-    id: 'MDfP4QzwC8',
-    name: 'Administración de Bases de Datos'
+    value: 'MDfP4QzwC8',
+    label: 'Administración de Bases de Datos'
   },
   {
-    id: 'yKQuA2BRIs',
-    name: 'Análisis de Datos'
+    value: 'yKQuA2BRIs',
+    label: 'Análisis de Datos'
   },
   {
-    id: 'cj_c51MU8R',
-    name: 'Análsis funcional'
+    value: 'cj_c51MU8R',
+    label: 'Análsis funcional'
   },
   {
-    id: 'u4n-DcV75D',
-    name: 'Blockchain'
+    value: 'u4n-DcV75D',
+    label: 'Blockchain'
   },
   {
-    id: 'Xhr_B_r60R',
-    name: 'Ciberseguridad'
+    value: 'Xhr_B_r60R',
+    label: 'Cibersegurvaluead'
   },
   {
-    id: 'dd0n-1hzJv',
-    name: 'Ciencia de Datos'
+    value: 'dd0n-1hzJv',
+    label: 'Ciencia de Datos'
   },
   {
-    id: '4LgM1z9vVK',
-    name: 'Computación en la nube'
+    value: '4LgM1z9vVK',
+    label: 'Computación en la nube'
   },
   {
-    id: 'SSU0qrs0Vf',
-    name: 'Desarrollo de Aplicaciones de Escritorio'
+    value: 'SSU0qrs0Vf',
+    label: 'Desarrollo de Aplicaciones de Escritorio'
   },
   {
-    id: 'FNONFwGW2-',
-    name: 'Desarrollo de videojuegos'
+    value: 'FNONFwGW2-',
+    label: 'Desarrollo de vvalueeojuegos'
   },
   {
-    id: '38Rv9pG9nd',
-    name: 'Desarrollo Móvil'
+    value: '38Rv9pG9nd',
+    label: 'Desarrollo Móvil'
   },
   {
-    id: 'ptd-PqQcOU',
-    name: 'Desarrollo Web Backend'
+    value: 'ptd-PqQcOU',
+    label: 'Desarrollo Web Backend'
   },
   {
-    id: 'u4zNpNblrn',
-    name: 'Desarrollo Web Frontend'
+    value: 'u4zNpNblrn',
+    label: 'Desarrollo Web Frontend'
   },
   {
-    id: '8XC3UrEWtq',
-    name: 'Desarrollo Web FullStack'
+    value: '8XC3UrEWtq',
+    label: 'Desarrollo Web FullStack'
   },
   {
-    id: 'tR2N5r2BpL',
-    name: 'DevOps'
+    value: 'tR2N5r2BpL',
+    label: 'DevOps'
   },
   {
-    id: 'L1QDjzwdHM',
-    name: 'Diseño UX/UI'
+    value: 'L1QDjzwdHM',
+    label: 'Diseño UX/UI'
   },
   {
-    id: 'VJNrSbFNbH',
-    name: 'Gestión de proyectos'
+    value: 'VJNrSbFNbH',
+    label: 'Gestión de proyectos'
   },
   {
-    id: 'ZNnhHga0-z',
-    name: 'Inteligencia artificial'
+    value: 'ZNnhHga0-z',
+    label: 'Inteligencia artificial'
   },
   {
-    id: 'qlHDp52sF_',
-    name: 'Machine Learning'
+    value: 'qlHDp52sF_',
+    label: 'Machine Learning'
   },
   {
-    id: 'fsvtQsinbU',
-    name: 'QC/QA'
+    value: 'fsvtQsinbU',
+    label: 'QC/QA'
   },
   {
-    id: '5-l1cCC4vu',
-    name: 'Redes'
+    value: '5-l1cCC4vu',
+    label: 'Redes'
   },
   {
-    id: '-Ofa7YVQ6I',
-    name: 'Web Scraping'
+    value: '-Ofa7YVQ6I',
+    label: 'Web Scraping'
   }
 ]
 

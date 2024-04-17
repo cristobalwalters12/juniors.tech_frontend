@@ -1,179 +1,179 @@
 const LanguageDictionary = [
   {
-    id: 'R0mTsUhxr_',
-    name: 'Alemán'
+    value: 'R0mTsUhxr_',
+    label: 'Alemán'
   },
   {
-    id: 'pF3yNwyvis',
-    name: 'Amárico'
+    value: 'pF3yNwyvis',
+    label: 'Amárico'
   },
   {
-    id: '8QplyXt3or',
-    name: 'Árabe argelino'
+    value: '8QplyXt3or',
+    label: 'Árabe argelino'
   },
   {
-    id: 'nybjGdYiKP',
-    name: 'Árabe egipcio'
+    value: 'nybjGdYiKP',
+    label: 'Árabe egipcio'
   },
   {
-    id: 'pvTY65u5-l',
-    name: 'Árabe estándar moderno'
+    value: 'pvTY65u5-l',
+    label: 'Árabe estándar moderno'
   },
   {
-    id: 'VxKW7DPjz4',
-    name: 'Árabe sudanés'
+    value: 'VxKW7DPjz4',
+    label: 'Árabe sudanés'
   },
   {
-    id: 'cpBgC99lzo',
-    name: 'Bengalí'
+    value: 'cpBgC99lzo',
+    label: 'Bengalí'
   },
   {
-    id: 'rJY_k7sZPe',
-    name: 'Bhoshpuri'
+    value: 'rJY_k7sZPe',
+    label: 'Bhoshpuri'
   },
   {
-    id: 'klHT2DSTYG',
-    name: 'Birmano'
+    value: 'klHT2DSTYG',
+    label: 'Birmano'
   },
   {
-    id: 'BZLqWY-kmi',
-    name: 'Canarés'
+    value: 'BZLqWY-kmi',
+    label: 'Canarés'
   },
   {
-    id: 'A76fSZhEes',
-    name: 'Chino hakka'
+    value: 'A76fSZhEes',
+    label: 'Chino hakka'
   },
   {
-    id: 'PTs7tkOs9c',
-    name: 'Chino jin'
+    value: 'PTs7tkOs9c',
+    label: 'Chino jin'
   },
   {
-    id: 'at4hZ1EG-y',
-    name: 'Chino mandarín'
+    value: 'at4hZ1EG-y',
+    label: 'Chino mandarín'
   },
   {
-    id: 'ejmGm9FlBK',
-    name: 'Chino Mǐn Nán'
+    value: 'ejmGm9FlBK',
+    label: 'Chino Mǐn Nán'
   },
   {
-    id: 'JQwzG0gpzS',
-    name: 'Chino Wu'
+    value: 'JQwzG0gpzS',
+    label: 'Chino Wu'
   },
   {
-    id: 'ctJPVLrsSW',
-    name: 'Chino yue (incluye Cantonés)'
+    value: 'ctJPVLrsSW',
+    label: 'Chino yue (incluye Cantonés)'
   },
   {
-    id: 'f9Xd80Af_v',
-    name: 'Coreano'
+    value: 'f9Xd80Af_v',
+    label: 'Coreano'
   },
   {
-    id: 'GmF16qvoh5',
-    name: 'Español'
+    value: 'GmF16qvoh5',
+    label: 'Español'
   },
   {
-    id: 'zMnto3e8tN',
-    name: 'Francés'
+    value: 'zMnto3e8tN',
+    label: 'Francés'
   },
   {
-    id: 'QbeKU1nXg4',
-    name: 'Guyarati'
+    value: 'QbeKU1nXg4',
+    label: 'Guyarati'
   },
   {
-    id: 'KRdZHUPyV7',
-    name: 'Hausa'
+    value: 'KRdZHUPyV7',
+    label: 'Hausa'
   },
   {
-    id: 'oC9n3BurDY',
-    name: 'Indonesio'
+    value: 'oC9n3BurDY',
+    label: 'Indonesio'
   },
   {
-    id: 'l9lAYRxFq4',
-    name: 'Indostánico (hindi estándar, urdu)'
+    value: 'l9lAYRxFq4',
+    label: 'Indostánico (hindi estándar, urdu)'
   },
   {
-    id: '2to_l2lsq-',
-    name: 'Inglés'
+    value: '2to_l2lsq-',
+    label: 'Inglés'
   },
   {
-    id: 'cWUxjmxWuM',
-    name: 'Italiano'
+    value: 'cWUxjmxWuM',
+    label: 'Italiano'
   },
   {
-    id: 'HQlxuZdUb7',
-    name: 'Japonés'
+    value: 'HQlxuZdUb7',
+    label: 'Japonés'
   },
   {
-    id: '8yW7-EK3fq',
-    name: 'Javanés'
+    value: '8yW7-EK3fq',
+    label: 'Javanés'
   },
   {
-    id: '0yXLxz027G',
-    name: 'Lingala'
+    value: '0yXLxz027G',
+    label: 'Lingala'
   },
   {
-    id: 'opjokJNYpt',
-    name: 'Maratí'
+    value: 'opjokJNYpt',
+    label: 'Maratí'
   },
   {
-    id: '7_9RTrEjbu',
-    name: 'Panyabí occidental'
+    value: '7_9RTrEjbu',
+    label: 'Panyabí occvalueental'
   },
   {
-    id: 'SqBJIXvs5J',
-    name: 'Panyabí'
+    value: 'SqBJIXvs5J',
+    label: 'Panyabí'
   },
   {
-    id: 'KTMDL1OZsZ',
-    name: 'Persa iraní'
+    value: 'KTMDL1OZsZ',
+    label: 'Persa iraní'
   },
   {
-    id: 'vyBj23iw-D',
-    name: 'Polaco'
+    value: 'vyBj23iw-D',
+    label: 'Polaco'
   },
   {
-    id: 'GqaQOGgr6H',
-    name: 'Portugués'
+    value: 'GqaQOGgr6H',
+    label: 'Portugués'
   },
   {
-    id: 'YNHPpIUyN0',
-    name: 'Ruso'
+    value: 'YNHPpIUyN0',
+    label: 'Ruso'
   },
   {
-    id: '8KJAd3f2Wz',
-    name: 'Suajili'
+    value: '8KJAd3f2Wz',
+    label: 'Suajili'
   },
   {
-    id: 'Tvu2iNrslT',
-    name: 'Tagalo'
+    value: 'Tvu2iNrslT',
+    label: 'Tagalo'
   },
   {
-    id: 'RhI2eEE46m',
-    name: 'Tailandés'
+    value: 'RhI2eEE46m',
+    label: 'Tailandés'
   },
   {
-    id: 'QlWHkAota6',
-    name: 'Tamil'
+    value: 'QlWHkAota6',
+    label: 'Tamil'
   },
   {
-    id: 'qi_Lfq3fHz',
-    name: 'Telugú'
+    value: 'qi_Lfq3fHz',
+    label: 'Telugú'
   },
   {
-    id: '2xgA55Im1G',
-    name: 'Turco'
+    value: '2xgA55Im1G',
+    label: 'Turco'
   },
   {
-    id: 'YDP0tpfKSM',
-    name: 'Urdu'
+    value: 'YDP0tpfKSM',
+    label: 'Urdu'
   },
   {
-    id: '8Oc06O8lCU',
-    name: 'Vietnamita'
+    value: '8Oc06O8lCU',
+    label: 'Vietnamita'
   },
   {
-    id: 'f0cZqOx-Lt',
-    name: 'Yoruba'
+    value: 'f0cZqOx-Lt',
+    label: 'Yoruba'
   }
 ]
 
