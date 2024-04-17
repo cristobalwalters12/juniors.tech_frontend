@@ -3,13 +3,16 @@ import { saveComment } from '../../services/comments'
 
 const useSaveComment = () => {
   const queryClient = useQueryClient()
-
-  const saveCommentMutation = useMutation({
+  return useMutation({
     mutationFn: saveComment,
-    onSuccess: queryClient.invalidateQueries({ queryKey: ['comments'] })
+    onSuccess: (newComment) => {
+      queryClient.setQueryData(['comments', newComment.postId], (prevComments) => {
+        if (!prevComments) return [newComment]
+        return [newComment, ...prevComments]
+      })
+    },
+    retry: 0
   })
-
-  return saveCommentMutation
 }
 
 export { useSaveComment }
