@@ -3,24 +3,16 @@ import {
   CardHeader,
   CardBody,
   Typography,
-  Button,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem
+  Button
 } from '@material-tailwind/react'
-import {
-  ArrowLeftIcon, DocumentTextIcon, EllipsisVerticalIcon, FlagIcon, PencilIcon, TrashIcon
-} from '@heroicons/react/24/outline'
+import { ArrowLeftIcon, DocumentTextIcon } from '@heroicons/react/24/outline'
 import { FormattedDate } from '../../shared/components/FormattedDate'
-import { useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../../stores/authStore'
+// import { useNavigate } from 'react-router-dom'
 import { CustomCardFooter } from '../../shared/components/Cards/CustomCardFooter'
+import ContextMenu from '../../shared/components/Cards/ContextMenu'
 
 const Post = ({ post }) => {
-  const currUserId = useAuthStore((state) => state.id)
-  const owner = post.authorId === currUserId
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const handleVote = () => {}
   const handleShare = () => {}
   const handleReport = () => {}
@@ -62,33 +54,9 @@ const Post = ({ post }) => {
               </div>
             </div>
           </div>
-          <Menu>
-            <MenuHandler>
-              <div className="flex items-center">
-                <Button variant="text" className="rounded-full p-1.5">
-                  <EllipsisVerticalIcon className="h-4 w-4" />
-                </Button>
-              </div>
-            </MenuHandler>
-            <MenuList className='p-0'>
-              {owner
-                ? <>
-                  <MenuItem className='p-3 flex items-center gap-2' onClick={() => navigate(`/posts/${post.id}/edit`)}>
-                    <PencilIcon className="h-4 w-4" />
-                    Editar
-                  </MenuItem>
-                  <MenuItem className='p-3 flex items-center gap-2' onClick={() => console.log('Eliminar')}>
-                    <TrashIcon className="h-4 w-4" />
-                    Eliminar
-                  </MenuItem>
-                </>
-                : <MenuItem className='p-3 flex items-center gap-2'>
-                    <FlagIcon className="h-4 w-4" />
-                    Reportar
-                  </MenuItem>
-              }
-            </MenuList>
-          </Menu>
+          <div className='flex items-center'>
+            <ContextMenu />
+          </div>
         </CardHeader>
         <CardBody className="mb-2 p-0 flex flex-col gap-2">
           <Typography variant='h4'>{post.title}</Typography>
