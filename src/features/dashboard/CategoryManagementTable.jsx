@@ -10,6 +10,7 @@ import {
   Input
 } from '@material-tailwind/react'
 import { getCategories, addCategory, removeCategory, editCategory } from '../../services/categories'
+import { toast } from 'react-toastify'
 
 const TABLE_HEAD = ['Categoría', 'Acciones']
 
@@ -47,7 +48,7 @@ export function CategoryManagementTable () {
     try {
       const categoryToDelete = tableRows[openDialogIndex]
       if (categoryToDelete.name === 'Otros') {
-        alert('No puedes eliminar esta categoría.')
+        toast.error('No puedes eliminar esta categoría.')
         return
       }
       await removeCategory(categoryToDelete.id)
@@ -55,8 +56,10 @@ export function CategoryManagementTable () {
       updatedRows.splice(openDialogIndex, 1)
       setTableRows(updatedRows)
       handleCloseDialog()
+      toast.success('Categoría eliminada exitosamente.')
     } catch (error) {
       console.error('Error al eliminar la categoría:', error)
+      toast.error('Error al eliminar la categoría.')
     }
   }
 
@@ -78,6 +81,7 @@ export function CategoryManagementTable () {
       handleCloseAddDialog()
     } catch (error) {
       console.error('Error al agregar la categoría:', error)
+      toast.error('Error al agregar la categoría')
     }
   }
 
@@ -91,6 +95,7 @@ export function CategoryManagementTable () {
       setEditName('')
     } catch (error) {
       console.error('Error al editar la categoría:', error)
+      toast.error('Error al editar la categoría')
     }
   }
 
