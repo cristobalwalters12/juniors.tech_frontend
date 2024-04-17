@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
-  UserCircleIcon,
-  Cog6ToothIcon,
+  GlobeAmericasIcon,
+  PencilIcon,
   ShieldCheckIcon,
   PowerIcon
 } from '@heroicons/react/24/solid'
 import { Button, Menu, MenuHandler, MenuItem, MenuList, Typography } from '@material-tailwind/react'
 import { useAuthStore } from '../../../stores/authStore'
-import AvatarIcon from '../Icons/AvatarIcon'
 import { ROLES } from '../../../config/constants/roles'
+import ProfileAvatar from '../ProfileAvatar'
 
 const ProfileMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -25,7 +25,7 @@ const ProfileMenu = () => {
     <Menu open={isMenuOpen} handler={toggleMenu} placement="bottom-end">
       <MenuHandler>
         <Button variant='text' className='p-0.5 rounded-full'>
-          <AvatarIcon size="sm" className="w-10 h-10" />
+          <ProfileAvatar size="sm" className="w-10 h-10" />
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
@@ -42,16 +42,16 @@ const ProfileMenu = () => {
           <ul>{roles.map(role => <li key={role}>- {role}</li>)}</ul>
           </MenuItem>
           <hr className="my-1" />
-          <MenuItem className='p-3 flex items-center gap-2' onClick={goTo('/profile')}>
-            <UserCircleIcon className="h-4 w-4" />
-            Ver perfil
+          <MenuItem className='p-3 flex items-center gap-2' onClick={goTo(`/users/${username}`)}>
+            <GlobeAmericasIcon className="h-4 w-4" />
+            Ver perfil público
           </MenuItem>
-          <MenuItem className='p-3 flex items-center gap-2' onClick={goTo(`/profile/${username}/edit`)}>
-            <Cog6ToothIcon className="h-4 w-4" />
+          <MenuItem className='p-3 flex items-center gap-2' onClick={goTo(`/users/${username}/edit`)}>
+            <PencilIcon className="h-4 w-4" />
             Editar perfil
           </MenuItem>
 
-          {roles.length > 1 && <MenuItem className='p-3 flex items-center gap-2' onClick={goTo('/admin')}>
+          {roles.length > 1 && <MenuItem className='p-3 flex items-center gap-2' onClick={goTo('/admin/roles')}>
             <ShieldCheckIcon className="h-4 w-4" />
             Ir al panel {isAdmin ? 'admin' : 'mod'}
           </MenuItem>}

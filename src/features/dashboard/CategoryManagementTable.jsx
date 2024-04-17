@@ -10,6 +10,7 @@ import {
   Input
 } from '@material-tailwind/react'
 import { getCategories, addCategory, removeCategory, editCategory } from '../../services/categories'
+import { toast } from 'react-toastify'
 
 const TABLE_HEAD = ['Categoría', 'Acciones']
 
@@ -45,13 +46,20 @@ export function CategoryManagementTable () {
 
   const handleConfirmDelete = async () => {
     try {
-      await removeCategory(tableRows[openDialogIndex].id)
+      const categoryToDelete = tableRows[openDialogIndex]
+      if (categoryToDelete.name === 'Otros') {
+        toast.error('No puedes eliminar esta categoría.')
+        return
+      }
+      await removeCategory(categoryToDelete.id)
       const updatedRows = [...tableRows]
       updatedRows.splice(openDialogIndex, 1)
       setTableRows(updatedRows)
       handleCloseDialog()
+      toast.success('Categoría eliminada exitosamente.')
     } catch (error) {
       console.error('Error al eliminar la categoría:', error)
+      toast.error('Error al eliminar la categoría.')
     }
   }
 
@@ -73,6 +81,7 @@ export function CategoryManagementTable () {
       handleCloseAddDialog()
     } catch (error) {
       console.error('Error al agregar la categoría:', error)
+      toast.error('Error al agregar la categoría')
     }
   }
 
@@ -86,6 +95,7 @@ export function CategoryManagementTable () {
       setEditName('')
     } catch (error) {
       console.error('Error al editar la categoría:', error)
+      toast.error('Error al editar la categoría')
     }
   }
 
@@ -116,9 +126,12 @@ export function CategoryManagementTable () {
                     <td className="p-2">
                       {editIndex === index
                         ? (
-                        <Input
+                          <Input
+                          type="text"
+                          placeholder="Nombre"
                           value={editName}
                           onChange={(e) => setEditName(e.target.value)}
+                          className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                         />
                           )
                         : (
@@ -178,10 +191,12 @@ export function CategoryManagementTable () {
           </DialogHeader>
           <DialogBody>
             <div className="grid gap-3">
-              <Input
-                label="Nombre"
+            <Input
+                type="text"
+                placeholder="Nombre"
                 value={newCategoryName}
                 onChange={(e) => setNewCategoryName(e.target.value)}
+                className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
               />
             </div>
           </DialogBody>

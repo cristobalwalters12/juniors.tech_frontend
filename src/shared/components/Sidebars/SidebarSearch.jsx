@@ -1,121 +1,205 @@
-import React, { useState } from 'react'
-import {
-  List, ListItem, Card, Typography, Accordion,
-  AccordionHeader,
-  AccordionBody
-} from '@material-tailwind/react'
-import { ChevronDownIcon, CodeBracketIcon, AcademicCapIcon } from '@heroicons/react/24/solid'
-import Logo from '../Logo'
-import SidebarListItem from './SidebarListItem'
-import { DEVELOPERS, INSTRUCTORS } from '../../../config/constants/aboutUs'
-import SortIcon from '../Icons/SortIcon'
-import SidebarListHeader from './SidebarListHeader'
+import { Card } from '@material-tailwind/react'
+import { Link, useSearchParams } from 'react-router-dom'
+
+const DEFAULT_ORDERS = {
+  votes: 'desc',
+  date: 'asc'
+}
 
 export default function SidebarSearch () {
-  /* eslint-disable no-unused-vars */
-  const [orderDirection, setOrderDirection] = useState('desc')
-  // const [orderBy, setOrderBy] = useState('voteCount')
-  const [open, setOpen] = React.useState({
-    junior: false,
-    dev: false,
-    instructor: false
-  })
-  const handleAscendente = () => setOrderDirection('asc')
-  const handleDescendente = () => setOrderDirection('desc')
-  // const handleOrderChange = (field) => setOrderBy(field)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const sort = searchParams.get('sort')
+  const order = searchParams.get('order')
+  const category = searchParams.get('category')
 
-  const toggleOpen = (key) => () => {
-    setOpen(prevState => ({
-      ...prevState,
-      [key]: !prevState[key]
-    }))
+  const handleSortingOptionChange = (value) => () => {
+    const newSort = value
+    console.log(newSort)
+    setSearchParams((prevSearchParams) => {
+      const newSearchParams = new URLSearchParams(prevSearchParams)
+      const prevSort = newSearchParams.get('sort')
+      const prevOrder = newSearchParams.get('order')
+      let newOrder
+      if (prevSort === newSort) {
+        newOrder = prevOrder === 'desc' ? 'asc' : 'desc'
+      } else {
+        newOrder = DEFAULT_ORDERS[newSort]
+        newSearchParams.set('sort', newSort)
+      }
+      newSearchParams.set('order', newOrder)
+      return newSearchParams
+    })
   }
-  const isOpen = (key) => open[key]
+
+  const handleSortingOptionReset = () => {
+    setSearchParams((prevSearchParams) => {
+      const newSearchParams = new URLSearchParams(prevSearchParams)
+      newSearchParams.delete('sort')
+      newSearchParams.delete('order')
+      return newSearchParams
+    })
+  }
+
+  const handleCategoryChange = (e) => {
+    setSearchParams((prevSearchParams) => {
+      const newSearchParams = new URLSearchParams(prevSearchParams)
+      newSearchParams.set('category', e.target.value)
+      return newSearchParams
+    })
+  }
+
+  const handleCategoryReset = () => {
+    setSearchParams((prevSearchParams) => {
+      const newSearchParams = new URLSearchParams(prevSearchParams)
+      newSearchParams.delete('category')
+      return newSearchParams
+    })
+  }
 
   return (
-    <Card shadow={false} className='bg-accent-dark text-grey-dark h-full overflow-x-clip overflow-y-auto'>
-      <List className='text-inherit pb-0'>
-        <Typography variant="h2" className='flex gap-1 items-center text-grey-light mb-3 text-md'>
-          <SortIcon /> Ordenar por
-        </Typography>
-        <SidebarListItem onClick={handleDescendente}>Más votados</SidebarListItem>
-        <SidebarListItem onClick={handleAscendente}>Menos votados</SidebarListItem>
-      </List>
-      <hr className='border-primary-dark my-2'/>
-      <Accordion
-        open={isOpen('junior')}
-        icon={
-          <ChevronDownIcon
-            strokeWidth={2.5}
-            className={`mx-auto h-4 w-4 text-grey-dark transition-transform ${isOpen('junior') ? 'rotate-180' : ''}`}
-          />
-        }
-      >
-        <ListItem className="p-0" selected={isOpen('junior')}>
-          <AccordionHeader id='' onClick={toggleOpen('junior')} className="border-b-0 p-3 transition-all bg-accent-dark  hover:bg-accent-dhover focus:bg-accent-dhover focus:text-accent-light  hover:text-accent-light active:text-accent-light focus:opacity-80 hover:opacity-95 active:opacity-80 tracking-wide shadow-md">
-            <Logo className="text-grey-light text-[1rem]"/>
-          </AccordionHeader>
-        </ListItem>
-        <AccordionBody className="py-1">
-          <List className="p-0 text-grey-dark">
-            <SidebarListItem>Acerca del proyecto</SidebarListItem>
-            <SidebarListItem>Políticas de privacidad</SidebarListItem>
-            <SidebarListItem>Términos de uso</SidebarListItem>
-          </List>
-        </AccordionBody>
-      </Accordion>
-      <hr className='border-primary-dark my-2'/>
-      <Accordion
-        open={isOpen('dev')}
-        icon={
-          <ChevronDownIcon
-            strokeWidth={2.5}
-            className={`mx-auto h-4 w-4 text-grey-dark transition-transform ${isOpen('dev') ? 'rotate-180' : ''}`}
-          />
-        }
-      >
-          <SidebarListHeader
-            selected={isOpen('dev')}
-            onClick={toggleOpen('dev')}
-            icon={<CodeBracketIcon width="1.25em" strokeWidth={1} stroke="#508DDD"/>}
-            label="Desarrolladores"
-          />
-        <AccordionBody className="py-1">
-          <List className="p-0 text-grey-dark">
-            {DEVELOPERS.map(({ name, href }) => (
-              <a key={name} href={href} target='_blank' rel="noreferrer">
-                <SidebarListItem>{name}</SidebarListItem>
-              </a>
-            ))}
-          </List>
-        </AccordionBody>
-      </Accordion>
-      <hr className='border-primary-dark my-2'/>
-      <Accordion
-        open={isOpen('instructor')}
-        icon={
-          <ChevronDownIcon
-            strokeWidth={2.5}
-            className={`mx-auto h-4 w-4 text-grey-dark transition-transform ${isOpen('instructor') ? 'rotate-180' : ''}`}
-          />
-        }
-      >
-        <SidebarListHeader
-            selected={isOpen('instructor')}
-            onClick={toggleOpen('instructor')}
-            icon={<AcademicCapIcon width="1.25em" strokeWidth={2} fill="#508DDD" />}
-            label="Instructores"
-          />
-        <AccordionBody className="py-1">
-          <List className="p-0 text-grey-dark">
-            {INSTRUCTORS.map(({ name, href }) => (
-              <a key={name} href={href} target='_blank' rel="noreferrer">
-                <SidebarListItem>{name}</SidebarListItem>
-              </a>
-            ))}
-          </List>
-        </AccordionBody>
-      </Accordion>
+    <Card
+      shadow={false}
+      className="bg-accent-dark text-grey-dark h-full overflow-x-clip overflow-y-auto flex flex-col"
+    >
+      <div>
+        <h2>Buscar:</h2>
+        <div className="flex flex-col gap-2">
+          <Link to="/search/posts">Publicaciones</Link>
+          <Link to="/search/users">Usuarios</Link>
+        </div>
+      </div>
+      <hr className="my-3" />
+      <form>
+        <fieldset>
+          <div className="flex justify-between">
+            <legend>Ordenar por</legend>
+            {sort && (
+              <button type="button" onClick={handleSortingOptionReset}>
+                Restaurar
+              </button>
+            )}
+          </div>
+          <div className="flex flex-col">
+            <button
+              id="votes"
+              name="sort"
+              type="button"
+              className="text-left"
+              onClick={handleSortingOptionChange('votes')}
+            >
+              <p>Votos</p>
+              {sort !== 'votes'
+                ? (
+                <small>Cualquiera</small>
+                  )
+                : order === 'asc'
+                  ? (
+                <small>Menos votadas primero</small>
+                    )
+                  : (
+                <small>Más votadas primero</small>
+                    )}
+            </button>
+            <button
+              id="date"
+              name="sort"
+              type="button"
+              className="text-left"
+              onClick={handleSortingOptionChange('date')}
+            >
+              <p>Fecha</p>
+              {sort !== 'date'
+                ? (
+                <small>Cualquiera</small>
+                  )
+                : order === 'asc'
+                  ? (
+                <small>Más recientes primero</small>
+                    )
+                  : (
+                <small>Más antiguas primero</small>
+                    )}
+            </button>
+          </div>
+        </fieldset>
+        <hr className="my-3" />
+        <fieldset>
+          <div className="flex justify-between">
+            <legend>Filtrar por</legend>
+            {category && (
+              <button type="button" onClick={handleCategoryReset}>
+                Restaurar
+              </button>
+            )}
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="L1w-xYdnDH"
+              name="category"
+              value="L1w-xYdnDH"
+              checked={category === 'L1w-xYdnDH'}
+              onChange={handleCategoryChange}
+            />
+            <label htmlFor="L1w-xYdnDH">Hojas de vida</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="S5L4FfEnjz"
+              name="category"
+              value="S5L4FfEnjz"
+              checked={category === 'S5L4FfEnjz'}
+              onChange={handleCategoryChange}
+            />
+            <label htmlFor="S5L4FfEnjz">Proyectos grupales</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="vq8EkwRM5Q"
+              name="category"
+              value="vq8EkwRM5Q"
+              checked={category === 'vq8EkwRM5Q'}
+              onChange={handleCategoryChange}
+            />
+            <label htmlFor="vq8EkwRM5Q">Ofertas de trabajo</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="WsMK91X7dK"
+              name="category"
+              value="WsMK91X7dK"
+              checked={category === 'WsMK91X7dK'}
+              onChange={handleCategoryChange}
+            />
+            <label htmlFor="WsMK91X7dK">Sugerencias de cursos</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="X9lWwZFUMs"
+              name="category"
+              value="X9lWwZFUMs"
+              checked={category === 'X9lWwZFUMs'}
+              onChange={handleCategoryChange}
+            />
+            <label htmlFor="X9lWwZFUMs">Portafolios</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="xOnWXzDLgx"
+              name="category"
+              value="xOnWXzDLgx"
+              checked={category === 'xOnWXzDLgx'}
+              onChange={handleCategoryChange}
+            />
+            <label htmlFor="xOnWXzDLgx">Grupos de estudio</label>
+          </div>
+        </fieldset>
+      </form>
     </Card>
   )
 }

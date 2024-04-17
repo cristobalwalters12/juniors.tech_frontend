@@ -11,6 +11,9 @@ import SearchPosts from './pages/SearchPosts'
 import StackedLayout from './layouts/StackedLayout'
 import Modal from './shared/components/Modal'
 import PublicProfileComponent from './features/publicProfile/publicProfileComponent'
+import EditUserProfile from './features/editUserProfile/editUser/EditUserProfile'
+import ChangePassword from './features/changePassword/ChangePassword'
+import DesactivateAccount from './features/desactivateAccount/DesactivateAccount'
 import { RoleManagementTable } from './features/dashboard/RoleManagementTable'
 import ReportManagementSelector from './features/dashboard/ReportManagementSelector'
 import { PostReportTable } from './features/dashboard/PostsReportManagementTable'
@@ -21,10 +24,14 @@ import DashboardLayout from './layouts/DashboardLayout'
 import PersistAuth from './shared/components/Auth/PersistAuth'
 import RequireAuth from './shared/components/Auth/RequireAuth'
 import AuthenticateForm from './shared/components/Auth/AuthenticateForm'
+import RequireAccountOwner from './shared/components/Auth/RequireAccountOwner'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App () {
   return (
     <>
+    <ToastContainer/>
     <Routes>
       <Route element={<PersistAuth/>}>
         <Route element={<StackedLayout/>}>
@@ -41,7 +48,7 @@ function App () {
       <Route element={<DashboardLayout/>}>
         <Route path="/home" element={<SearchPosts />} />
         <Route path="/search/posts" element={<SearchPosts />} />
-        <Route path="/profile/:username" element={<PublicProfileComponent />} />
+        <Route path="/users/:username" element={<PublicProfileComponent />} />
         <Route path="/posts/:id" element={<PostDetails />} />
       </Route>
 
@@ -49,6 +56,14 @@ function App () {
         <Route element={<DashboardLayout/>}>
           <Route path="/posts/new" element={<CreatePost />} />
           <Route path="/posts/:id/edit" element={<EditPost />} />
+        </Route>
+      </Route>
+
+      <Route element={<RequireAccountOwner />} >
+        <Route element={<DashboardLayout/>}>
+          <Route path="/users/:username/edit" element={<EditUserProfile />} />
+          <Route path="/users/:username/change-password" element={<ChangePassword />} />
+          <Route path="/users/:username/deactivate-account" element={<DesactivateAccount />} />
         </Route>
       </Route>
 
