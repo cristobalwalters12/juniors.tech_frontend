@@ -36,12 +36,12 @@ const ContextMenu = ({
                 Eliminar
               </MenuItem>
             }
-              <RequireAuthOnClick onClickAuthenticated={handleReport}>
-                <MenuItem className='p-3 flex items-center gap-2'>
+              <MenuItem>
+                <RequireAuthOnClick onClickAuthenticated={handleReport} className='p-3 flex items-center gap-2'>
                   <FlagIcon className="h-4 w-4" />
                   Reportar
-                </MenuItem>
-              </RequireAuthOnClick>
+                </RequireAuthOnClick>
+              </MenuItem>
             </MenuList>
           </Menu>
   )
