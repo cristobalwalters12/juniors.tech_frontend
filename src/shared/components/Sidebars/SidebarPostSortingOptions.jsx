@@ -1,8 +1,5 @@
 import { Button, List, Typography } from '@material-tailwind/react'
-import {
-  /* Link,  */
-  useSearchParams
-} from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import SidebarListItem from './SidebarListItem'
 import SortIcon from '../Icons/SortIcon'
 
