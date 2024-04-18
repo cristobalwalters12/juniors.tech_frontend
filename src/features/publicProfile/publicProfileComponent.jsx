@@ -8,7 +8,8 @@ import { usePublicUserInformation } from './usePublicUserInformation'
 import { useParams } from 'react-router-dom'
 import Nestbutton from './NestButton'
 import { useAuthStore } from '../../stores/authStore'
-import ProfileAvatar from '../../shared/components/ProfileAvatar'
+import UserAvatar from '../../shared/components/UserAvatar'
+import { FormattedDate } from '../../shared/components/FormattedDate'
 const PublicProfileComponent = () => {
   const { username } = useParams()
   const { publicProfile, data } = usePublicUserInformation(username)
@@ -17,41 +18,35 @@ const PublicProfileComponent = () => {
     publicProfile({ username })
   }, [publicProfile, username])
 
-  const validateid = () => {
-    if (idUser === data?.id) {
-      return true
-    }
-    return false
-  }
+  const isSameUser = idUser === data?.id
+
   return (
       <Card className="mt-6">
         <div className='flex m-6'>
-          <ProfileAvatar alt="avatar" size='xxl' />
+          <UserAvatar avatarUrl={data?.avatarUrl} username={data?.username} alt="avatar" size='xxl' />
         <div className='flex'>
-          <div>
-          <div className='ml-5'>
-            <Typography color="black" variant='h3'>
-              {data?.username} ({data?.pronoun})
-            </Typography>
-            <Typography color="black">
-                Miembro por N meses
-            </Typography>
-            <Typography color="black">
-            {data?.employmentStatus}
-            </Typography>
-            <Typography color="black">
-            {data?.country}
-            </Typography>
-        </div>
-        <div className='sm:ml-36'>
-          <Nestbutton isSameUser={validateid()} />
-        </div>
+          <div className='flex'>
+            <div className='ml-5'>
+              <Typography color="black" variant='h3'>
+                {data?.username} ({data?.pronoun})
+              </Typography>
+              <FormattedDate date={data?.createdAt} />
+              <Typography color="black">
+              {data?.employmentStatus}
+              </Typography>
+              <Typography color="black">
+              {data?.country}
+              </Typography>
+            </div>
+            <div className='sm:ml-36'>
+              <Nestbutton isSameUser={isSameUser} />
+            </div>
           </div>
-      </div>
+        </div>
         </div>
         <CardBody>
           <Typography color="black" variant='h3'>
-            Estadisticas
+            Estadísticas
           </Typography>
           <div className='flex mt-6 gap-6'>
             <div>
@@ -81,7 +76,7 @@ const PublicProfileComponent = () => {
           </div>
           <div className='mt-6'>
             <Typography color="black" variant='h3'>
-              Acerca de mi
+              Acerca de mí
             </Typography>
             <Typography color="black" className='mt-4'>
               {data?.about}
@@ -141,7 +136,7 @@ const PublicProfileComponent = () => {
           </div>
           <div className='mt-6'>
           <Typography color='black' variant='h3'>
-              publicaciones Destacadas
+              Publicaciones destacadas
             </Typography>
             <div className='flex flex-col gap-3 mt-4'>
               <Typography>
