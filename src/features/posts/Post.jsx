@@ -10,9 +10,13 @@ import { FormattedDate } from '../../shared/components/FormattedDate'
 import { useNavigate } from 'react-router-dom'
 import { CustomCardFooter } from '../../shared/components/Cards/CustomCardFooter'
 import ContextMenu from '../../shared/components/Cards/ContextMenu'
+import { useDeletePost } from './useDeletePost'
+import { toast } from 'react-toastify'
+import { showErrorToast } from '../../shared/utils/showErrorToast'
 
 const Post = ({ post }) => {
   const navigate = useNavigate()
+  const deletePostMutation = useDeletePost()
   const handleVote = () => {}
 
   const handleEdit = () => {
@@ -21,7 +25,14 @@ const Post = ({ post }) => {
 
   const handleShare = () => {}
   const handleReport = () => {}
-  const handleDelete = () => {}
+  const handleDelete = () => {
+    deletePostMutation.mutateAsync({ postId: post.id }).then(() => {
+      navigate('/home')
+      toast.success('Publicación eliminada con éxito')
+    }).catch((err) => {
+      showErrorToast(err, 'Error al eliminar publicación')
+    })
+  }
   const handleShowReplies = () => {}
 
   return (

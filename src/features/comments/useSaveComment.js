@@ -7,7 +7,7 @@ const useSaveComment = () => {
     mutationFn: saveComment,
     onMutate: (payload) => payload,
     onSuccess: (savedComment, variables, context) => {
-      queryClient.setQueryData(['comments', savedComment.postId], (prevComments) => {
+      queryClient.setQueryData(['posts', savedComment.postId, 'comments'], (prevComments) => {
         if (!prevComments) return [savedComment]
         if (!context.commentId) return [savedComment, ...prevComments]
         return prevComments.map(comment => comment.id === savedComment.id ? savedComment : comment)

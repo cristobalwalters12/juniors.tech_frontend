@@ -9,7 +9,7 @@ const useVoteComment = () => {
     onMutate: (payload) => payload,
     onSuccess: (votedComment, variables, context) => {
       queryClient.setQueryData(
-        ['comments', context.postId],
+        ['posts', context.postId, 'comments'],
         (prevComments) => (
           prevComments.map(comment => {
             if (comment.id !== context.commentId) {
@@ -18,7 +18,6 @@ const useVoteComment = () => {
             let newVoteCount = 0
             let newVoteDirection = 0
             // unvote
-            console.log({ voteDirection: context.voteDirection, comment })
             if (comment.voteDirection === context.voteDirection) {
               newVoteCount = comment.voteCount - context.voteDirection
               newVoteDirection = 0

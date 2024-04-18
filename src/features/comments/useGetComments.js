@@ -3,9 +3,10 @@ import { getComments } from '../../services/comments'
 
 const useGetComments = (postId) => {
   return useQuery({
-    queryKey: ['comments', postId],
+    queryKey: ['posts', postId, 'comments'],
     queryFn: () => getComments(postId),
-    staleTime: 60 * 60 * 1000 // 1h in ms
+    staleTime: 60 * 60 * 1000, // 1h in ms
+    retry: false
   })
 }
 

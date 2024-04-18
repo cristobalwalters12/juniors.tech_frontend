@@ -29,7 +29,9 @@ const PostDetails = () => {
   if (getSinglePostQuery.isError) {
     const { error } = getSinglePostQuery
     showErrorToast(error, 'Error al cargar la publicación')
-    if (error.status === 404) {
+    console.log({ error })
+
+    if (error.response.status === 404) {
       return <Navigate to="/not-found" />
     }
   }
@@ -38,7 +40,7 @@ const PostDetails = () => {
   return (
       <div className='max-w-[60rem]'>
         <Post post={getSinglePostQuery.data} />
-        <div className='pt-4 pl-0 '>
+          <div className='pt-4 pl-0 '>
           {
             replying
               ? <SaveCommentForm
@@ -52,7 +54,7 @@ const PostDetails = () => {
                   </Button>
                 </RequireAuthOnClick>
           }
-        </div>
+          </div>
         <CommentList postId={postId} />
       </div>
   )

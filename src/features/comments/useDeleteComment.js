@@ -9,7 +9,7 @@ const useDeleteComment = () => {
     onMutate: (payload) => payload,
     onSuccess: (result, variables, context) => {
       queryClient.setQueryData(
-        ['comments', context.postId],
+        ['posts', context.postId, 'comments'],
         (prevComments) => prevComments.map(comment => {
           if (comment.id !== context.commentId) return comment
           return {

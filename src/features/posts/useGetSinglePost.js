@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 import { getPostById } from '../../services/posts'
 
-const useGetSinglePost = (id) => {
+const useGetSinglePost = (postId) => {
   return useQuery({
-    queryKey: ['posts', id],
-    queryFn: () => getPostById(id),
+    queryKey: ['posts', postId],
+    queryFn: () => getPostById(postId),
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
     retry: false,
     staleTime: 5 * 60 * 1000 // 5min

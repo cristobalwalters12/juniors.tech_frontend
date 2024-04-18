@@ -34,8 +34,8 @@ const savePost = async ({ id: postId, categoryId, title, body }) => {
   }
 }
 
-const getPostById = async (id) => {
-  const { data: { data: post } } = await baseApi.get(`${API_PATHS.posts}/${id}`)
+const getPostById = async (postId) => {
+  const { data: { data: post } } = await baseApi.get(`${API_PATHS.posts}/${postId}`)
   return {
     id: post.id,
     title: post.title,
@@ -55,4 +55,8 @@ const getPostById = async (id) => {
   }
 }
 
-export { getPosts, savePost, getPostById }
+const deletePostById = async ({ postId }) => {
+  await baseApi.delete(`${API_PATHS.posts}/${postId}`)
+}
+
+export { getPosts, savePost, getPostById, deletePostById }
