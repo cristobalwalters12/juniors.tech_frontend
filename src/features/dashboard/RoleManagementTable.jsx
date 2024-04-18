@@ -12,6 +12,7 @@ import {
 import { getMods, addModerator, removeModerator } from '../../services/mods'
 import { useAuthStore } from '../../stores/authStore'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const TABLE_HEAD = ['Nombre', 'Acciones']
 
@@ -20,6 +21,7 @@ export function RoleManagementTable () {
   const [tableRows, setTableRows] = useState([])
   const [newModeratorName, setNewModeratorName] = useState('')
   const [openAddDialog, setOpenAddDialog] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchModerators()
@@ -28,7 +30,15 @@ export function RoleManagementTable () {
   const roles = useAuthStore((state) => {
     return state.roles
   })
+
+  const currentUser = useAuthStore((state) => {
+    return state.user
+  })
+
+  const setRoles = useAuthStore((state) => state.setRoles)
+
   const isAdmin = roles.some(rol => rol === 'administrador')
+  const isModerador = roles.some(rol => rol === 'moderador')
 
   const fetchModerators = async () => {
     try {
@@ -41,6 +51,7 @@ export function RoleManagementTable () {
   }
 
   const handleOpenDialog = (index) => {
+    console.log('openDialogIndex:', index)
     setOpenDialogIndex(index)
   }
 
@@ -50,13 +61,20 @@ export function RoleManagementTable () {
 
   const handleConfirmDelete = async () => {
     try {
-      if (isAdmin) {
-        await removeModerator(tableRows[openDialogIndex].username)
-        const updatedRows = [...tableRows]
-        updatedRows.splice(openDialogIndex, 1)
+      const usernameToDelete = tableRows[openDialogIndex]?.username
+      if (isAdmin || (isModerador && usernameToDelete === currentUser)) {
+        await removeModerator(usernameToDelete)
+        const updatedRows = tableRows.filter((row, index) => index !== openDialogIndex)
         setTableRows(updatedRows)
         handleCloseDialog()
         toast.success('Moderador eliminado correctamente.')
+
+        if (usernameToDelete === currentUser) {
+          const updatedRoles = roles.filter(role => role !== 'moderador')
+          setRoles(updatedRoles)
+
+          navigate('/home')
+        }
       } else {
         console.error('No tienes permisos para eliminar un moderador.')
         toast.error('No tienes permisos para eliminar un moderador.')
@@ -141,7 +159,9 @@ export function RoleManagementTable () {
         </div>
       </Card>
       <div className="mt-3 flex justify-start">
-        <Button variant='outlined' color='black' onClick={handleOpenAddDialog}>Agregar moderador</Button>
+        {isAdmin && (
+          <Button variant='outlined' color='black' onClick={handleOpenAddDialog}>Agregar moderador</Button>
+        )}
         <Dialog open={openAddDialog} size="sm" onClose={handleCloseAddDialog}>
           <DialogHeader>
             <Typography variant="h5">Agregar moderador</Typography>
