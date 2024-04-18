@@ -51,7 +51,7 @@ const RegisterFormEmail = () => {
   }
 
   return (
-    <div>
+    <div className='w-11/12 sm:w-8/12'>
       <Typography variant="h2" color="blue-gray" className='text-center mt-4'>
         Registrate
       </Typography>
@@ -65,7 +65,7 @@ const RegisterFormEmail = () => {
 
             size="lg"
             placeholder="name@mail.com"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900 rounded-none"
+            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
             labelProps={{
               className: 'before:content-none after:content-none'
             }}
@@ -80,7 +80,7 @@ const RegisterFormEmail = () => {
 
             size="lg"
             placeholder="name123"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900 rounded-none"
+            className=" !border-t-blue-gray-200 focus:!border-t-gray-900 "
             labelProps={{
               className: 'before:content-none after:content-none'
             }}
@@ -94,7 +94,7 @@ const RegisterFormEmail = () => {
             type="password"
             size="lg"
             placeholder="********"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900 rounded-none"
+            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
             labelProps={{
               className: 'before:content-none after:content-none'
             }}
@@ -104,12 +104,12 @@ const RegisterFormEmail = () => {
         <Typography variant="h6" color="blue-gray" className="-mb-3 mt-6">
             Fecha de nacimiento
         </Typography>
-        <div className='flex mt-4 justify-center'>
+        <div className='flex mt-4'>
           <div className='inputs'>
             <Input
               {...register('day')}
               placeholder="1234567890"
-              className="inputs !border-t-blue-gray-200 focus:!border-t-gray-900 rounded-none"
+              className="inputs !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: 'before:content-none after:content-none'
               }}
@@ -141,8 +141,8 @@ const RegisterFormEmail = () => {
           <div className='inputs ml-5'>
             <Input
               {...register('year')}
-              placeholder="name@mail.com"
-              className=" inputs !border-t-blue-gray-200 focus:!border-t-gray-900 rounded-none "
+              placeholder="1234567890"
+              className=" inputs !border-t-blue-gray-200 focus:!border-t-gray-900 "
               labelProps={{
                 className: 'before:content-none after:content-none'
               }}
@@ -160,7 +160,7 @@ const RegisterFormEmail = () => {
               Estoy de acuerdo con los
               <a
                 href="#"
-                className="font-medium transition-colors hover:text-gray-900 rounded-none"
+                className="font-medium transition-colors hover:text-gray-900 "
               >
                 &nbsp;Terminos y Condiciones
               </a>
@@ -169,7 +169,7 @@ const RegisterFormEmail = () => {
           containerProps={{ className: '-ml-2.5' }}
         />
         {errors.terms && <p className="text-red-200">{errors.terms.message}</p>}
-        <Button className="mt-6 rounded-none" fullWidth variant="outlined" type="submit">
+        <Button className="mt-6" fullWidth type="submit">
           Registrarse
         </Button>
         {showError && <Alert color="red" className='mt-6 '>{errorMessage}</Alert>}

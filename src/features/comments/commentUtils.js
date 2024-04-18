@@ -1,4 +1,5 @@
 const handleComments = (comments) => {
+  if (!comments) return
   const rootComments = []
   const commentsByParentId = {}
   comments.forEach((comment) => {

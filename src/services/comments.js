@@ -15,6 +15,7 @@ const getComments = async (postId) => {
     voteCount: comment.voteCount,
     commentCount: comment.commentCount,
     createdAt: comment.createdAt,
+    updatedAt: comment.updatedAt,
     deletedAt: comment.deletedAt,
     hasOpenReport: comment.hasOpenReport
   })
@@ -42,6 +43,7 @@ const saveComment = async ({ postId, parentId, commentId, body }) => {
     voteCount: data.voteCount,
     commentCount: data.commentCount,
     createdAt: data.createdAt,
+    updatedAt: data.updatedAt,
     deletedAt: data.deletedAt,
     hasOpenReport: data.hasOpenReport
   }
