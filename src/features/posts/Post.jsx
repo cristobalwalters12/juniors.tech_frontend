@@ -13,11 +13,19 @@ import ContextMenu from '../../shared/components/Cards/ContextMenu'
 import { useDeletePost } from './useDeletePost'
 import { toast } from 'react-toastify'
 import { showErrorToast } from '../../shared/utils/showErrorToast'
+import { useVoteOnPost } from './useVoteOnPost'
 
 const Post = ({ post }) => {
   const navigate = useNavigate()
   const deletePostMutation = useDeletePost()
-  const handleVote = () => {}
+  const voteOnPostMutation = useVoteOnPost()
+  const handleVote = (voteDirection) => {
+    voteOnPostMutation
+      .mutateAsync({ postId: post.id, voteDirection })
+      .catch((err) => {
+        showErrorToast(err, 'Error al votar por publicación')
+      })
+  }
 
   const handleEdit = () => {
     navigate(`/posts/${post.id}/edit`)
