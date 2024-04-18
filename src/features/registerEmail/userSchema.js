@@ -2,15 +2,18 @@ import Joi from 'joi'
 
 const userSchema = Joi.object({
   email: Joi.string().email({ tlds: { allow: false } }).required().messages({
+    'string.empty': 'El correo electrónico no puede estar vacío',
     'string.email': 'El correo electrónico debe ser válido',
     'any.required': 'El correo electrónico es obligatorio'
 
   }),
   password: Joi.string().min(6).required().messages({
+    'string.empty': 'la contraseña no puede estar vacía',
     'string.min': 'La contraseña debe tener al menos 6 caracteres',
     'any.required': 'La contraseña es obligatoria'
   }),
   username: Joi.string().min(4).max(30).required().messages({
+    'string.empty': 'el nombre de usuario no puede estar vacío',
     'string.min': 'El nombre de usuario debe tener al menos 4 caracteres',
     'string.max': 'El nombre de usuario no puede tener más de 30 caracteres',
     'any.required': 'El nombre de usuario es obligatorio'

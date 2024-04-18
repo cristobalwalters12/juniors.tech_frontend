@@ -6,7 +6,11 @@ import {
   Button
 } from '@material-tailwind/react'
 
+import { Link } from 'react-router-dom'
+import { useAuthStore } from '../../stores/authStore'
+
 const NestButton = ({ isSameUser }) => {
+  const username = useAuthStore(state => state.user)
   return (
       <Menu>
         <MenuHandler>
@@ -15,7 +19,11 @@ const NestButton = ({ isSameUser }) => {
         <MenuList>
           {isSameUser
             ? (
-            <MenuItem>Editar Perfil</MenuItem>
+              <MenuItem>
+              <Link to={`/users/${username}/edit`}>
+                Editar Perfil
+              </Link>
+            </MenuItem>
               )
             : (
             <MenuItem>Reportar Usuario</MenuItem>
