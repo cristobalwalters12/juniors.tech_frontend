@@ -36,7 +36,12 @@ const CustomCardFooter = ({
           <ArrowDownIcon className={`h-4 w-4 ${resource.voteDirection === -1 ? 'text-blue-600' : ''}`} />
         </Button>
       </div>
-        <Button variant="text" disabled={isDeleted || resourceType === 'post'} className="rounded-full py-1.5 px-2.5" onClick={onShowReplies}>
+        <Button
+          variant="text"
+          disabled={isDeleted || resourceType === 'post'}
+          className="rounded-full py-1.5 px-2.5"
+          onClick={onShowReplies}
+        >
           <div className="flex items-center gap-1">
             <ChatBubbleOvalLeftIcon className="h-4 w-4" />
             <Typography

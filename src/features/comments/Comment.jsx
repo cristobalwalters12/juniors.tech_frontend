@@ -21,12 +21,12 @@ const Comment = ({ comment, getRepliesById }) => {
   const [editing, setEditing] = useState(false)
   const deleteCommentMutation = useDeleteComment()
   const voteOnCommentMutation = useVoteComment()
-  // const [replying, setReplying] = useState(false)
+  const [replying, setReplying] = useState(false)
   const [showReplies, setShowReplies] = useState(false)
   const showEditingForm = () => setEditing(true)
   const hideEditingForm = () => setEditing(false)
-  // const openReplyForm = () => setReplying(true)
-  // const closeReplyForm = () => setReplying(false)
+  const openReplyForm = () => setReplying(true)
+  const closeReplyForm = () => setReplying(false)
   const toggleReplies = () => setShowReplies(prevState => !prevState)
   const replies = getRepliesById(comment.id)
 
@@ -108,7 +108,7 @@ const Comment = ({ comment, getRepliesById }) => {
                 <CustomCardFooter
                   comment={comment}
                   onEdit={showEditingForm}
-                  onShowReplies={toggleReplies}
+                  onShowReplies={openReplyForm}
                   onVote={handleVote}
                   onReport={handleReport}
                   onDelete={handleDelete}
@@ -117,6 +117,17 @@ const Comment = ({ comment, getRepliesById }) => {
         }
         </CardBody>
       </Card>
+      {
+          replying &&
+          <SaveCommentForm
+            comment={{
+              postId: comment.postId,
+              parentId: comment.id
+            }}
+            onClose={closeReplyForm}
+            className="pt-1"
+          />
+        }
       {
         replies.length > 0 &&
         <Collapse open={showReplies} className='pl-5'>
