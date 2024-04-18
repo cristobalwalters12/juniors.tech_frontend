@@ -15,6 +15,8 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useUserDesactivateAccount } from './useUserDesactivateAccount'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { showErrorToast } from '../../shared/utils/showErrorToast'
 const DesactivateAccount = () => {
   const user = useAuthStore(state => state.user)
   const idUser = useAuthStore(state => state.id)
@@ -37,8 +39,12 @@ const DesactivateAccount = () => {
     }
     desactivate(user, {
       onSuccess: () => {
+        toast.success('Inicio de sesión correcto')
         navigate('/register')
         logout()
+      },
+      onError: (error) => {
+        showErrorToast(error)
       }
     })
   }
