@@ -14,7 +14,7 @@ import { useDocumentTitle } from '../../shared/hooks/useDocumentTitle'
 const PublicProfileComponent = () => {
   const { username } = useParams()
   const { publicProfile, data } = usePublicUserInformation(username)
-  useDocumentTitle(`Perfil de ${username} - Juniors.tech`)
+  useDocumentTitle(`Perfil de ${username}`)
   const idUser = useAuthStore(state => state.id)
   useEffect(() => {
     publicProfile({ username })

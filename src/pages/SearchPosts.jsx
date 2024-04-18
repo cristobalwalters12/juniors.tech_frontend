@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import PostList from '../features/posts/PostList'
 import { useSearchParams } from 'react-router-dom'
 import { searchPost } from '../services/search'
+import { useDocumentTitle } from '../shared/hooks/useDocumentTitle'
 
 const SearchPosts = () => {
   const [results, setResults] = useState([])
   const [searchParams] = useSearchParams()
+  useDocumentTitle(`Buscar ${searchParams.get('q')}`)
 
   const q = searchParams.get('q')
   const sort = searchParams.get('sort')
