@@ -5,21 +5,29 @@ import {
 } from '@material-tailwind/react'
 import { useEffect, Fragment } from 'react'
 import { usePublicUserInformation } from './usePublicUserInformation'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import Nestbutton from './NestButton'
 import { useAuthStore } from '../../stores/authStore'
 import UserAvatar from '../../shared/components/UserAvatar'
 import { FormattedDate } from '../../shared/components/FormattedDate'
 import { useDocumentTitle } from '../../shared/hooks/useDocumentTitle'
+import { usePublicPostInformation } from './userPostUserInformation'
+
 const PublicProfileComponent = () => {
   const { username } = useParams()
   const { publicProfile, data } = usePublicUserInformation(username)
+  const { publicPost, posts } = usePublicPostInformation(data?.id)
   useDocumentTitle(`Perfil de ${username} - Juniors.tech`)
   const idUser = useAuthStore(state => state.id)
 
   useEffect(() => {
     publicProfile({ username })
   }, [publicProfile, username])
+  useEffect(() => {
+    if (data?.id) {
+      publicPost({ id: data.id })
+    }
+  }, [publicPost, data])
 
   const isSameUser = idUser === data?.id
 
@@ -142,19 +150,19 @@ const PublicProfileComponent = () => {
               Publicaciones destacadas
             </Typography>
             <div className='flex flex-col gap-3 mt-4'>
-              <Typography>
-                <a href>Como hacer un login con React y Firebase</a>
-              </Typography>
-              <Typography>
-                <a href>Como hacer un login con React y Firebase</a>
-              </Typography>
-              <Typography>
-                <a href>Como hacer un login con React y Firebase</a>
-              </Typography>
+            <div className='flex flex-col gap-3 mt-4'>
+              {posts && posts.map((post, index) => (
+                <Typography color='black' key={index}>
+                  <Link to={`/posts/${post.id}`}>
+                    {post.title}
+                  </Link>
+                </Typography>
+              ))}
+              </div>
+              </div>
             </div>
-          </div>
-        </CardBody>
-      </Card>
+          </CardBody>
+        </Card>
   )
 }
 

@@ -40,4 +40,9 @@ const changePassword = async (user) => {
   const { data } = await baseApi.post(API_PATHS.changePassword, user)
   return data
 }
-export { getUser, createUser, loginUser, getUsers, getPublicProfile, editUser, desactivateAccount, changePassword }
+const getPostById = async (id) => {
+  const url = API_PATHS.postById.replace(':id', id)
+  const { data } = await baseApi.get(url)
+  return data
+}
+export { getUser, createUser, loginUser, getUsers, getPublicProfile, editUser, desactivateAccount, changePassword, getPostById }

@@ -17,7 +17,7 @@ const useLoginUser = () => {
       setToken(data.accessToken)
       setId(data.id)
       setUser(data.username)
-      setAvatarUrl(data.userImageURL)
+      setAvatarUrl(data.avatarUrl)
       if (Array.isArray(data.roles)) {
         setRoles(data.roles)
       }

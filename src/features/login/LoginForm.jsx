@@ -31,7 +31,7 @@ const LoginForm = ({ onClose, onSwitch }) => {
     })
   }
   return (
-    <Card color="white" shadow={false} className="w-11/12 sm:w-7/12">
+    <Card color="white" shadow={false} >
       <Typography variant="h2" color="blue-gray" className='text-center mt-4'>
         Inicia Sesión
       </Typography>
@@ -52,7 +52,7 @@ const LoginForm = ({ onClose, onSwitch }) => {
             render={({ field }) => <Input {...field} type="password" label="Password"/>}
           />
         </div>
-          <Button type="submit" className="mt-6 bg-[#0D47A1] text-white" fullWidth>
+          <Button type="submit" className="mt-6" fullWidth>
             Iniciar Sesión
           </Button>
       </form>

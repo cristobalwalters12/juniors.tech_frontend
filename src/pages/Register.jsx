@@ -9,7 +9,9 @@ const Register = () => {
         <RegisterWords/>
       </div>
       <div className="flex flex-1 justify-center items-center">
-        <RegisterFormEmail/>
+        <div className='w-11/12 sm:w-8/12'>
+          <RegisterFormEmail/>
+        </div>
       </div>
     </div>
     </>

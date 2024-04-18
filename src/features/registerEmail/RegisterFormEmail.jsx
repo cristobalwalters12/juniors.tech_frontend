@@ -44,7 +44,7 @@ const RegisterFormEmail = () => {
   }
 
   return (
-    <div className='w-11/12 sm:w-8/12'>
+    <div>
       <Typography variant="h2" color="blue-gray" className='text-center mt-4'>
         Registrate
       </Typography>
