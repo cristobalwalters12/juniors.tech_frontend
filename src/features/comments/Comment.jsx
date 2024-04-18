@@ -2,6 +2,7 @@ import {
   Card,
   CardBody,
   CardHeader,
+  Collapse,
   // Collapse,
   Typography
 } from '@material-tailwind/react'
@@ -21,13 +22,13 @@ const Comment = ({ comment, getRepliesById }) => {
   const deleteCommentMutation = useDeleteComment()
   const voteOnCommentMutation = useVoteComment()
   // const [replying, setReplying] = useState(false)
-  // const [showReplies, setShowReplies] = useState(false)
+  const [showReplies, setShowReplies] = useState(false)
   const showEditingForm = () => setEditing(true)
   const hideEditingForm = () => setEditing(false)
   // const openReplyForm = () => setReplying(true)
   // const closeReplyForm = () => setReplying(false)
-  // const toggleReplies = () => setShowReplies(prevState => !prevState)
-  const toggleReplies = () => {}
+  const toggleReplies = () => setShowReplies(prevState => !prevState)
+  const replies = getRepliesById(comment.id)
 
   const handleVote = (voteDirection) => {
     voteOnCommentMutation.mutateAsync({
@@ -66,7 +67,7 @@ const Comment = ({ comment, getRepliesById }) => {
       <Card
         color="transparent"
         shadow={false}
-        // onClick={toggleOpenReplies}
+        onClick={toggleReplies}
         className={`w-full mt-3 p-3 pb-2 bg-white ${comment.commentCount > 0 ? 'cursor-pointer' : ''}`}
       >
         <CardHeader
@@ -119,14 +120,14 @@ const Comment = ({ comment, getRepliesById }) => {
         }
         </CardBody>
       </Card>
-      {/* {
+      {
         replies.length > 0 &&
-        <Collapse open={openReplies} className='pl-5'>
+        <Collapse open={showReplies} className='pl-5'>
           {replies.map((reply) =>
             <Comment key={reply.id} comment={reply} getRepliesById={getRepliesById}/>
           )}
         </Collapse>
-      } */}
+      }
     </>
   )
 }
