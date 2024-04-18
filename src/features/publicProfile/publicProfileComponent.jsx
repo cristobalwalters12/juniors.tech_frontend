@@ -17,7 +17,7 @@ const PublicProfileComponent = () => {
   const { username } = useParams()
   const { publicProfile, data } = usePublicUserInformation(username)
   const { publicPost, posts } = usePublicPostInformation(data?.id)
-  useDocumentTitle(`Perfil de ${username} - Juniors.tech`)
+  useDocumentTitle(`Perfil de ${username}`)
   const idUser = useAuthStore(state => state.id)
 
   useEffect(() => {

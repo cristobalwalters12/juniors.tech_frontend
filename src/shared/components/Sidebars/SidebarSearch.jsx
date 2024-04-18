@@ -4,6 +4,8 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import SidebarListItem from './SidebarListItem'
 import SidebarPostSortingOptions from './SidebarPostSortingOptions'
 import SidebarPostFilteringOptions from './SidebarPostFilteringOptions'
+import SidebarUserSortingOptions from './SidebarUserSortingOptions'
+import SidebarUserFilteringOptions from './SidebarUserFilteringOptions'
 
 export default function SidebarSearch () {
   const location = useLocation()
@@ -31,6 +33,12 @@ export default function SidebarSearch () {
           <SidebarPostSortingOptions />
           <hr className='border-primary-dark my-2'/>
           <SidebarPostFilteringOptions />
+        </>)}
+        { searchType === 'users' &&
+        (<>
+          <SidebarUserSortingOptions />
+          <hr className='border-primary-dark my-2'/>
+          <SidebarUserFilteringOptions />
         </>)}
     </Card>
   )
