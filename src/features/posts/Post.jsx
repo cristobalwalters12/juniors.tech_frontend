@@ -31,8 +31,8 @@ const Post = ({ post }) => {
     navigate(`/posts/${post.id}/edit`)
   }
 
-  const handleShare = () => {}
   const handleReport = () => {}
+
   const handleDelete = () => {
     deletePostMutation.mutateAsync({ postId: post.id }).then(() => {
       navigate('/home')
@@ -41,6 +41,7 @@ const Post = ({ post }) => {
       showErrorToast(err, 'Error al eliminar publicación')
     })
   }
+
   const handleShowReplies = () => {}
 
   return (
@@ -95,7 +96,6 @@ const Post = ({ post }) => {
           post={post}
           onShowReplies={handleShowReplies}
           onVote={handleVote}
-          onShare={handleShare}
           onReport={handleReport}
           onDelete={handleDelete}
         />

@@ -40,8 +40,6 @@ const Comment = ({ comment, getRepliesById }) => {
       showErrorToast(err, 'Error al intentar votar')
     })
   }
-
-  const handleShare = () => {}
   const handleReport = () => {}
 
   const handleDelete = () => {
@@ -112,7 +110,6 @@ const Comment = ({ comment, getRepliesById }) => {
                   onEdit={showEditingForm}
                   onShowReplies={toggleReplies}
                   onVote={handleVote}
-                  onShare={handleShare}
                   onReport={handleReport}
                   onDelete={handleDelete}
                 />
