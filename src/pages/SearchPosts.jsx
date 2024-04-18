@@ -22,10 +22,10 @@ const SearchPosts = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-    <div className="flex flex-1 flex-row">
-    {results && <PostList {...results} />}
-  </div>
-</div>
+      <div className="flex flex-1 flex-row">
+        {results && <PostList {...results} />}
+      </div>
+    </div>
 
   )
 }

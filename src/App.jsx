@@ -25,6 +25,7 @@ import PersistAuth from './shared/components/Auth/PersistAuth'
 import RequireAuth from './shared/components/Auth/RequireAuth'
 import AuthenticateForm from './shared/components/Auth/AuthenticateForm'
 import RequireAccountOwner from './shared/components/Auth/RequireAccountOwner'
+import UserSearch from './features/users/UserSearch'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -48,6 +49,7 @@ function App () {
       <Route element={<DashboardLayout/>}>
         <Route path="/home" element={<SearchPosts />} />
         <Route path="/search/posts" element={<SearchPosts />} />
+        <Route path="/search/users" element={<UserSearch />} />
         <Route path="/users/:username" element={<PublicProfileComponent />} />
         <Route path="/posts/:id" element={<PostDetails />} />
         <Route path="/posts/:id/:slug" element={<PostDetails />} />

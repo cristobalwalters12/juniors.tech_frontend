@@ -1,5 +1,5 @@
 import { Card } from '@material-tailwind/react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams, useLocation } from 'react-router-dom'
 
 const DEFAULT_ORDERS = {
   votes: 'desc',
@@ -11,10 +11,12 @@ export default function SidebarSearch () {
   const sort = searchParams.get('sort')
   const order = searchParams.get('order')
   const category = searchParams.get('category')
-
+  const { search } = useLocation()
+  // const newSearchUserParams = new URLSearchParams(search)
+  console.log('Search para user', search)
   const handleSortingOptionChange = (value) => () => {
     const newSort = value
-    console.log(newSort)
+    console.log('NewSort', newSort)
     setSearchParams((prevSearchParams) => {
       const newSearchParams = new URLSearchParams(prevSearchParams)
       const prevSort = newSearchParams.get('sort')
