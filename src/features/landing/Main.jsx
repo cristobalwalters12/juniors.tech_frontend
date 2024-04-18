@@ -12,6 +12,7 @@ import imagen4 from '../../assets/images/imagen4.png'
 import imagen5 from '../../assets/images/imagen5.png'
 import imagen6 from '../../assets/images/imagen6.png'
 import imagen7 from '../../assets/images/imagen7.png'
+import { useAuthStore } from '../../stores/authStore'
 
 export function CardsList () {
   const cardData = [
@@ -107,6 +108,7 @@ export function CardsList () {
 }
 
 export function BottomTextWithButtons () {
+  const { isAuth } = useAuthStore()
   return (
         <div className="flex flex-col items-center mt-10 mb-10">
             <Typography
@@ -124,11 +126,13 @@ export function BottomTextWithButtons () {
                 ¿Qué esperas para unirte?
             </Typography>
             <div className="flex gap-5">
+            {!isAuth && (
                 <a href="/register">
                     <Button variant="outlined" color="black">
                         Crear cuenta
                     </Button>
                 </a>
+            )}
                 <a href="/home">
                     <Button variant="gradient" color="blue">
                         Ingresar al foro

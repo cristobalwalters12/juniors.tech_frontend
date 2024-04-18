@@ -29,7 +29,7 @@ export function CategoryManagementTable () {
   const fetchCategories = async () => {
     try {
       const response = await getCategories()
-      const categories = response.data
+      const categories = response
       setTableRows(categories)
     } catch (error) {
       console.error('Error al obtener las categorías:', error)
@@ -47,7 +47,7 @@ export function CategoryManagementTable () {
   const handleConfirmDelete = async () => {
     try {
       const categoryToDelete = tableRows[openDialogIndex]
-      if (categoryToDelete.name === 'Otros') {
+      if (categoryToDelete.name === 'otros') {
         toast.error('No puedes eliminar esta categoría.')
         return
       }
@@ -76,7 +76,7 @@ export function CategoryManagementTable () {
     try {
       await addCategory(newCategoryName)
       const response = await getCategories()
-      const updatedCategories = response.data
+      const updatedCategories = response
       setTableRows(updatedCategories)
       handleCloseAddDialog()
     } catch (error) {
@@ -120,13 +120,14 @@ export function CategoryManagementTable () {
               </tr>
             </thead>
             <tbody>
-              {tableRows.map(({ name }, index) => {
-                return (
+            {tableRows && tableRows.map(({ name, id }, index) => {
+              const isOtherCategory = name === 'otros' || id === '-1dHyfoQNs'
+              return (
                   <tr key={index}>
                     <td className="p-2">
                       {editIndex === index
                         ? (
-                          <Input
+                        <Input
                           type="text"
                           placeholder="Nombre"
                           value={editName}
@@ -160,16 +161,18 @@ export function CategoryManagementTable () {
                               setEditIndex(index)
                             }}
                             color="blue-gray"
-                            variant='text'
+                            variant="text"
                             size="sm"
+                            disabled={isOtherCategory}
                           >
                             Editar
                           </Button>
                           <Button
                             onClick={() => handleOpenDialog(index)}
                             color="red"
-                            variant='text'
+                            variant="text"
                             size="sm"
+                            disabled={isOtherCategory}
                           >
                             Eliminar
                           </Button>
@@ -177,21 +180,23 @@ export function CategoryManagementTable () {
                           )}
                     </td>
                   </tr>
-                )
-              })}
+              )
+            })}
             </tbody>
           </table>
         </div>
       </Card>
       <div className="mt-3 flex justify-start">
-        <Button variant='outlined' color='black' onClick={handleOpenAddDialog}>Agregar categoría</Button>
+        <Button variant="outlined" color="black" onClick={handleOpenAddDialog}>
+          Agregar categoría
+        </Button>
         <Dialog open={openAddDialog} size="sm" handler={handleCloseAddDialog}>
           <DialogHeader>
             <Typography variant="h5">Agregar categoría</Typography>
           </DialogHeader>
           <DialogBody>
             <div className="grid gap-3">
-            <Input
+              <Input
                 type="text"
                 placeholder="Nombre"
                 value={newCategoryName}
