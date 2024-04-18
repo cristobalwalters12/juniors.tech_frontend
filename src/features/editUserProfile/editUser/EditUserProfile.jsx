@@ -62,6 +62,9 @@ const EditUserProfile = () => {
     const userData = {
       usernameId: idUser
     }
+    if (data.imgURL) {
+      userData.avatarUrl = data.imgURL
+    }
 
     if (data.availableToWork) {
       userData.openToWork = data.availableToWork
@@ -128,6 +131,9 @@ const EditUserProfile = () => {
                 Imagen de Perfil
             </Typography>
             <ProfileAvatar alt="avatar" size='xxl' className='mt-6' />
+            <div className='w-full sm:w-96'>
+                <Input type="text" label='Imagen de perfil' {...register('imgURL')} />
+            </div>
             </div>
             <CardBody>
                 <div className='flex flex-col'>
@@ -208,7 +214,7 @@ const EditUserProfile = () => {
                 </Typography>
                 <div className='mt-6 flex flex-col'>
                     <div className='flex'>
-                        <IconButton className="rounded bg-[#333333] hover:shadow-[#333333]/20 focus:shadow-[#333333]/20 active:shadow-[#333333]/10">
+                        <IconButton className="rounded bg-[#0D47A1] hover:shadow-[#333333]/20 focus:shadow-[#333333]/20 active:shadow-[#333333]/10">
                         <i className="fab fa-github text-lg" />
                         </IconButton>
                         <div className='w-full sm:w-6/12 ml-2 '>
@@ -222,7 +228,7 @@ const EditUserProfile = () => {
 
                     </div>
                     <div className='flex mt-3'>
-                        <IconButton className="rounded bg-[#333333] hover:shadow-[#333333]/20 focus:shadow-[#333333]/20 active:shadow-[#333333]/10">
+                        <IconButton className="rounded bg-[#0D47A1] hover:shadow-[#333333]/20 focus:shadow-[#333333]/20 active:shadow-[#333333]/10">
                         <i className="fab fa-linkedin text-lg" />
                         </IconButton>
                         <div className='w-full sm:w-6/12 ml-2 '>
@@ -359,10 +365,10 @@ const EditUserProfile = () => {
             <CardFooter>
                 <div className='flex flex-row'>
                     <div>
-                        <Button type="submit" onClick={handleClick}>Guardar</Button>
+                        <Button type="submit" className='bg-[#0D47A1] text-white' onClick={handleClick}>Guardar</Button>
                     </div>
                     <div className='ml-6'>
-                        <Button color='gray'>Cancelar</Button>
+                        <Button className='bg-[#0D47A1] text-white'>Cancelar</Button>
                     </div>
                 </div>
             </CardFooter>

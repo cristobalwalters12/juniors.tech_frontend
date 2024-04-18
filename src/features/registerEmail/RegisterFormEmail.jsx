@@ -162,7 +162,7 @@ const RegisterFormEmail = () => {
           containerProps={{ className: '-ml-2.5' }}
         />
         {errors.terms && <p className="text-red-200">{errors.terms.message}</p>}
-        <Button className="mt-6" fullWidth type="submit">
+        <Button className="mt-6 bg-[#0D47A1] text-white" fullWidth type="submit">
           Registrarse
         </Button>
       </form>

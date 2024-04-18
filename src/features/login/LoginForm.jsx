@@ -52,7 +52,7 @@ const LoginForm = ({ onClose, onSwitch }) => {
             render={({ field }) => <Input {...field} type="password" label="Password"/>}
           />
         </div>
-          <Button type="submit" className="mt-6" fullWidth>
+          <Button type="submit" className="mt-6 bg-[#0D47A1] text-white" fullWidth>
             Iniciar Sesión
           </Button>
       </form>

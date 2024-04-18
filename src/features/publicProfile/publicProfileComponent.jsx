@@ -9,10 +9,12 @@ import { useParams } from 'react-router-dom'
 import Nestbutton from './NestButton'
 import { useAuthStore } from '../../stores/authStore'
 import ProfileAvatar from '../../shared/components/ProfileAvatar'
+import { differenceInDays, parseISO } from 'date-fns'
 const PublicProfileComponent = () => {
   const { username } = useParams()
   const { publicProfile, data } = usePublicUserInformation(username)
   const idUser = useAuthStore(state => state.id)
+
   useEffect(() => {
     publicProfile({ username })
   }, [publicProfile, username])
@@ -23,6 +25,14 @@ const PublicProfileComponent = () => {
     }
     return false
   }
+  let days = 0
+
+  if (data?.createdAt) {
+    const createdAtDate = parseISO(data.createdAt)
+    const now = new Date()
+    days = differenceInDays(now, createdAtDate)
+  }
+
   return (
       <Card className="mt-6">
         <div className='flex m-6'>
@@ -31,10 +41,10 @@ const PublicProfileComponent = () => {
           <div>
           <div className='ml-5'>
             <Typography color="black" variant='h2'>
-              {data?.username} ({data?.pronoun})
+              {data?.username}({data?.pronoun})
             </Typography>
             <Typography color="black">
-                Miembro por N meses
+              Miembro hace {days} dias
             </Typography>
             <Typography color="black">
             {data?.employmentStatus}
@@ -134,8 +144,8 @@ const PublicProfileComponent = () => {
             <div className='flex gap-6 flex-col mt-4'>
             {data?.social_networks && data.social_networks.map((network, index) => (
               network && <Typography color='black' key={index}>
-                <a href={network.toString() || '#'}>{data?.social_networks}{index + 1}</a>
-              </Typography>
+              <a href={network || '#'}>{network}</a>
+            </Typography>
             ))}
             </div>
           </div>
