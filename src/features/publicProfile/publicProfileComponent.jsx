@@ -30,7 +30,7 @@ const PublicProfileComponent = () => {
         <div className='flex'>
           <div>
           <div className='ml-5'>
-            <Typography color="black" variant='h3'>
+            <Typography color="black" variant='h2'>
               {data?.username} ({data?.pronoun})
             </Typography>
             <Typography color="black">
@@ -50,7 +50,7 @@ const PublicProfileComponent = () => {
       </div>
         </div>
         <CardBody>
-          <Typography color="black" variant='h3'>
+          <Typography color="black" variant='h2'>
             Estadisticas
           </Typography>
           <div className='flex mt-6 gap-6'>
@@ -80,7 +80,7 @@ const PublicProfileComponent = () => {
             </div>
           </div>
           <div className='mt-6'>
-            <Typography color="black" variant='h3'>
+            <Typography color="black" variant='h2'>
               Acerca de mi
             </Typography>
             <Typography color="black" className='mt-4'>
@@ -89,7 +89,7 @@ const PublicProfileComponent = () => {
           </div>
           <div className='mt-6'>
             <div className='mt-6'>
-            <Typography color='black' variant='h3'>
+            <Typography color='black' variant='h2'>
               Idioma
             </Typography>
             <div className='flex gap-6 mt-4'>
@@ -105,7 +105,7 @@ const PublicProfileComponent = () => {
           </div>
           </div>
           <div className='mt-6'>
-            <Typography color='black' variant='h3'>
+            <Typography color='black' variant='h2'>
               Áreas de interés en IT
             </Typography>
             <div className='flex gap-6 mt-4'>
@@ -113,7 +113,7 @@ const PublicProfileComponent = () => {
             </div>
           </div>
           <div className='mt-6'>
-            <Typography color='black' variant='h3'>
+            <Typography color='black' variant='h2'>
               Lenguajes y Herramientas
             </Typography>
             <div className='flex gap-6 mt-4'>
@@ -128,7 +128,7 @@ const PublicProfileComponent = () => {
             </div>
           </div>
           <div className='mt-6'>
-            <Typography color='black' variant='h3'>
+            <Typography color='black' variant='h2'>
               Redes
             </Typography>
             <div className='flex gap-6 flex-col mt-4'>
@@ -140,7 +140,7 @@ const PublicProfileComponent = () => {
             </div>
           </div>
           <div className='mt-6'>
-          <Typography color='black' variant='h3'>
+          <Typography color='black' variant='h2'>
               publicaciones Destacadas
             </Typography>
             <div className='flex flex-col gap-3 mt-4'>
