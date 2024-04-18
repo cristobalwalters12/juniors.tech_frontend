@@ -12,7 +12,6 @@ import UserAvatar from '../../shared/components/UserAvatar'
 import { FormattedDate } from '../../shared/components/FormattedDate'
 import { useDocumentTitle } from '../../shared/hooks/useDocumentTitle'
 import { usePublicPostInformation } from './userPostUserInformation'
-
 const PublicProfileComponent = () => {
   const { username } = useParams()
   const { publicProfile, data } = usePublicUserInformation(username)

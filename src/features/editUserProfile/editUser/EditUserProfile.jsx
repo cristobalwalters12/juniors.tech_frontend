@@ -10,7 +10,7 @@ import {
   Checkbox,
   Button
 } from '@material-tailwind/react'
-import ProfileAvatar from '../../../shared/components/ProfileAvatar'
+import UserAvatar from '../../../shared/components/UserAvatar'
 import { useAuthStore } from '../../../stores/authStore'
 import {
   CountryDiccionary,
@@ -30,6 +30,8 @@ import { showErrorToast } from '../../../shared/utils/showErrorToast'
 const EditUserProfile = () => {
   const user = useAuthStore(state => state.user)
   const idUser = useAuthStore(state => state.id)
+  const avatarUrl = useAuthStore(state => state.avatarUrl)
+  const setAvatarUrl = useAuthStore(state => state.setAvatarUrl)
   const { register, handleSubmit, control, getValues } = useForm()
   const { editUser } = useUserEditUser()
   const navigate = useNavigate()
@@ -64,6 +66,7 @@ const EditUserProfile = () => {
     }
     if (data.imgURL) {
       userData.avatarUrl = data.imgURL
+      setAvatarUrl(data.imgURL)
     }
 
     if (data.availableToWork) {
@@ -130,8 +133,8 @@ const EditUserProfile = () => {
             <Typography color='black' variant='h3' className='mt-6'>
                 Imagen de Perfil
             </Typography>
-            <ProfileAvatar alt="avatar" size='xxl' className='mt-6' />
-            <div className='w-full sm:w-96'>
+            <UserAvatar avatarUrl={avatarUrl} username={user} alt="avatar" size='xxl' />
+            <div className='w-full sm:w-96 mt-6'>
                 <Input type="text" label='Imagen de perfil' {...register('imgURL')} />
             </div>
             </div>
