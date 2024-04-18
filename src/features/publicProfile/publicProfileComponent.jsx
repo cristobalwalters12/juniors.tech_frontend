@@ -10,9 +10,11 @@ import Nestbutton from './NestButton'
 import { useAuthStore } from '../../stores/authStore'
 import UserAvatar from '../../shared/components/UserAvatar'
 import { FormattedDate } from '../../shared/components/FormattedDate'
+import { useDocumentTitle } from '../../shared/hooks/useDocumentTitle'
 const PublicProfileComponent = () => {
   const { username } = useParams()
   const { publicProfile, data } = usePublicUserInformation(username)
+  useDocumentTitle(`Perfil de ${username} - Juniors.tech`)
   const idUser = useAuthStore(state => state.id)
   useEffect(() => {
     publicProfile({ username })
