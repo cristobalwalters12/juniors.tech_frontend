@@ -66,7 +66,7 @@ const Comment = ({ comment, getRepliesById }) => {
         color="transparent"
         shadow={false}
         onClick={toggleReplies}
-        className={`w-full mt-3 p-3 pb-2 bg-white ${comment.commentCount > 0 ? 'cursor-pointer' : ''}`}
+        className={`w-full mt-3 p-3 pb-2 bg-blue-gray-50 ${comment.commentCount > 0 ? 'cursor-pointer' : ''}`}
       >
         <CardHeader
           color="transparent"
@@ -108,7 +108,8 @@ const Comment = ({ comment, getRepliesById }) => {
                 <CustomCardFooter
                   comment={comment}
                   onEdit={showEditingForm}
-                  onShowReplies={openReplyForm}
+                  onReply={openReplyForm}
+                  disableReply={replying}
                   onVote={handleVote}
                   onReport={handleReport}
                   onDelete={handleDelete}

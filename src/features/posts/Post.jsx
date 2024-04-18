@@ -5,7 +5,7 @@ import {
   Typography,
   Button
 } from '@material-tailwind/react'
-import { ArrowLeftIcon, DocumentTextIcon } from '@heroicons/react/24/outline'
+import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 import { FormattedDate } from '../../shared/components/FormattedDate'
 import { useNavigate } from 'react-router-dom'
 import { CustomCardFooter } from '../../shared/components/Cards/CustomCardFooter'
@@ -14,8 +14,9 @@ import { useDeletePost } from './useDeletePost'
 import { toast } from 'react-toastify'
 import { showErrorToast } from '../../shared/utils/showErrorToast'
 import { useVoteOnPost } from './useVoteOnPost'
+import UserAvatar from '../../shared/components/UserAvatar'
 
-const Post = ({ post }) => {
+const Post = ({ post, onShowReplies, diableReplyButton }) => {
   const navigate = useNavigate()
   const deletePostMutation = useDeletePost()
   const voteOnPostMutation = useVoteOnPost()
@@ -41,12 +42,13 @@ const Post = ({ post }) => {
       showErrorToast(err, 'Error al eliminar publicación')
     })
   }
-
-  const handleShowReplies = () => {}
-
   return (
-    <article className='pl-4 pb-3'>
-      <Card color="transparent" shadow={false} className="w-full">
+    <article>
+      <Card
+        color="transparent"
+        shadow={false}
+        className="w-full pl-2 pt-2 pr-6"
+      >
         <CardHeader
           color="transparent"
           floated={false}
@@ -54,14 +56,14 @@ const Post = ({ post }) => {
           className="mx-0 flex justify-between pt-0 pb-2"
         >
           <div className='flex items-center gap-2'>
-            <Button variant='text' className='rounded-full p-3'>
+            <Button variant='text' className='rounded-full p-0 w-14 h-10 flex items-center justify-center' onClick={() => navigate(-1)}>
               <ArrowLeftIcon className='h-4 w-4' />
             </Button>
-            <span className="rounded-full border border-white/20 bg-blue-gray-50 p-2">
-              <DocumentTextIcon className='h-5 text-blue-gray-500' />
+            <span className="rounded-full p-0 flex items-center">
+              <UserAvatar avatarUrl={post.avatarUrl} size="sm" className="m-0" />
             </span>
             <div className="flex w-full flex-col">
-              <Typography variant="paragraph" color="blue-gray" className='font-semibold'>
+              <Typography variant="paragraph" color="black" className='font-semibold'>
                 {post.category}
               </Typography>
               <div className="flex items-center gap-1.5">
@@ -79,7 +81,7 @@ const Post = ({ post }) => {
               </div>
             </div>
           </div>
-          <div className='flex items-center'>
+          <div className='flex items-start'>
             <ContextMenu
               ownerId={post.authorId}
               onEdit={handleEdit}
@@ -88,13 +90,14 @@ const Post = ({ post }) => {
             />
           </div>
         </CardHeader>
-        <CardBody className="mb-2 p-0 flex flex-col gap-2">
-          <Typography variant='h4'>{post.title}</Typography>
-          <Typography>{post.body}</Typography>
+        <CardBody className="mb-2 mt-4 p-0 flex flex-col gap-2">
+          <Typography variant='h4' className='text-blue-gray-900 mb-2'>{post.title}</Typography>
+          <Typography className='font-normal text-md mb-3'>{post.body}</Typography>
         </CardBody>
         <CustomCardFooter
           post={post}
-          onShowReplies={handleShowReplies}
+          onReply={onShowReplies}
+          disableReply={diableReplyButton}
           onVote={handleVote}
           onReport={handleReport}
           onDelete={handleDelete}
