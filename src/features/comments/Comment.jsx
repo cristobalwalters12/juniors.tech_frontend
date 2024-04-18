@@ -2,6 +2,7 @@ import {
   Card,
   CardBody,
   CardHeader,
+  Collapse,
   // Collapse,
   Typography
 } from '@material-tailwind/react'
@@ -20,14 +21,14 @@ const Comment = ({ comment, getRepliesById }) => {
   const [editing, setEditing] = useState(false)
   const deleteCommentMutation = useDeleteComment()
   const voteOnCommentMutation = useVoteComment()
-  // const [replying, setReplying] = useState(false)
-  // const [showReplies, setShowReplies] = useState(false)
+  const [replying, setReplying] = useState(false)
+  const [showReplies, setShowReplies] = useState(false)
   const showEditingForm = () => setEditing(true)
   const hideEditingForm = () => setEditing(false)
-  // const openReplyForm = () => setReplying(true)
-  // const closeReplyForm = () => setReplying(false)
-  // const toggleReplies = () => setShowReplies(prevState => !prevState)
-  const toggleReplies = () => {}
+  const openReplyForm = () => setReplying(true)
+  const closeReplyForm = () => setReplying(false)
+  const toggleReplies = () => setShowReplies(prevState => !prevState)
+  const replies = getRepliesById(comment.id)
 
   const handleVote = (voteDirection) => {
     voteOnCommentMutation.mutateAsync({
@@ -39,8 +40,6 @@ const Comment = ({ comment, getRepliesById }) => {
       showErrorToast(err, 'Error al intentar votar')
     })
   }
-
-  const handleShare = () => {}
   const handleReport = () => {}
 
   const handleDelete = () => {
@@ -66,8 +65,8 @@ const Comment = ({ comment, getRepliesById }) => {
       <Card
         color="transparent"
         shadow={false}
-        // onClick={toggleOpenReplies}
-        className={`w-full mt-3 p-3 pb-2 bg-white ${comment.commentCount > 0 ? 'cursor-pointer' : ''}`}
+        onClick={toggleReplies}
+        className={`w-full mt-3 p-3 pb-2 bg-blue-gray-50 ${comment.commentCount > 0 ? 'cursor-pointer' : ''}`}
       >
         <CardHeader
           color="transparent"
@@ -109,9 +108,9 @@ const Comment = ({ comment, getRepliesById }) => {
                 <CustomCardFooter
                   comment={comment}
                   onEdit={showEditingForm}
-                  onShowReplies={toggleReplies}
+                  onReply={openReplyForm}
+                  disableReply={replying}
                   onVote={handleVote}
-                  onShare={handleShare}
                   onReport={handleReport}
                   onDelete={handleDelete}
                 />
@@ -119,14 +118,25 @@ const Comment = ({ comment, getRepliesById }) => {
         }
         </CardBody>
       </Card>
-      {/* {
+      {
+          replying &&
+          <SaveCommentForm
+            comment={{
+              postId: comment.postId,
+              parentId: comment.id
+            }}
+            onClose={closeReplyForm}
+            className="pt-1"
+          />
+        }
+      {
         replies.length > 0 &&
-        <Collapse open={openReplies} className='pl-5'>
+        <Collapse open={showReplies} className='pl-5'>
           {replies.map((reply) =>
             <Comment key={reply.id} comment={reply} getRepliesById={getRepliesById}/>
           )}
         </Collapse>
-      } */}
+      }
     </>
   )
 }

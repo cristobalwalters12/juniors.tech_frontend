@@ -2,7 +2,7 @@ import { baseApi } from '../api/baseApi'
 import { API_PATHS } from '../config/constants/apiUrls'
 
 const getPosts = async () => {
-  const { data } = await baseApi.get(API_PATHS.posts)
+  const { data: { data } } = await baseApi.get(API_PATHS.posts)
   return data
 }
 
@@ -59,4 +59,8 @@ const deletePostById = async ({ postId }) => {
   await baseApi.delete(`${API_PATHS.posts}/${postId}`)
 }
 
-export { getPosts, savePost, getPostById, deletePostById }
+const voteOnPost = async ({ postId, voteDirection }) => {
+  await baseApi.post(`${API_PATHS.posts}/${postId}/vote`, { voteDirection })
+}
+
+export { getPosts, savePost, getPostById, deletePostById, voteOnPost }

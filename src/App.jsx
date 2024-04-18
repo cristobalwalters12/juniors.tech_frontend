@@ -28,6 +28,7 @@ import RequireAccountOwner from './shared/components/Auth/RequireAccountOwner'
 import UserSearch from './features/users/UserSearch'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Home from './pages/Home'
 
 function App () {
   return (
@@ -47,7 +48,7 @@ function App () {
       </Route>
 
       <Route element={<DashboardLayout/>}>
-        <Route path="/home" element={<SearchPosts />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/search/posts" element={<SearchPosts />} />
         <Route path="/search/users" element={<UserSearch />} />
         <Route path="/users/:username" element={<PublicProfileComponent />} />

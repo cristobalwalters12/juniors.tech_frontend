@@ -1,16 +1,12 @@
 import { useState } from 'react'
-import { ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/24/outline'
-import { Card, CardBody, Typography, List, Button, IconButton } from '@material-tailwind/react'
-import { useAuthStore } from '../../stores/authStore'
-import { FormattedDate } from '../../shared/components/FormattedDate'
-
 import { Link } from 'react-router-dom'
-import { CustomCardFooter } from '../../shared/components/Cards/CustomCardFooter'
+import { Button, IconButton } from '@material-tailwind/react'
+import PostSummary from './PostSummary'
+import { ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/24/outline'
 
 const PostList = ({ posts, totalMatches: totalPosts, totalPages, limit: postsPerPage, currPage }) => {
   const [active, setActive] = useState(1)
   const [currentPage, setCurrentPage] = useState(currPage)
-  const currUserId = useAuthStore((state) => state.id)
 
   const getItemProps = (index) => ({
     variant: active === index ? 'filled' : 'text',
@@ -39,31 +35,10 @@ const PostList = ({ posts, totalMatches: totalPosts, totalPages, limit: postsPer
   const indexOfFirstPost = indexOfLastPost - postsPerPage
 
   return (
-    <div>
+    <div className='flex flex-col gap-3 max-w-[48rem]'>
       {posts?.map((post) => (
-        <Link key={post.id} to={`/posts/${post.id}`}>
-          <Card className='max-w-[48rem] my-3'>
-            <List className='flex-row mx-4'>
-              <Typography variant='small' color='blue-gray' className='font-normal mx-1'>
-                {post.category}
-              </Typography>
-              <Typography variant='small' color='gray' className='font-normal'>
-                <FormattedDate date={post.createdAt}/>
-              </Typography>
-            </List>
-            <CardBody>
-              <Typography variant='h5' color='blue-gray' className='mb-3'>
-                {post.title}
-              </Typography>
-              <Typography>{post.body}</Typography>
-            </CardBody>
-            <CustomCardFooter
-                voteDirection={post.voteDirection}
-                voteCount={post.voteCount}
-                commentCount={post.commentCount}
-                owner={post.authorId === currUserId}
-              />
-          </Card>
+        <Link key={post.id} to={`/posts/${post.id}/${post.slug}`}>
+          <PostSummary post={post} />
         </Link>
       ))}
       <div className='flex items-center gap-4'>

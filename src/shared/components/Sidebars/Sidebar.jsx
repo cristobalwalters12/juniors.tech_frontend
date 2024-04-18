@@ -11,7 +11,7 @@ export default function Sidebar () {
 
   if (pathname.startsWith('/search')) {
     return <SidebarSearch />
-  } else if (username && pathname.startsWith(`/users/${username}`)) {
+  } else if (username && pathname.startsWith(`/users/${encodeURI(username)}`)) {
     return (<SidebarAccount />)
   } else if (pathname.startsWith('/users')) {
     return (<SidebarHome />)
