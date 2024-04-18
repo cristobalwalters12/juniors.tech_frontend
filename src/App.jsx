@@ -27,6 +27,7 @@ import AuthenticateForm from './shared/components/Auth/AuthenticateForm'
 import RequireAccountOwner from './shared/components/Auth/RequireAccountOwner'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Home from './pages/Home'
 
 function App () {
   return (
@@ -46,7 +47,7 @@ function App () {
       </Route>
 
       <Route element={<DashboardLayout/>}>
-        <Route path="/home" element={<SearchPosts />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/search/posts" element={<SearchPosts />} />
         <Route path="/users/:username" element={<PublicProfileComponent />} />
         <Route path="/posts/:id" element={<PostDetails />} />
