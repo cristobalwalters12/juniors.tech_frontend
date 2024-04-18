@@ -28,7 +28,7 @@ const LoginForm = ({ onClose, onSwitch }) => {
     })
   }
   return (
-    <Card color="white" shadow={false} className="w-full">
+    <Card color="white" shadow={false} className="w-11/12 sm:w-7/12">
       <Typography variant="h2" color="blue-gray" className='text-center mt-4'>
         Inicia Sesión
       </Typography>
