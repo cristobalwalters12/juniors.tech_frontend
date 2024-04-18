@@ -31,10 +31,6 @@ const useVoteComment = () => {
               }
               newVoteDirection = context.voteDirection
             }
-            console.log({
-              newVoteCount,
-              newVoteDirection
-            })
             return {
               ...comment,
               voteCount: newVoteCount,
