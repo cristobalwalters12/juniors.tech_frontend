@@ -5,10 +5,10 @@ import { useSearchParams } from 'react-router-dom'
 
 const SearchBar = ({ className }) => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const title = searchParams.get('title')
+  const q = searchParams.get('q')
 
   const handleChange = (e) => {
-    setSearchParams(prev => ({ ...prev, title: e.target.value }), { replace: true })
+    setSearchParams(prev => ({ ...prev, q: e.target.value }), { replace: true })
   }
 
   const handleReset = () => {
@@ -22,13 +22,13 @@ const SearchBar = ({ className }) => {
       </div>
       <CustomInput
         placeholder="Busca en Juniors.tech"
-        id="title"
+        id="q"
         className="pl-12"
         type='search'
-        value={title || ''}
+        value={q || ''}
         onChange={handleChange}
         />
-      {title && (
+      {q && (
         <div className='absolute top-0 right-0 z-10'>
           <IconButton variant='text' onClick={handleReset} className='hover:bg-blue-500/10 focus:bg-blue-500/10 active:bg-blue-500/10'>
             <XMarkIcon width="2em" stroke='#8ab0e8'/>
