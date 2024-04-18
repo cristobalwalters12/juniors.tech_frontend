@@ -12,8 +12,8 @@ import {
 } from '@material-tailwind/react'
 import { TextEditor } from './TextEditor'
 import { useNavigate } from 'react-router-dom'
-import { useGetCategories } from './useGetCategories'
 import { showErrorToast } from '../../shared/utils/showErrorToast'
+import { useGetCategories } from '../../shared/hooks/useGetCategories'
 
 const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '' }) => {
   const navigate = useNavigate()
