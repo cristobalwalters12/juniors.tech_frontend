@@ -3,8 +3,11 @@ import { joiResolver } from '@hookform/resolvers/joi'
 import { commentSchema } from './commentSchema'
 import { Button, Typography } from '@material-tailwind/react'
 import { TextEditor } from '../posts/TextEditor'
+import { useSaveComment } from './useSaveComment'
+import { showErrorToast } from '../../shared/utils/showErrorToast'
 
-const CreateCommentForm = ({ comment = {}, submitReply, close, className }) => {
+const SaveCommentForm = ({ comment = {}, onClose, className }) => {
+  const saveCommentMutation = useSaveComment()
   const {
     register,
     handleSubmit,
@@ -16,20 +19,24 @@ const CreateCommentForm = ({ comment = {}, submitReply, close, className }) => {
     defaultValues: { body: comment.body || '' }
   })
 
-  const onSubmit = (data) => {
-    if (comment.id) {
-      comment.body = data.body
-      submitReply(comment)
-    } else {
-      submitReply(data)
-      close()
-      reset()
-    }
+  const saveComment = ({ body }) => {
+    saveCommentMutation
+      .mutateAsync({
+        ...comment,
+        commentId: comment.id,
+        body
+      })
+      .then(() => {
+        onClose()
+        reset()
+      }).catch((err) => {
+        showErrorToast(err)
+      })
   }
 
   return (
     <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(saveComment)}
         className={`my-2 w-full pl-5 ${className || ''}`}
       >
         <div className="pb-1 flex flex-col gap-2 w-full">
@@ -46,10 +53,10 @@ const CreateCommentForm = ({ comment = {}, submitReply, close, className }) => {
             </Typography>
           )}
           <div className="flex gap-2">
-            <Button size="sm" color="red" variant="text" className="rounded-md" onClick={close}>
+            <Button size="sm" color="red" disabled={saveCommentMutation.isPending} variant="text" className="rounded-md" onClick={onClose}>
               Cancelar
             </Button>
-            <Button type="submit" disabled={!isValid} size="sm" className="rounded-md">
+            <Button type="submit" disabled={!isValid || saveCommentMutation.isPending} loading={saveCommentMutation.isPending} size="sm" className="rounded-md">
               Publicar
             </Button>
           </div>
@@ -58,4 +65,4 @@ const CreateCommentForm = ({ comment = {}, submitReply, close, className }) => {
   )
 }
 
-export { CreateCommentForm }
+export { SaveCommentForm }

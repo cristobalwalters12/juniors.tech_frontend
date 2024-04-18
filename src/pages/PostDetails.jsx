@@ -1,64 +1,61 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { Button } from '@material-tailwind/react'
 import { useGetSinglePost } from '../features/posts/useGetSinglePost'
 import { Post } from '../features/posts/Post'
 import { CommentList } from '../features/comments/CommentList'
-import { CreateCommentForm } from '../features/comments/SaveCommentForm'
-import { useSaveComment } from '../features/comments/useSaveComment'
-import { useAuthStore } from '../stores/authStore'
+import { SaveCommentForm } from '../features/comments/SaveCommentForm'
+import RequireAuthOnClick from '../shared/components/Auth/RequireAuthOnClick'
+import { useDocumentTitle } from '../shared/hooks/useDocumentTitle'
+import { showErrorToast } from '../shared/utils/showErrorToast'
 
 const PostDetails = () => {
-  const { id } = useParams()
-  const isAuth = useAuthStore((state) => state.isAuth)
+  const { id: postId } = useParams()
   const [replying, setReplying] = useState(false)
-  const query = useGetSinglePost(id)
   const navigate = useNavigate()
-  const saveComment = useSaveComment()
-  const openReplyForm = () => {
-    if (!isAuth) {
-      navigate('/login')
+  const getSinglePostQuery = useGetSinglePost(postId)
+  useDocumentTitle(getSinglePostQuery.data?.title, getSinglePostQuery.isFetched)
+
+  useEffect(() => {
+    if (getSinglePostQuery.data) {
+      const { id, slug } = getSinglePostQuery.data
+      navigate(`/posts/${id}/${slug}`, { replace: true })
     }
-    setReplying(true)
-  }
-  const closeReplyForm = () => {
-    setReplying(false)
-  }
+  }, [getSinglePostQuery.data, navigate])
 
-  if (query.isLoading) return <h1>Cargando...</h1>
-  if (query.isError) {
-    return <Navigate to="/not-found" />
-  }
+  const toggleReplyForm = () => setReplying(prevState => !prevState)
 
-  const submitReply = (reply) => {
-    saveComment.mutate({
-      postId: id,
-      parentId: id,
-      ...reply
-    })
-    closeReplyForm()
+  if (getSinglePostQuery.isLoading) return <h1>Cargando...</h1>
+  if (getSinglePostQuery.isError) {
+    const { error } = getSinglePostQuery
+    showErrorToast(error, 'Error al cargar la publicación')
+    console.log({ error })
+
+    if (error.response.status === 404) {
+      return <Navigate to="/not-found" />
+    }
   }
+  const newComment = { postId, parentId: postId }
+
   return (
       <div className='max-w-[60rem]'>
-        <Post post={query.data} />
-        <div className='pt-4 pl-0 '>
+        <Post post={getSinglePostQuery.data} />
+          <div className='pt-4 pl-0 '>
           {
             replying
-              ? <CreateCommentForm
-                  submitReply={submitReply}
-                  close={closeReplyForm}
+              ? <SaveCommentForm
+                  comment={newComment}
+                  onClose={toggleReplyForm}
                   className="pl-3 pr-3 mb-0"
                 />
-              : <Button
-                  className='ml-3'
-                  variant='filled'
-                  onClick={openReplyForm}
-                >
-                  Agregar comentario
-                </Button>
+              : <RequireAuthOnClick onClickAuthenticated={toggleReplyForm}>
+                  <Button className='ml-3' variant='filled'>
+                    Agregar comentario
+                  </Button>
+                </RequireAuthOnClick>
           }
-        </div>
-        <CommentList postId={id} />
+          </div>
+        <CommentList postId={postId} />
       </div>
   )
 }
