@@ -4,11 +4,10 @@ import SidebarListItem from './SidebarListItem'
 import SortIcon from '../Icons/SortIcon'
 
 const DEFAULT_ORDERS = {
-  votes: 'desc',
-  date: 'asc'
+  score: 'desc'
 }
 
-const SidebarPostSortingOptions = () => {
+const SidebarUserSortingOptions = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const sort = searchParams.get('sort')
   const order = searchParams.get('order')
@@ -57,22 +56,12 @@ const SidebarPostSortingOptions = () => {
       )}
     </div>
     <SidebarListItem className="flex flex-col items-start" onClick={handleSortingOptionChange('votes')}>
-      <Typography className='text-sm font-normal'>Votos</Typography>
+      <Typography className='text-sm font-normal'>Puntaje</Typography>
       <Typography className="text-sm">{
       sort !== 'votes'
         ? 'Cualquiera'
         : (
-            order === 'asc' ? 'Menos votadas primero' : 'Más votadas primero'
-          )
-      }</Typography>
-    </SidebarListItem>
-    <SidebarListItem className="flex flex-col items-start" onClick={handleSortingOptionChange('date')}>
-      <Typography className='text-sm font-normal'>Fecha</Typography>
-      <Typography className="text-sm">{
-      sort !== 'date'
-        ? 'Cualquiera'
-        : (
-            order === 'asc' ? 'Más recientes primero<' : 'Más antiguas primero'
+            order === 'asc' ? 'Menos puntos primero' : 'Más puntos primero'
           )
       }</Typography>
     </SidebarListItem>
@@ -80,4 +69,4 @@ const SidebarPostSortingOptions = () => {
   )
 }
 
-export default SidebarPostSortingOptions
+export default SidebarUserSortingOptions

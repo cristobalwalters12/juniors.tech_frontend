@@ -10,7 +10,8 @@ import ProfileAvatar from '../../shared/components/ProfileAvatar'
 import { useForm } from 'react-hook-form'
 import { useUserChangePassword } from './userUserchangePassword'
 import { useNavigate } from 'react-router-dom'
-
+import { toast } from 'react-toastify'
+import { showErrorToast } from '../../shared/utils/showErrorToast'
 const ChangePassword = () => {
   const user = useAuthStore(state => state.user)
   const navigate = useNavigate()
@@ -26,6 +27,10 @@ const ChangePassword = () => {
     change(userData, {
       onSuccess: () => {
         navigate(`/users/${user}`)
+        toast.success('Contraseña cambiada correctamente , la proxima vez que inicies sesion tendras que iniciar sesion con la nueva contraseña')
+      },
+      onError: (error) => {
+        showErrorToast(error, 'Contraseña actual invalida')
       }
     })
   }

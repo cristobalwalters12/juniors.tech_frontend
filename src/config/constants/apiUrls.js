@@ -7,6 +7,7 @@ const API_PATHS = {
   userData: '/user-data',
   publicProfile: '/users/:username',
   desactivateAccount: '/users/:id/desactivateAccount',
+  postById: '/users/:id/posts',
   editProfile: '/users/:username',
   changePassword: '/auth/change-password',
   posts: '/posts',

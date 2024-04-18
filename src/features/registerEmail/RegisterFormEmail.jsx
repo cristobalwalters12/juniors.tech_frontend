@@ -6,31 +6,20 @@ import {
   Checkbox,
   Button,
   Typography,
-  Select, Option, Alert
+  Select, Option
 } from '@material-tailwind/react'
 import './css/registerFormEmail.css'
 import { useCreateUser } from './userCreateUser'
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-
+import { toast } from 'react-toastify'
+import { showErrorToast } from '../../shared/utils/showErrorToast'
 const RegisterFormEmail = () => {
   const { register, handleSubmit, control, formState: { errors } } = useForm({
     mode: 'onTouched',
     resolver: joiResolver(userSchema)
   })
-  const { createUser, errorMessage } = useCreateUser()
+  const { createUser } = useCreateUser()
   const navigate = useNavigate()
-  const [showError, setShowError] = useState(false)
-
-  useEffect(() => {
-    if (errorMessage) {
-      setShowError(true)
-      const timer = setTimeout(() => {
-        setShowError(false)
-      }, 3000)
-      return () => clearTimeout(timer)
-    }
-  }, [errorMessage])
 
   const onSubmit = data => {
     if (data.month && data.year && data.day) {
@@ -45,13 +34,17 @@ const RegisterFormEmail = () => {
       createUser(user, {
         onSuccess: () => {
           navigate('/home')
+          toast.success('Usuario creado correctamente')
+        },
+        onError: (error) => {
+          showErrorToast(error, 'Error al crear usuario')
         }
       })
     }
   }
 
   return (
-    <div className='w-11/12 sm:w-8/12'>
+    <div>
       <Typography variant="h2" color="blue-gray" className='text-center mt-4'>
         Registrate
       </Typography>
@@ -169,10 +162,9 @@ const RegisterFormEmail = () => {
           containerProps={{ className: '-ml-2.5' }}
         />
         {errors.terms && <p className="text-red-200">{errors.terms.message}</p>}
-        <Button className="mt-6" fullWidth type="submit">
+        <Button className="mt-6 bg-[#0D47A1] text-white" fullWidth type="submit">
           Registrarse
         </Button>
-        {showError && <Alert color="red" className='mt-6 '>{errorMessage}</Alert>}
       </form>
       <Typography variant='h6' className='mt-6 text-center'>
           ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>

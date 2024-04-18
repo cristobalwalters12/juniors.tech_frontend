@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
-import { Button } from '@material-tailwind/react'
+import { Card, Spinner } from '@material-tailwind/react'
 import { useGetSinglePost } from '../features/posts/useGetSinglePost'
 import { Post } from '../features/posts/Post'
 import { CommentList } from '../features/comments/CommentList'
 import { SaveCommentForm } from '../features/comments/SaveCommentForm'
-import RequireAuthOnClick from '../shared/components/Auth/RequireAuthOnClick'
 import { useDocumentTitle } from '../shared/hooks/useDocumentTitle'
 import { showErrorToast } from '../shared/utils/showErrorToast'
 
@@ -23,13 +22,19 @@ const PostDetails = () => {
     }
   }, [getSinglePostQuery.data, navigate])
 
-  const toggleReplyForm = () => setReplying(prevState => !prevState)
+  const showReplyForm = () => setReplying(true)
+  const hideReplyForm = () => setReplying(false)
 
-  if (getSinglePostQuery.isLoading) return <h1>Cargando...</h1>
+  if (getSinglePostQuery.isLoading) {
+    return (
+    <div className='flex justify-center'>
+      <Spinner className="h-16 w-16 text-gray-900/50" />
+    </div>
+    )
+  }
   if (getSinglePostQuery.isError) {
     const { error } = getSinglePostQuery
     showErrorToast(error, 'Error al cargar la publicación')
-    console.log({ error })
 
     if (error.response.status === 404) {
       return <Navigate to="/not-found" />
@@ -38,25 +43,25 @@ const PostDetails = () => {
   const newComment = { postId, parentId: postId }
 
   return (
-      <div className='max-w-[60rem]'>
-        <Post post={getSinglePostQuery.data} />
+      <Card className='max-w-[48rem] pl-4 pb-3 mb-4 mr-4'>
+        <Post
+          post={getSinglePostQuery.data}
+          onShowReplies={showReplyForm}
+          diableReplyButton={replying}
+         />
           <div className='pt-4 pl-0 '>
           {
-            replying
-              ? <SaveCommentForm
-                  comment={newComment}
-                  onClose={toggleReplyForm}
-                  className="pl-3 pr-3 mb-0"
-                />
-              : <RequireAuthOnClick onClickAuthenticated={toggleReplyForm}>
-                  <Button className='ml-3' variant='filled'>
-                    Agregar comentario
-                  </Button>
-                </RequireAuthOnClick>
+            replying &&
+            <SaveCommentForm
+              comment={newComment}
+              onClose={hideReplyForm}
+              className="pl-3 pr-3 mb-0"
+            />
           }
           </div>
+          <hr className='bg-blue-gray-500' />
         <CommentList postId={postId} />
-      </div>
+      </Card>
   )
 }
 

@@ -1,14 +1,14 @@
 import { Button, Card, CardBody, CardFooter, List, Typography } from '@material-tailwind/react'
 import { FormattedDate } from '../../shared/components/FormattedDate'
 import { ArrowDownIcon, ArrowUpIcon, ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline'
-import { ShareIcon } from '@heroicons/react/24/solid'
-import { useNavigate } from 'react-router-dom'
+// import { ShareIcon } from '@heroicons/react/24/solid'
+// import { useNavigate } from 'react-router-dom'
 
 const PostSummary = ({ post }) => {
-  const navigate = useNavigate()
-  const handleVote = () => {}
-  const handleRedirect = () => navigate(`/posts/${post.id}/${post.slug}`)
-  const handleShare = () => {}
+  // const navigate = useNavigate()
+  // const handleVote = () => {}
+  // const handleRedirect = () => navigate(`/posts/${post.id}/${post.slug}`)
+  // const handleShare = () => {}
   return (
           <Card className=' w-full pt-3'>
             <List className='flex-row gap-1 mx-4'>
@@ -28,7 +28,7 @@ const PostSummary = ({ post }) => {
             </CardBody>
             <CardFooter className='flex items-center pt-4 pb-5'>
             <div className="flex items-center gap-1">
-              <Button variant="text" onClick={handleVote(1)} className="rounded-full p-1.5">
+              <Button variant="text" disabled className="rounded-full p-1.5">
                 <ArrowUpIcon className={`h-4 w-4 ${post.voteDirection === 1 ? 'text-blue-600' : ''}`} />
               </Button>
               <Typography
@@ -37,11 +37,11 @@ const PostSummary = ({ post }) => {
               >
                 {post.voteCount}
               </Typography>
-              <Button variant="text" onClick={handleVote(-1)} className="rounded-full p-1.5">
+              <Button variant="text" disabled className="rounded-full p-1.5">
                 <ArrowDownIcon className={`h-4 w-4 ${post.voteDirection === -1 ? 'text-blue-600' : ''}`} />
               </Button>
             </div>
-              <Button variant="text" className="rounded-full py-1.5 px-2.5" onClick={handleRedirect}>
+              <Button variant="text" disabled className="rounded-full py-1.5 px-2.5" >
                 <div className="flex items-center gap-1">
                   <ChatBubbleOvalLeftIcon className="h-4 w-4" />
                   <Typography
@@ -52,7 +52,7 @@ const PostSummary = ({ post }) => {
                   </Typography>
                 </div>
               </Button>
-              <Button variant="text" className="rounded-full py-1.5 px-2.5" onClick={handleShare}>
+              {/* <Button variant="text" className="rounded-full py-1.5 px-2.5" onClick={handleShare}>
                 <div className="flex items-center gap-1">
                   <ShareIcon className="h-4 w-4" />
                   <Typography
@@ -62,7 +62,7 @@ const PostSummary = ({ post }) => {
                     Share
                   </Typography>
                 </div>
-              </Button>
+              </Button> */}
             </CardFooter>
         </Card>
   )

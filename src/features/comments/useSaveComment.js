@@ -9,7 +9,16 @@ const useSaveComment = () => {
     onSuccess: (savedComment, variables, context) => {
       queryClient.setQueryData(['posts', savedComment.postId, 'comments'], (prevComments) => {
         if (!prevComments) return [savedComment]
-        if (!context.commentId) return [savedComment, ...prevComments]
+        if (!context.commentId) {
+          const updatedComments = prevComments.map(comment => {
+            if (comment.id !== savedComment.parentId) return comment
+            return {
+              ...comment,
+              commentCount: comment.commentCount + 1
+            }
+          })
+          return [savedComment, ...updatedComments]
+        }
         return prevComments.map(comment => comment.id === savedComment.id ? savedComment : comment)
       })
     },
