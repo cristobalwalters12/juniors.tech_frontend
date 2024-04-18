@@ -5,43 +5,43 @@ import {
   Typography,
   Button
 } from '@material-tailwind/react'
-import compañeros from '../../assets/images/compañeros.jpg'
-import graduacion from '../../assets/images/graduacion.jpg'
-import imagen2 from '../../assets/images/imagen2.jpg'
-import imagen1 from '../../assets/images/imagen1.jpg'
-import consejos from '../../assets/images/consejos.jpg'
-import superacion from '../../assets/images/superacion.jpg'
+import imagen1 from '../../assets/images/imagen1.png'
+import imagen2 from '../../assets/images/imagen2.png'
+import imagen3 from '../../assets/images/imagen3.png'
+import imagen4 from '../../assets/images/imagen4.png'
+import imagen5 from '../../assets/images/imagen5.png'
+import imagen6 from '../../assets/images/imagen6.png'
+import imagen7 from '../../assets/images/imagen7.png'
 
 export function CardsList () {
   const cardData = [
     {
       text: 'Los colegas para emprender en tu próximo proyecto',
-      imageSrc: imagen2
-    },
-    {
-      text: 'Los compañeros de estudio para avanzar en tus cursos',
       imageSrc: imagen1
     },
     {
+      text: 'Los compañeros de estudio para avanzar en tus cursos',
+      imageSrc: imagen2
+    },
+    {
       text: 'Las anécdotas de los que están cursando una carrera de tecnología',
-      imageSrc:
-                'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80'
+      imageSrc: imagen3
     },
     {
       text: 'Los egresados del bootcamp que te interesa',
-      imageSrc: graduacion
+      imageSrc: imagen4
     },
     {
       text: 'Los aprendizajes de los que consiguieron su primer empleo en tecnología',
-      imageSrc: compañeros
+      imageSrc: imagen5
     },
     {
       text: 'Los consejos que buscas para mejorar tu hoja de vida',
-      imageSrc: consejos
+      imageSrc: imagen6
     },
     {
       text: 'Las historias de superación que te inspiran a seguir creciendo',
-      imageSrc: superacion
+      imageSrc: imagen7
     }
   ]
 
