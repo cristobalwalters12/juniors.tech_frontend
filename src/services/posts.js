@@ -2,7 +2,7 @@ import { baseApi } from '../api/baseApi'
 import { API_PATHS } from '../config/constants/apiUrls'
 
 const getPosts = async () => {
-  const { data } = await baseApi.get(API_PATHS.posts)
+  const { data: { data } } = await baseApi.get(API_PATHS.posts)
   return data
 }
 

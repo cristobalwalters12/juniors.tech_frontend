@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 
 const SearchBar = ({ className }) => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [inputValue, setInputValue] = useState(searchParams.get('title') || '')
+  const [inputValue, setInputValue] = useState(searchParams.get('q') || '')
 
   const debouncedInputValue = useDebounce(inputValue, 500)
 
@@ -22,7 +22,7 @@ const SearchBar = ({ className }) => {
   }
 
   useEffect(() => {
-    setSearchParams((prev) => ({ ...prev, title: debouncedInputValue }), { replace: true })
+    setSearchParams((prev) => ({ ...prev, q: debouncedInputValue }), { replace: true })
   }, [debouncedInputValue])
 
   return (
@@ -32,7 +32,7 @@ const SearchBar = ({ className }) => {
       </div>
       <CustomInput
         placeholder='Busca en Juniors.tech'
-        id='title'
+        id='q'
         className='pl-12'
         type='search'
         value={inputValue}

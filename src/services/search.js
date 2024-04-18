@@ -2,16 +2,16 @@ import { baseApi } from '../api/baseApi'
 import { API_PATHS } from '../config/constants/apiUrls'
 
 const searchPost = async ({
-  title,
+  q,
   sort,
   order,
   page = 1,
   limit = 20,
   category
 }) => {
-  if (!title || title.trim() === '') return
+  if (!q || q.trim() === '') return
 
-  let query = `title=${title}`
+  let query = `q=${q}`
 
   if (sort && /(votes|date)/i.test(sort)) {
     query += `&sort=${sort}`
