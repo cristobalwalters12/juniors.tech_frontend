@@ -8,7 +8,7 @@ import {
 import './css/loginForm.css'
 import { useLoginUser } from './userLogin'
 import { Link, useNavigate } from 'react-router-dom'
-
+import { showErrorToast } from '../../shared/utils/showErrorToast'
 const LoginForm = ({ onClose, onSwitch }) => {
   const { control, handleSubmit } = useForm()
   const { loginUser } = useLoginUser()
@@ -24,6 +24,9 @@ const LoginForm = ({ onClose, onSwitch }) => {
         onClose
           ? onClose()
           : navigate('/home')
+      },
+      onError: (error) => {
+        showErrorToast(error, 'Error al iniciar sesión')
       }
     })
   }
@@ -49,7 +52,7 @@ const LoginForm = ({ onClose, onSwitch }) => {
             render={({ field }) => <Input {...field} type="password" label="Password"/>}
           />
         </div>
-          <Button type="submit" className="mt-6" fullWidth variant="outlined">
+          <Button type="submit" className="mt-6" fullWidth>
             Iniciar Sesión
           </Button>
       </form>

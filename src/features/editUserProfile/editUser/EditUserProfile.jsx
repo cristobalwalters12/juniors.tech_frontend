@@ -24,6 +24,9 @@ import Select from 'react-select'
 import { useForm, Controller } from 'react-hook-form'
 import { useUserEditUser } from './useUserEditProfile'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { showErrorToast } from '../../../shared/utils/showErrorToast'
+
 const EditUserProfile = () => {
   const user = useAuthStore(state => state.user)
   const idUser = useAuthStore(state => state.id)
@@ -102,6 +105,10 @@ const EditUserProfile = () => {
     editUser(userData, {
       onSuccess: () => {
         navigate(`/users/${user}`)
+        toast.success('Usuario actualizado correctamente')
+      },
+      onError: (error) => {
+        showErrorToast(error, 'Error al actualizar usuario')
       }
     })
   }
