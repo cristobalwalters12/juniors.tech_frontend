@@ -69,12 +69,10 @@ export function RoleManagementTable () {
         handleCloseDialog()
         toast.success('Moderador eliminado correctamente.')
 
-        // Si el usuario eliminado es el usuario actual, también eliminamos su rol de moderador
         if (usernameToDelete === currentUser) {
           const updatedRoles = roles.filter(role => role !== 'moderador')
           setRoles(updatedRoles)
 
-          // Redirigir al usuario a una página diferente después de eliminar su rol de moderador
           navigate('/home')
         }
       } else {
