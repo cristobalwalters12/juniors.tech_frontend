@@ -1,23 +1,28 @@
 import { handleComments } from './commentUtils'
 import { Comment } from './Comment'
-import { useEffect, useState } from 'react'
-import { getComments } from '../../services/comments'
+import { useGetComments } from './useGetComments'
+import { showErrorToast } from '../../shared/utils/showErrorToast'
 
 const CommentList = ({ postId }) => {
-  const [comments, setComments] = useState([])
-  const { rootComments, getRepliesById } = handleComments(comments)
+  const getCommentsQuery = useGetComments(postId)
+  const comments = handleComments(getCommentsQuery?.data)
 
-  useEffect(() => {
-    getComments(postId).then(data => setComments(data))
-  }, [postId])
+  if (getCommentsQuery?.isLoading) {
+    return <h2>Cargando...</h2>
+  }
+
+  if (getCommentsQuery?.isError) {
+    showErrorToast(getCommentsQuery.error, '')
+    return <h2>{getCommentsQuery.error.message}</h2>
+  }
 
   return (
     <div className="p-3 pt-1">
-      {rootComments?.map(comment =>
+      {getCommentsQuery?.data.map(comment =>
         <Comment
           key={comment.id}
           comment={comment}
-          getRepliesById={getRepliesById}
+          getRepliesById={comments?.getRepliesById}
         />
       )}
     </div>

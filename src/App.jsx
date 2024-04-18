@@ -52,6 +52,7 @@ function App () {
         <Route path="/search/users" element={<UserSearch />} />
         <Route path="/users/:username" element={<PublicProfileComponent />} />
         <Route path="/posts/:id" element={<PostDetails />} />
+        <Route path="/posts/:id/:slug" element={<PostDetails />} />
       </Route>
 
       <Route element={<RequireAuth allowedRoles={[ROLES.USER]} />} >

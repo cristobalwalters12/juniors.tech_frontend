@@ -3,24 +3,37 @@ import {
   CardHeader,
   CardBody,
   Typography,
-  Button,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem
+  Button
 } from '@material-tailwind/react'
-import {
-  ArrowLeftIcon, DocumentTextIcon, EllipsisVerticalIcon, FlagIcon, PencilIcon, TrashIcon
-} from '@heroicons/react/24/outline'
+import { ArrowLeftIcon, DocumentTextIcon } from '@heroicons/react/24/outline'
 import { FormattedDate } from '../../shared/components/FormattedDate'
 import { useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../../stores/authStore'
 import { CustomCardFooter } from '../../shared/components/Cards/CustomCardFooter'
+import ContextMenu from '../../shared/components/Cards/ContextMenu'
+import { useDeletePost } from './useDeletePost'
+import { toast } from 'react-toastify'
+import { showErrorToast } from '../../shared/utils/showErrorToast'
 
 const Post = ({ post }) => {
-  const currUserId = useAuthStore((state) => state.id)
-  const owner = post.authorId === currUserId
   const navigate = useNavigate()
+  const deletePostMutation = useDeletePost()
+  const handleVote = () => {}
+
+  const handleEdit = () => {
+    navigate(`/posts/${post.id}/edit`)
+  }
+
+  const handleShare = () => {}
+  const handleReport = () => {}
+  const handleDelete = () => {
+    deletePostMutation.mutateAsync({ postId: post.id }).then(() => {
+      navigate('/home')
+      toast.success('Publicación eliminada con éxito')
+    }).catch((err) => {
+      showErrorToast(err, 'Error al eliminar publicación')
+    })
+  }
+  const handleShowReplies = () => {}
 
   return (
     <article className='pl-4 pb-3'>
@@ -57,39 +70,27 @@ const Post = ({ post }) => {
               </div>
             </div>
           </div>
-          <Menu>
-            <MenuHandler>
-              <div className="flex items-center">
-                <Button variant="text" className="rounded-full p-1.5">
-                  <EllipsisVerticalIcon className="h-4 w-4" />
-                </Button>
-              </div>
-            </MenuHandler>
-            <MenuList className='p-0'>
-              {owner
-                ? <>
-                  <MenuItem className='p-3 flex items-center gap-2' onClick={() => navigate(`/posts/${post.id}/edit`)}>
-                    <PencilIcon className="h-4 w-4" />
-                    Editar
-                  </MenuItem>
-                  <MenuItem className='p-3 flex items-center gap-2' onClick={() => console.log('Eliminar')}>
-                    <TrashIcon className="h-4 w-4" />
-                    Eliminar
-                  </MenuItem>
-                </>
-                : <MenuItem className='p-3 flex items-center gap-2'>
-                    <FlagIcon className="h-4 w-4" />
-                    Reportar
-                  </MenuItem>
-              }
-            </MenuList>
-          </Menu>
+          <div className='flex items-center'>
+            <ContextMenu
+              ownerId={post.authorId}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              onReport={handleReport}
+            />
+          </div>
         </CardHeader>
         <CardBody className="mb-2 p-0 flex flex-col gap-2">
           <Typography variant='h4'>{post.title}</Typography>
           <Typography>{post.body}</Typography>
         </CardBody>
-        <CustomCardFooter voteDirection={post.voteDirection} voteCount={post.voteCount} commentCount={post.commentCount} owner={false} />
+        <CustomCardFooter
+          post={post}
+          onShowReplies={handleShowReplies}
+          onVote={handleVote}
+          onShare={handleShare}
+          onReport={handleReport}
+          onDelete={handleDelete}
+        />
       </Card>
     </article>
   )

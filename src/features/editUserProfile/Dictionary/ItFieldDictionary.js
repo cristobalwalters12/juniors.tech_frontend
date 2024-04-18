@@ -17,7 +17,7 @@ const ItFieldDictionary = [
   },
   {
     value: 'Xhr_B_r60R',
-    label: 'Cibersegurvaluead'
+    label: 'Ciberseguridad'
   },
   {
     value: 'dd0n-1hzJv',
@@ -33,7 +33,7 @@ const ItFieldDictionary = [
   },
   {
     value: 'FNONFwGW2-',
-    label: 'Desarrollo de vvalueeojuegos'
+    label: 'Desarrollo de videojuegos'
   },
   {
     value: '38Rv9pG9nd',

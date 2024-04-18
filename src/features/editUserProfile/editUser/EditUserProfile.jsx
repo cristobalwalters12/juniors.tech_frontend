@@ -23,12 +23,13 @@ import {
 import Select from 'react-select'
 import { useForm, Controller } from 'react-hook-form'
 import { useUserEditUser } from './useUserEditProfile'
+import { useNavigate } from 'react-router-dom'
 const EditUserProfile = () => {
   const user = useAuthStore(state => state.user)
   const idUser = useAuthStore(state => state.id)
   const { register, handleSubmit, control, getValues } = useForm()
   const { editUser } = useUserEditUser()
-
+  const navigate = useNavigate()
   let socialNetworks = []
   const handleClick = () => {
     const githubValue = getValues('Github')
@@ -56,19 +57,53 @@ const EditUserProfile = () => {
   }
   const onSubmit = data => {
     const userData = {
-      usernameId: idUser,
-      openToWork: data.availableToWork,
-      about: data.about,
-      employmentStatusId: data.employmentStatus,
-      pronounId: data.pronouns.value,
-      countryId: data.countryId.value,
-      itFieldId: data.itField.value,
-      language: data.Language.map(language => language.value),
-      technology: data.technologies.map(technology => technology.value),
-      education: data.education,
-      socialNetwork: socialNetworks
+      usernameId: idUser
     }
-    editUser(userData)
+
+    if (data.availableToWork) {
+      userData.openToWork = data.availableToWork
+    }
+
+    if (data.about) {
+      userData.about = data.about
+    }
+
+    if (data.employmentStatus) {
+      userData.employmentStatusId = data.employmentStatus
+    }
+
+    if (data.pronouns?.value) {
+      userData.pronounId = data.pronouns.value
+    }
+
+    if (data.countryId?.value) {
+      userData.countryId = data.countryId.value
+    }
+
+    if (data.itField?.value) {
+      userData.itFieldId = data.itField.value
+    }
+
+    if (Array.isArray(data.Language) && data.Language.length > 0) {
+      userData.language = data.Language.map(language => language.value)
+    }
+
+    if (Array.isArray(data.technologies) && data.technologies.length > 0) {
+      userData.technology = data.technologies.map(technology => technology.value)
+    }
+
+    if (Array.isArray(data.education) && data.education.length > 0) {
+      userData.education = data.education
+    }
+
+    if (socialNetworks.length > 0) {
+      userData.socialNetwork = socialNetworks
+    }
+    editUser(userData, {
+      onSuccess: () => {
+        navigate(`/users/${user}`)
+      }
+    })
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
