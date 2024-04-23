@@ -1,27 +1,42 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {
-  List, ListItem, Card, Typography, Accordion,
+  List,
+  ListItem,
+  Card,
+  Typography,
+  Accordion,
   AccordionHeader,
   AccordionBody
 } from '@material-tailwind/react'
-import { ChevronDownIcon, CodeBracketIcon, AcademicCapIcon, ArrowTrendingUpIcon } from '@heroicons/react/24/solid'
+import {
+  ChevronDownIcon,
+  CodeBracketIcon,
+  AcademicCapIcon,
+  ArrowTrendingUpIcon
+} from '@heroicons/react/24/solid'
 import Logo from '../Logo'
 import SidebarListItem from './SidebarListItem'
 import { DEVELOPERS, INSTRUCTORS } from '../../../config/constants/aboutUs'
 import SidebarListHeader from './SidebarListHeader'
+import { useSearchParams } from 'react-router-dom'
+import SidebarPostFilteringOptions from './SidebarPostFilteringOptions'
 
 export default function SidebarHome () {
-  /* eslint-disable no-unused-vars */
-  const [orderDirection, setOrderDirection] = useState('desc')
-  // const [orderBy, setOrderBy] = useState('voteCount')
-  const [open, setOpen] = React.useState({
+  const [, setSearchParams] = useSearchParams()
+  const [open, setOpen] = useState({
     junior: false,
     dev: false,
     instructor: false
   })
-  const handleAscendente = () => setOrderDirection('asc')
-  const handleDescendente = () => setOrderDirection('desc')
-  // const handleOrderChange = (field) => setOrderBy(field)
+
+  const handleSortingOptionChange = (sort, order) => () => {
+    setSearchParams((prevSearchParams) => {
+      const newSearchParams = new URLSearchParams(prevSearchParams)
+      newSearchParams.set('sort', sort)
+      newSearchParams.set('order', order)
+      return newSearchParams
+    })
+  }
 
   const toggleOpen = (key) => () => {
     setOpen(prevState => ({
@@ -38,9 +53,11 @@ export default function SidebarHome () {
           <ArrowTrendingUpIcon width="1.7em" strokeWidth={20} fill="#508DDD" />
           Ver publicaciones
         </Typography>
-        <SidebarListItem onClick={handleDescendente}>Más votadas</SidebarListItem>
-        <SidebarListItem onClick={handleAscendente}>Más recientes</SidebarListItem>
+        <SidebarListItem onClick={handleSortingOptionChange('votes', 'desc')}>Más votadas</SidebarListItem>
+        <SidebarListItem onClick={handleSortingOptionChange('date', 'asc')}>Más recientes</SidebarListItem>
       </List>
+      <hr className='border-primary-dark my-2'/>
+      <SidebarPostFilteringOptions />
       <hr className='border-primary-dark my-2'/>
       <Accordion
         open={isOpen('junior')}

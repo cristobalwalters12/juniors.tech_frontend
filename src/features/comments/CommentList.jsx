@@ -7,7 +7,6 @@ import { Spinner, Typography } from '@material-tailwind/react'
 const CommentList = ({ postId }) => {
   const getCommentsQuery = useGetComments(postId)
   const comments = handleComments(getCommentsQuery?.data)
-
   if (getCommentsQuery?.isLoading) {
     return (
     <div className='flex justify-center'>
@@ -23,7 +22,7 @@ const CommentList = ({ postId }) => {
   return (
     <div className="p-3 pt-1 pr-5 ">
       {getCommentsQuery.data.length > 0
-        ? getCommentsQuery.data.map(comment =>
+        ? comments.rootComments.map(comment =>
         <Comment
           key={comment.id}
           comment={comment}
