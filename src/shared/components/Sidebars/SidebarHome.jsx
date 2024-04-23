@@ -19,6 +19,7 @@ import SidebarListItem from './SidebarListItem'
 import { DEVELOPERS, INSTRUCTORS } from '../../../config/constants/aboutUs'
 import SidebarListHeader from './SidebarListHeader'
 import { useSearchParams } from 'react-router-dom'
+import SidebarPostFilteringOptions from './SidebarPostFilteringOptions'
 
 export default function SidebarHome () {
   const [, setSearchParams] = useSearchParams()
@@ -55,6 +56,8 @@ export default function SidebarHome () {
         <SidebarListItem onClick={handleSortingOptionChange('votes', 'desc')}>Más votadas</SidebarListItem>
         <SidebarListItem onClick={handleSortingOptionChange('date', 'asc')}>Más recientes</SidebarListItem>
       </List>
+      <hr className='border-primary-dark my-2'/>
+      <SidebarPostFilteringOptions />
       <hr className='border-primary-dark my-2'/>
       <Accordion
         open={isOpen('junior')}
