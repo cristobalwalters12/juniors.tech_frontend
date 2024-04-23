@@ -46,21 +46,27 @@ const Home = () => {
   const posts = data?.pages.flatMap(page => page.posts) || []
 
   return (
-    <div className='min-h-full flex flex-col gap-3 max-w-[48rem] mb-4 mr-4'>
-      {posts.map((post, index, { length }) => {
-        if (index === length - 1) {
+    <div className={`flex flex-col gap-3 mb-4 mr-4 ${posts.length > 0 ? 'max-w-[48rem]' : ''}`}>
+      {posts.length > 0
+        ? posts.map((post, index, { length }) => {
+          if (index === length - 1) {
+            return (
+              <Link ref={lastPostRef} key={post.id} to={`/posts/${post.id}/${post.slug}`}>
+                <PostSummary post={post} />
+              </Link>
+            )
+          }
           return (
-          <Link ref={lastPostRef} key={post.id} to={`/posts/${post.id}/${post.slug}`}>
-            <PostSummary post={post} />
-          </Link>
+            <Link key={post.id} to={`/posts/${post.id}/${post.slug}`}>
+              <PostSummary post={post} />
+            </Link>
           )
-        }
-        return (
-          <Link key={post.id} to={`/posts/${post.id}/${post.slug}`}>
-            <PostSummary post={post} />
-          </Link>
-        )
-      })}
+        })
+        : (<div className='text-center w-full text-lg'>
+            <p>Aún no hay publicaciones en esta categoría.</p>
+            <Link to="/posts/new" className='text-primary-dark font-semibold'>Anímate a crear la primera</Link>
+          </div>)
+    }
       {isFetchingNextPage && (
         <div className='flex justify-center'>
           <Spinner className="h-16 w-16 text-gray-900/50" />

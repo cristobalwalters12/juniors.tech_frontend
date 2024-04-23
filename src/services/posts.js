@@ -1,12 +1,13 @@
 import { baseApi } from '../api/baseApi'
 import { API_PATHS } from '../config/constants/apiUrls'
 
-const getPosts = async ({ sort, order, page, limit }) => {
+const getPosts = async ({ sort, order, page, limit, category }) => {
   const params = new URLSearchParams()
   if (sort) params.append('sort', sort)
   if (order) params.append('order', order)
   if (page) params.append('page', page)
   if (limit) params.append('limit', limit)
+  if (category) params.append('category', category)
 
   const { data: { data } } = await baseApi.get(API_PATHS.posts, { params })
   return data
