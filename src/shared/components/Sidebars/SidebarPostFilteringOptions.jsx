@@ -30,7 +30,7 @@ const SidebarPostFilteringOptions = () => {
         <div className='flex items-center justify-between mb-3 pr-3'>
           <Typography variant="h2" className='flex gap-1 items-center text-grey-light text-md'>
           <FunnelIcon width="1em" strokeWidth={2.5} stroke="#508DDD" className='w-5 h-5' />
-            Buscar sobre
+            Filtrar por
           </Typography>
           {category && (
         <Button
