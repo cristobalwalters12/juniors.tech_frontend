@@ -8,7 +8,11 @@ const Login = () => {
             <LoginWords/>
           </div>
           <div className="flex flex-1 justify-center items-center">
+            <div className="w-11/12 sm:w-7/12">
             <LoginForm/>
+
+            </div>
+
           </div>
         </div>
       </>
