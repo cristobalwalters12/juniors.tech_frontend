@@ -12,7 +12,7 @@ const PostSummary = ({ post }) => {
   return (
           <Card className=' w-full pt-3'>
             <List className='flex-row gap-1 mx-4'>
-              <Typography variant='small' color='blue-gray' className='font-bold'>
+              <Typography variant='small' className='font-bold text-blue-gray-500'>
                 {post.category}
               </Typography>
               <span className='font-semibold'>&middot;</span>
