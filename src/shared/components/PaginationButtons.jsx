@@ -36,7 +36,7 @@ const PaginationButtons = ({ currPage, totalPages, maxNumButtons = 5, goToPage }
               variant={currPage === label ? 'filled' : 'text'}
               color='gray'
               className='rounded-full'
-              onClick={() => goToPage(label)}
+              onClick={currPage === label ? undefined : () => goToPage(label)}
               >
               {label}
             </IconButton>
