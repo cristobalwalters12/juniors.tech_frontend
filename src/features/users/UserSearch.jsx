@@ -24,7 +24,7 @@ const UserSearch = () => {
     <>
       <div className="flex flex-col items-center justify-center min-h-screen bg-center bg-cover">
         {users.map((user) => (
-          <div key={user.id} className="max-w-3xl w-full mx-auto z-10">
+          <div key={user.id} className="max-w-3xl w-full mx-auto">
             <div className="flex flex-col">
               <div className="bg-white border border-white shadow-lg rounded-3xl p-4 m-4">
                 <div className="flex-none sm:flex">
