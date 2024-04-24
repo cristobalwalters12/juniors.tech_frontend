@@ -1,29 +1,24 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import CustomInput from '../CustomInput'
 import { IconButton } from '@material-tailwind/react'
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useSearchParams } from 'react-router-dom'
-import { useDebounce } from '../../hooks/useDebounce'
-import { useEffect, useState } from 'react'
 
 const SearchBar = ({ className }) => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [inputValue, setInputValue] = useState(searchParams.get('q') || '')
-
-  const debouncedInputValue = useDebounce(inputValue, 500)
+  const q = searchParams.get('q') || ''
 
   const handleChange = (e) => {
-    setInputValue(e.target.value)
+    setSearchParams((prevSearchParams) => {
+      const newSearchParams = new URLSearchParams(prevSearchParams)
+      newSearchParams.set('q', e.target.value)
+      newSearchParams.set('page', 1)
+      return newSearchParams
+    }, { replace: true })
   }
 
   const handleReset = () => {
-    setInputValue('')
     setSearchParams({}, { replace: true })
   }
-
-  useEffect(() => {
-    setSearchParams((prev) => ({ ...prev, q: debouncedInputValue }), { replace: true })
-  }, [debouncedInputValue])
 
   return (
     <div className={`relative w-full ${className || ''}`}>
@@ -35,10 +30,10 @@ const SearchBar = ({ className }) => {
         id='q'
         className='pl-12'
         type='search'
-        value={inputValue}
+        value={q}
         onChange={handleChange}
       />
-      {inputValue && (
+      {q && (
         <div className='absolute top-0 right-0 z-10'>
           <IconButton
             variant='text'
