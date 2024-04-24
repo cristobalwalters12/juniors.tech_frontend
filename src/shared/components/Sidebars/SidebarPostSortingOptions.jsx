@@ -5,7 +5,7 @@ import SortIcon from '../Icons/SortIcon'
 
 const DEFAULT_ORDERS = {
   votes: 'desc',
-  date: 'asc'
+  date: 'desc'
 }
 
 const SidebarPostSortingOptions = () => {
@@ -27,6 +27,7 @@ const SidebarPostSortingOptions = () => {
         newSearchParams.set('sort', newSort)
       }
       newSearchParams.set('order', newOrder)
+      newSearchParams.set('page', 1)
       return newSearchParams
     })
   }
@@ -36,6 +37,7 @@ const SidebarPostSortingOptions = () => {
       const newSearchParams = new URLSearchParams(prevSearchParams)
       newSearchParams.delete('sort')
       newSearchParams.delete('order')
+      newSearchParams.set('page', 1)
       return newSearchParams
     })
   }
@@ -72,7 +74,7 @@ const SidebarPostSortingOptions = () => {
       sort !== 'date'
         ? 'Cualquiera'
         : (
-            order === 'asc' ? 'Más recientes primero<' : 'Más antiguas primero'
+            order === 'asc' ? 'Más antiguas primero' : 'Más recientes primero'
           )
       }</Typography>
     </SidebarListItem>

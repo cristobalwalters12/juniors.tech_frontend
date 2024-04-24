@@ -1,34 +1,28 @@
-import { useEffect, useState } from 'react'
 import PostList from '../features/posts/PostList'
 import { useSearchParams } from 'react-router-dom'
-import { searchPost } from '../services/search'
 import { useDocumentTitle } from '../shared/hooks/useDocumentTitle'
+import { useSearchPosts } from '../features/posts/useSearchPosts'
+import Pagination from '../shared/components/Pagination'
 
 const SearchPosts = () => {
-  const [results, setResults] = useState([])
+  const searchResults = useSearchPosts()
   const [searchParams] = useSearchParams()
-  useDocumentTitle(`Buscar ${searchParams.get('q')}`)
-
   const q = searchParams.get('q')
-  const sort = searchParams.get('sort')
-  const order = searchParams.get('order')
-  const page = searchParams.get('page')
-  const limit = searchParams.get('limit')
-  const category = searchParams.get('category')
-
-  useEffect(() => {
-    if (!q || q.trim() === '') return
-
-    searchPost({ q, category, page, limit, sort, order }).then(results => setResults(results))
-  }, [searchParams, q, category, page, limit, sort, order])
+  useDocumentTitle(`Buscar ${q || ' en Juniors.tech'}`)
 
   return (
-    <div className="flex min-h-full flex-col">
-      <div className="flex flex-1 flex-row">
-        {results && <PostList {...results} />}
-      </div>
+    <div className="flex h-full flex-col gap-4 pr-4 max-w-[48rem]">
+      {q && searchResults.data &&
+        <>
+          <div className="flex flex-1 flex-row">
+            <PostList {...searchResults.data} />
+          </div>
+          <div className='pb-4 mx-auto'>
+            <Pagination {...searchResults.data} />
+          </div>
+        </>
+      }
     </div>
-
   )
 }
 

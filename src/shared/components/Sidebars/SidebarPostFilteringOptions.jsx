@@ -13,6 +13,7 @@ const SidebarPostFilteringOptions = () => {
     setSearchParams((prevSearchParams) => {
       const newSearchParams = new URLSearchParams(prevSearchParams)
       newSearchParams.set('category', value)
+      newSearchParams.set('page', 1)
       return newSearchParams
     })
   }
@@ -21,6 +22,7 @@ const SidebarPostFilteringOptions = () => {
     setSearchParams((prevSearchParams) => {
       const newSearchParams = new URLSearchParams(prevSearchParams)
       newSearchParams.delete('category')
+      newSearchParams.set('page', 1)
       return newSearchParams
     })
   }
