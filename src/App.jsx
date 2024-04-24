@@ -7,7 +7,7 @@ import NotFound from './pages/NotFound'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import { ROLES } from './config/constants/roles'
-import SearchPosts from './pages/SearchPosts'
+import PostSearch from './pages/PostSearch'
 import StackedLayout from './layouts/StackedLayout'
 import Modal from './shared/components/Modal'
 import PublicProfileComponent from './features/publicProfile/publicProfileComponent'
@@ -49,7 +49,7 @@ function App () {
 
       <Route element={<DashboardLayout/>}>
         <Route path="/home" element={<Home />} />
-        <Route path="/search/posts" element={<SearchPosts />} />
+        <Route path="/search/posts" element={<PostSearch />} />
         <Route path="/search/users" element={<UserSearch />} />
         <Route path="/users/:username" element={<PublicProfileComponent />} />
         <Route path="/posts/:id" element={<PostDetails />} />
