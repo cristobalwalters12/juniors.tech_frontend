@@ -25,10 +25,10 @@ import PersistAuth from './shared/components/Auth/PersistAuth'
 import RequireAuth from './shared/components/Auth/RequireAuth'
 import AuthenticateForm from './shared/components/Auth/AuthenticateForm'
 import RequireAccountOwner from './shared/components/Auth/RequireAccountOwner'
-import UserSearch from './features/users/UserSearch'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Home from './pages/Home'
+import UserSearch from './pages/UserSearch'
 
 function App () {
   return (
