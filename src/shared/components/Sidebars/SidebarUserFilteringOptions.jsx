@@ -1,7 +1,12 @@
 import { FunnelIcon } from '@heroicons/react/24/outline'
 import { Button, List, Typography } from '@material-tailwind/react'
 import { useSearchParams } from 'react-router-dom'
+import CountryDiccionary from '../../../features/editUserProfile/Dictionary/CountryDictionary'
+import SidebarSelect from './SidebarSelect'
+import ItFieldDictionary from '../../../features/editUserProfile/Dictionary/ItFieldDictionary'
+import TechnologyDictionary from '../../../features/editUserProfile/Dictionary/TechnologyDictionary'
 import SidebarListItem from './SidebarListItem'
+import LanguageDictionary from '../../../features/editUserProfile/Dictionary/LanguageDictionary'
 
 const SidebarUserFilteringOptions = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -20,8 +25,16 @@ const SidebarUserFilteringOptions = () => {
     })
   }
 
-  const handleFiltersReset = (key, value) => {
-    setSearchParams({})
+  const handleFiltersReset = () => {
+    setSearchParams((prevSearchParams) => {
+      const newSearchParams = new URLSearchParams(prevSearchParams)
+      newSearchParams.delete('country')
+      newSearchParams.delete('otw')
+      newSearchParams.delete('lang')
+      newSearchParams.delete('it')
+      newSearchParams.delete('tech')
+      return newSearchParams
+    })
   }
 
   return (
@@ -40,47 +53,22 @@ const SidebarUserFilteringOptions = () => {
         </Button>
           )}
         </div>
-        <div>
-        <SidebarListItem className="flex flex-col items-start" onClick={handleFilterChange('country')}>
-          <Typography className='text-sm font-normal'>País</Typography>
-          <Typography className="text-sm">{
-            !country
-              ? 'Cualquiera'
-              : 'Childe'
-          }</Typography>
-        </SidebarListItem>
-        <SidebarListItem className="flex flex-col items-start" onClick={handleFilterChange('otw')}>
+        <div className='flex flex-col gap-1'>
+        <SidebarListItem
+          className="flex flex-col items-start"
+          onClick={handleFilterChange('otw', openToWork === '1' ? '0' : '1')}
+        >
           <Typography className='text-sm font-normal'>Disponibilidad laboral</Typography>
           <Typography className="text-sm">{
-            !openToWork
+            openToWork === null
               ? 'Cualquiera'
-              : 'Disponible'
+              : openToWork === '1' ? 'Disponible' : 'No disponible'
           }</Typography>
         </SidebarListItem>
-        <SidebarListItem className="flex flex-col items-start" onClick={handleFilterChange('lang')}>
-          <Typography className='text-sm font-normal'>Idiomas</Typography>
-          <Typography className="text-sm">{
-            !languages
-              ? 'Cualquiera'
-              : 'Español'
-            }</Typography>
-          </SidebarListItem>
-        <SidebarListItem className="flex flex-col items-start" onClick={handleFilterChange('it')}>
-          <Typography className='text-sm font-normal'>Especialidad IT</Typography>
-          <Typography className="text-sm">{
-            !itField
-              ? 'Cualquiera'
-              : 'Desarrollo Web'
-          }</Typography>
-        </SidebarListItem>
-        <SidebarListItem className="flex flex-col items-start" onClick={handleFilterChange('tech')}>
-          <Typography className='text-sm font-normal'>Tecnologías</Typography>
-          <Typography className="text-sm">{
-            !technologies
-              ? 'Cualquiera'
-              : 'Git/GitHub'
-          }</Typography>
-        </SidebarListItem>
+        <SidebarSelect placeholder="País" options={CountryDiccionary} queryParamName="country" />
+        <SidebarSelect placeholder="Idiomas" options={LanguageDictionary} queryParamName="lang" isMulti={true} />
+        <SidebarSelect placeholder="Especialidad IT" options={ItFieldDictionary} queryParamName="it" />
+        <SidebarSelect placeholder="Tecnologías" options={TechnologyDictionary} queryParamName="tech" isMulti={true} />
       </div>
     </List>
   )

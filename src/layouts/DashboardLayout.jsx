@@ -9,7 +9,7 @@ const DashboardLayout = () => {
         <CustomNavbar/>
       </header>
       <div className="flex-1 flex overflow-y-auto">
-        <aside className="p-4 bg-accent-dark max-w-[18rem] hidden sm:block">
+        <aside className="p-4 bg-accent-dark w-full max-w-[18rem] hidden sm:block">
           <Sidebar/>
         </aside>
         <main className="flex-1 p-4 pb-0 bg-grey-light overflow-y-auto">

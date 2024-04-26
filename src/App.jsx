@@ -7,7 +7,7 @@ import NotFound from './pages/NotFound'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import { ROLES } from './config/constants/roles'
-import SearchPosts from './pages/SearchPosts'
+import PostSearch from './pages/PostSearch'
 import StackedLayout from './layouts/StackedLayout'
 import Modal from './shared/components/Modal'
 import PublicProfileComponent from './features/publicProfile/publicProfileComponent'
@@ -25,10 +25,10 @@ import PersistAuth from './shared/components/Auth/PersistAuth'
 import RequireAuth from './shared/components/Auth/RequireAuth'
 import AuthenticateForm from './shared/components/Auth/AuthenticateForm'
 import RequireAccountOwner from './shared/components/Auth/RequireAccountOwner'
-import UserSearch from './features/users/UserSearch'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Home from './pages/Home'
+import UserSearch from './pages/UserSearch'
 
 function App () {
   return (
@@ -49,7 +49,7 @@ function App () {
 
       <Route element={<DashboardLayout/>}>
         <Route path="/home" element={<Home />} />
-        <Route path="/search/posts" element={<SearchPosts />} />
+        <Route path="/search/posts" element={<PostSearch />} />
         <Route path="/search/users" element={<UserSearch />} />
         <Route path="/users/:username" element={<PublicProfileComponent />} />
         <Route path="/posts/:id" element={<PostDetails />} />

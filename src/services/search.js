@@ -36,4 +36,23 @@ const searchPost = async ({
   return data
 }
 
-export { searchPost }
+const searchUser = async ({ q, sort, order, page = 1, limit = 20, country, otw, it, lang, tech }) => {
+  if (!q || q.trim() === '') return
+
+  const params = new URLSearchParams()
+  if (q) params.append('q', q)
+  if (sort) params.append('sort', sort)
+  if (order) params.append('order', order)
+  if (page) params.append('page', page)
+  if (limit) params.append('limit', limit)
+  if (country) params.append('country', country)
+  if (otw) params.append('otw', otw)
+  if (it) params.append('it', it)
+  if (lang) params.append('lang', lang)
+  if (tech) params.append('tech', tech)
+
+  const { data: { data } } = await baseApi.get(`${API_PATHS.search}/users`, { params })
+  return data
+}
+
+export { searchPost, searchUser }

@@ -20,10 +20,10 @@ export default function SidebarSearch () {
         <MagnifyingGlassIcon width="1em" strokeWidth={3} fill="#508DDD" className='w-5 h-5' />
           Buscar
         </Typography>
-        <Link to={`/search/posts?q=${q}`}>
+        <Link to={`/search/posts${q ? `?q=${q}` : ''}`}>
           <SidebarListItem>Publicaciones</SidebarListItem>
         </Link>
-        <Link to={`/search/users?q=${q}`}>
+        <Link to={`/search/users${q ? `?q=${q}` : ''}`}>
           <SidebarListItem>Usuarios</SidebarListItem>
         </Link>
       </List>
