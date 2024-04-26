@@ -3,19 +3,29 @@ import { IconButton, Spinner } from '@material-tailwind/react'
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useSearchPosts } from '../../../features/posts/useSearchPosts'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useOutsideClick from '../../hooks/useOutsideClick'
+import useSearchUsers from '../../../features/users/useSearchUsers'
+import SearchSuggestions from './SearchSuggestions'
 
 const SearchBar = ({ className }) => {
+  const [searchParams] = useSearchParams()
   const [query, setQuery] = useState('')
   const [openSuggestions, setOpenSuggestions] = useState(false)
   const { pathname } = useLocation()
   const [, setSearchParams] = useSearchParams()
-  const { isLoading, data: suggestions } = useSearchPosts({ q: query, limit: 4 })
+  const searchType = pathname.startsWith('/search/users') ? 'users' : 'posts'
+  const postsResults = useSearchPosts({ title: searchType === 'posts' ? query : undefined, limit: 4 })
+  const userResults = useSearchUsers({ username: searchType === 'users' ? query : undefined, limit: 4 })
   const navigate = useNavigate()
   const hideSuggestions = () => setOpenSuggestions(false)
   const closableRef = useOutsideClick(hideSuggestions, true)
   const showSuggestions = () => setOpenSuggestions(true)
+  const searchPathname = `/search/${searchType}`
+
+  const isLoading = searchType === 'posts' ? postsResults.isLoading : userResults.isLoading
+  const posts = postsResults.data?.posts
+  const users = userResults.data?.users
 
   const handleChange = (e) => {
     const input = e.target.value
@@ -32,14 +42,19 @@ const SearchBar = ({ className }) => {
     hideSuggestions()
   }
 
+  useEffect(() => {
+    const decodedQuery = decodeURIComponent(searchParams.get('q'))
+    setQuery(decodedQuery === 'null' ? '' : decodedQuery)
+  }, [searchParams, searchType])
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!query || query?.trim().length === '') return
     hideSuggestions()
     if (!pathname.startsWith('/search')) {
-      navigate(`/search/posts?q=${query}`)
+      navigate(`/search/posts?q=${encodeURIComponent(query)}`)
     } else {
-      setSearchParams(prevParams => ({ ...prevParams, q: query }), { replace: true })
+      setSearchParams(prevParams => ({ ...prevParams, q: encodeURIComponent(query) }), { replace: true })
     }
   }
 
@@ -49,7 +64,7 @@ const SearchBar = ({ className }) => {
         <MagnifyingGlassIcon stroke='#8ab0e8' width='2em' strokeWidth={2} />
       </div>
       <CustomInput
-        placeholder='Busca en Juniors.tech'
+        placeholder={searchType === 'posts' ? 'Busca publicaciones por título' : 'Busca usuarios por username'}
         id='q'
         className='pl-12'
         type='search'
@@ -79,19 +94,11 @@ const SearchBar = ({ className }) => {
                 <Spinner className="h-4 w-4 text-gray-900/50" />
               </div>
               )
-            : suggestions?.posts.map(({ id, title, slug }) => (
-                <Link
-                  key={id}
-                  to={`/posts/${id}/${slug}`}
-                  onClick={hideSuggestions}
-                  className='flex items-center w-full p-2 text-ellipsis hover:bg-blue-gray-50'>
-                  {title}
-                </Link>
-            ))
+            : <SearchSuggestions posts={posts} users={users} onClick={hideSuggestions} />
           }
           <hr className='border-b-1 border-grey-dark my-1 mx-2' />
           <Link
-            to={`/search/posts?q=${query}`}
+            to={`${searchPathname}?q=${query}`}
             onClick={hideSuggestions}
             className='flex items-center w-full p-2 hover:bg-blue-gray-50'>
               Buscar &quot;{query}&quot; en Juniors.tech
