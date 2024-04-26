@@ -217,7 +217,7 @@ const CountryDiccionary = [
   },
   {
     value: 'n5rZ9CcgAI',
-    label: 'Emiratos Árabes Unvalueos'
+    label: 'Emiratos Árabes Unidos'
   },
   {
     value: 'leO0OX1jv2',
@@ -237,7 +237,7 @@ const CountryDiccionary = [
   },
   {
     value: 'UPyjgzBZhX',
-    label: 'Estados Unvalueos'
+    label: 'Estados Unidos'
   },
   {
     value: '2hIFyrHgbq',
@@ -280,7 +280,7 @@ const CountryDiccionary = [
     label: 'Ghana'
   },
   {
-    value: '2rkektAyvalue',
+    value: '2rkektAyID',
     label: 'Granada'
   },
   {
@@ -569,7 +569,7 @@ const CountryDiccionary = [
   },
   {
     value: '8uPYA3Zr6t',
-    label: 'Reino Unvalueo'
+    label: 'Reino Unido'
   },
   {
     value: 'yZK5M9nfgU',
@@ -692,87 +692,91 @@ const CountryDiccionary = [
     label: 'Tailandia'
   },
   {
-    value: 'IX2s0DYTy6',
+    value: 'eP90rxyCeI',
+    label: 'Taiwán'
+  },
+  {
+    value: '2fYmKkkrPN',
     label: 'Tanzania'
   },
   {
-    value: 'Rd9EYR3jHw',
+    value: 'sAZfHVBlU0',
     label: 'Tayikistán'
   },
   {
-    value: '6nLVXm8Yz4',
+    value: 'ob63UAvTJS',
     label: 'Timor Oriental'
   },
   {
-    value: 'R-avwTDXEa',
+    value: 'Tf1AMgRqwq',
     label: 'Togo'
   },
   {
-    value: 'kNTSstClmC',
+    value: 'ndvu-oqLpf',
     label: 'Tonga'
   },
   {
-    value: '2ifvt4sc_t',
-    label: 'Trinvaluead y Tobago'
+    value: 'PLQnNx7aq5',
+    label: 'Trinidad y Tobago'
   },
   {
-    value: 'tR9uehn2c8',
+    value: 'MkpuvYOvPe',
     label: 'Túnez'
   },
   {
-    value: 'ev3fqdRFXI',
+    value: '_DHH0bLOdY',
     label: 'Turkmenistán'
   },
   {
-    value: 'tDazZOLdnp',
+    value: 'Ku_y2VLGHC',
     label: 'Turquía'
   },
   {
-    value: 'nzRy0w8NKW',
+    value: 'ZOVi0JXQOs',
     label: 'Tuvalu'
   },
   {
-    value: 'zgVCWAGHAC',
+    value: 'TAfyaSP_N8',
     label: 'Ucrania'
   },
   {
-    value: 'JtGb3QjDl2',
+    value: 'V6HAfoOzGL',
     label: 'Uganda'
   },
   {
-    value: 'jqD86phK9Z',
+    value: 'eII7OFDTXz',
     label: 'Uruguay'
   },
   {
-    value: 'FyaREra4Y4',
+    value: '25LnNKUYGl',
     label: 'Uzbekistán'
   },
   {
-    value: '3LlQI8jUGN',
+    value: '8JCFHjNwze',
     label: 'Vanuatu'
   },
   {
-    value: '3B6ElhcR6r',
+    value: 'blCr0vNXEo',
     label: 'Venezuela'
   },
   {
-    value: 'gUAYs7EvYt',
+    value: 'E3G2HRl9x2',
     label: 'Vietnam'
   },
   {
-    value: 'cy4jz_95Gv',
+    value: '5DpYL7MSd-',
     label: 'Yemen'
   },
   {
-    value: 'l2jTKsNXyi',
+    value: 'wF87FpoWE0',
     label: 'Yibuti'
   },
   {
-    value: '7HcXQlT3Lz',
+    value: '35zloN61lw',
     label: 'Zambia'
   },
   {
-    value: 'sJKYgOYNUV',
+    value: 'WyYBuP37Ps',
     label: 'Zimbabue'
   }
 ]
