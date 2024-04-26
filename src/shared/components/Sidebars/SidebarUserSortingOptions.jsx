@@ -55,10 +55,10 @@ const SidebarUserSortingOptions = () => {
         </Button>
       )}
     </div>
-    <SidebarListItem className="flex flex-col items-start" onClick={handleSortingOptionChange('votes')}>
+    <SidebarListItem className="flex flex-col items-start" onClick={handleSortingOptionChange('score')}>
       <Typography className='text-sm font-normal'>Puntaje</Typography>
       <Typography className="text-sm">{
-      sort !== 'votes'
+      sort !== 'score'
         ? 'Cualquiera'
         : (
             order === 'asc' ? 'Menos puntos primero' : 'Más puntos primero'
