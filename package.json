@@ -25,6 +25,7 @@
     "@tanstack/react-query": "^5.28.6",
     "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
+    "firebase": "^10.11.1",
     "joi": "^17.12.2",
     "lexical": "^0.14.2",
     "postcss": "^8.4.38",
@@ -37,6 +38,7 @@
     "react-toastify": "^10.0.5",
     "tailwindcss": "^3.4.1",
     "usehooks-ts": "^3.1.0",
+    "uuid": "^9.0.1",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
