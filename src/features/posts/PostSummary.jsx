@@ -1,6 +1,7 @@
 import { Button, Card, CardBody, CardFooter, List, Typography } from '@material-tailwind/react'
 import { FormattedDate } from '../../shared/components/FormattedDate'
 import { ArrowDownIcon, ArrowUpIcon, ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline'
+import ContentSummaryViewer from '../../shared/components/TextEditors/ContentSummaryViewer'
 // import { ShareIcon } from '@heroicons/react/24/solid'
 // import { useNavigate } from 'react-router-dom'
 
@@ -24,7 +25,7 @@ const PostSummary = ({ post }) => {
               <Typography variant='h5' color='blue-gray' className='mb-3'>
                 {post.title}
               </Typography>
-              <Typography className='truncate'>{post.body}</Typography>
+              <ContentSummaryViewer body={post.body} />
             </CardBody>
             <CardFooter className='flex items-center pt-4 pb-5'>
             <div className="flex items-center gap-1">
