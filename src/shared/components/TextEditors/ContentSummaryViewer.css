@@ -1,0 +1,19 @@
+.ql-summary-viewer-container .ql-editor {
+  position: relative;
+}
+
+.ql-summary-viewer-container * {
+  cursor: pointer !important;
+}
+
+.ql-summary-viewer-container img {
+  -webkit-mask-image: linear-gradient(black min(80%, calc(100% - 2rem)), transparent);
+  mask-image: linear-gradient(black min(80%, calc(100% - 2rem)), transparent);
+  max-height: 33.75rem;
+}
+
+.ql-summary-viewer-container p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
