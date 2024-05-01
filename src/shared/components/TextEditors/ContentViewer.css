@@ -1,0 +1,7 @@
+.post-content-viewer-container img {
+  cursor: auto;
+}
+
+.ql-content-deleted {
+  color: #4b5563 !important;
+}
