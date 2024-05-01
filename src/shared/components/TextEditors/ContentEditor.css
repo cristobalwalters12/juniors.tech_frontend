@@ -1,0 +1,73 @@
+.ql-content-editor-container .local-image {
+  background-color: #1c37a5 !important;
+}
+
+.ql-content-editor-container .url-submit,
+.ql-content-editor-container .ql-link-save {
+  color: #1c37a5 !important;
+}
+
+.ql-content-editor-container .ql-icon:hover .ql-fill {
+  fill: #1c37a5 !important;
+}
+
+.ql-content-editor-container .ql-container {
+  overflow: visible !important;
+}
+
+.ql-content-editor-container .ql-editor {
+  padding: 0.25rem 0.5rem !important;
+}
+
+.ql-content-editor-container .text-input {
+  border-color: #a5b2e9 !important;
+}
+
+.ql-content-editor-container .ql-toolbar {
+  border-bottom: none !important;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.ql-content-editor-container .ql-container,
+.ql-content-editor-container .ql-editor {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.ql-content-editor-container .ql-editor:focus-visible {
+  outline: none !important;
+}
+
+.ql-content-editor-container.ql-comment
+  .ql-editor-container:has(.ql-editor:focus-visible) {
+  border-radius: 5px !important;
+  outline-color: #0000ff !important;
+  outline-width: 1px !important;
+  outline-style: solid !important;
+}
+
+.ql-content-editor-container.ql-post
+  .ql-editor-container:has(.ql-editor:focus-visible) {
+  border-radius: 5px !important;
+  outline-color: #000000 !important;
+  outline-width: 2px !important;
+  outline-style: solid !important;
+}
+
+.ql-content-editor-container.ql-comment .ql-toolbar,
+.ql-content-editor-container.ql-comment .ql-editor,
+.ql-content-editor-container.ql-comment .ql-editor-container,
+.ql-content-editor-container.ql-comment .ql-container {
+  border-color: #8291a1 !important;
+}
+
+.ql-content-editor-container.ql-post .ql-toolbar,
+.ql-content-editor-container.ql-post .ql-editor,
+.ql-content-editor-container.ql-post .ql-editor-container,
+.ql-content-editor-container.ql-post .ql-container {
+  border-color: #8291a1 !important;
+}
+
+.ql-content-editor-container.ql-post .ql-editor {
+  min-height: 3rem;
+}
