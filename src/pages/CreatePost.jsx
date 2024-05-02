@@ -3,7 +3,7 @@ import SavePostForm from '../features/posts/SavePostForm'
 
 const CreatePost = () => {
   return (
-    <Card className='p-8 pb-6 mb-4 mr-4 bg-accent-light w-fit'>
+    <Card className='p-8 pb-6 mb-4 mr-4 bg-accent-light max-w-[48rem]'>
       <Typography variant="h4" color="blue-gray">
         Crea publicación
       </Typography>
