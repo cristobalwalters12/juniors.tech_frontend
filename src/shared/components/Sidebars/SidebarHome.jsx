@@ -18,11 +18,12 @@ import Logo from '../Logo'
 import SidebarListItem from './SidebarListItem'
 import { DEVELOPERS, INSTRUCTORS } from '../../../config/constants/aboutUs'
 import SidebarListHeader from './SidebarListHeader'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import SidebarPostFilteringOptions from './SidebarPostFilteringOptions'
 
-export default function SidebarHome () {
+export default function SidebarHome ({ currPath }) {
   const [, setSearchParams] = useSearchParams()
+  const navigate = useNavigate()
   const [open, setOpen] = useState({
     junior: false,
     dev: false,
@@ -30,6 +31,8 @@ export default function SidebarHome () {
   })
 
   const handleSortingOptionChange = (sort, order) => () => {
+    if (!currPath.startsWith('/home')) return navigate(`/home?sort=${sort}&order=${order}`)
+
     setSearchParams((prevSearchParams) => {
       const newSearchParams = new URLSearchParams(prevSearchParams)
       newSearchParams.set('sort', sort)
@@ -54,7 +57,7 @@ export default function SidebarHome () {
           Ver publicaciones
         </Typography>
         <SidebarListItem onClick={handleSortingOptionChange('votes', 'desc')}>Más votadas</SidebarListItem>
-        <SidebarListItem onClick={handleSortingOptionChange('date', 'asc')}>Más recientes</SidebarListItem>
+        <SidebarListItem onClick={handleSortingOptionChange('date', 'desc')}>Más recientes</SidebarListItem>
       </List>
       <hr className='border-primary-dark my-2'/>
       <SidebarPostFilteringOptions />

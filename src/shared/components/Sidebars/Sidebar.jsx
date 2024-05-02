@@ -18,6 +18,6 @@ export default function Sidebar () {
   } else if (pathname.startsWith('/admin')) {
     return (<SidebarAdmin />)
   } else {
-    return <SidebarHome />
+    return <SidebarHome currPath={pathname} />
   }
 }
