@@ -18,12 +18,15 @@ const CustomCardFooter = ({
   const resourceType = post ? 'post' : 'comment'
   const resource = resourceType === 'post' ? post : comment
   const isDeleted = resourceType === 'comment' && resource.deletedAt !== null
-  const handleVote = (voteDirection) => () => onVote(voteDirection)
   const link = resourceType === 'post' ? `/posts/${resource.id}` : `/posts/${resource.postId}#${resource.id}`
+
+  const handleVote = (voteDirection) => () => onVote(voteDirection)
+  const handleReply = () => onReply()
+
   return (
     <div className={`mt-1 flex items-center ${className}`}>
       <div className="flex items-center gap-1">
-      <RequireAuthOnClick onClickAuthenticated={handleVote(1)}>
+      <RequireAuthOnClick onClickAuthenticated={handleVote(1)} stopPropagation={true}>
         <Button variant="text" disabled={isDeleted} className="rounded-full p-1.5">
           <ArrowUpIcon className={`h-4 w-4 ${resource.voteDirection === 1 ? 'text-blue-600' : ''}`} />
         </Button>
@@ -35,14 +38,14 @@ const CustomCardFooter = ({
           >
             {resource.voteCount}
           </Typography>}
-        <RequireAuthOnClick onClickAuthenticated={handleVote(-1)}>
+        <RequireAuthOnClick onClickAuthenticated={handleVote(-1)} stopPropagation={true}>
         <Button variant="text" disabled={isDeleted} className="rounded-full p-1.5">
           <ArrowDownIcon className={`h-4 w-4 ${resource.voteDirection === -1 ? 'text-blue-600' : ''}`} />
         </Button>
       </RequireAuthOnClick>
       </div>
 
-      <RequireAuthOnClick onClickAuthenticated={onReply}>
+      <RequireAuthOnClick onClickAuthenticated={handleReply} stopPropagation={true}>
         <Button
           variant="text"
           disabled={isDeleted || disableReply}
