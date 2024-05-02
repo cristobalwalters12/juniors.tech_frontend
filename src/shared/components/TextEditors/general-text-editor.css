@@ -33,3 +33,7 @@
 .ql-viewer .ql-container {
   border: none !important;
 }
+
+.ql-viewer .ql-editor * {
+  cursor: unset !important;
+}

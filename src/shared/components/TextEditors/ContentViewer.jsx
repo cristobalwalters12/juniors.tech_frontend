@@ -4,9 +4,9 @@ import 'highlight.js/styles/stackoverflow-light.min.css'
 import './general-text-editor.css'
 import './ContentViewer.css'
 
-const ContentViewer = ({ body = '' }) => {
+const ContentViewer = ({ body = '', className }) => {
   return (
-    <div className='ql-viewer post-content-viewer-container'>
+    <div className={`ql-viewer ql-viewer-container text-blue-gray-800 ${className || ''}`}>
       <QuillTextEditor
         modules={{
           codeHighlight: true,

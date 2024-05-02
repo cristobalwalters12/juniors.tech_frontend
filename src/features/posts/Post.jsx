@@ -48,7 +48,7 @@ const Post = ({ post, onShowReplies, disableReplyButton }) => {
       <Card
         color="transparent"
         shadow={false}
-        className="w-full pl-2 pt-2 pr-6"
+        className="w-full pt-2"
       >
         <CardHeader
           color="transparent"
