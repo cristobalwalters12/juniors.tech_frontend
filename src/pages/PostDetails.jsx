@@ -43,24 +43,24 @@ const PostDetails = () => {
   const newComment = { postId, parentId: postId }
 
   return (
-      <Card className='max-w-[48rem] pl-4 pb-3 mb-4 mr-4'>
+      <Card className='max-w-[48rem] px-6 pb-6 mb-4 mr-4'>
         <Post
           post={getSinglePostQuery.data}
           onShowReplies={showReplyForm}
           diableReplyButton={replying}
-         />
+        />
           <div className='pt-4 pl-0 '>
           {
             replying &&
             <SaveCommentForm
               comment={newComment}
               onClose={hideReplyForm}
-              className="pl-3 pr-3 mb-0"
+              className="mb-0"
             />
           }
           </div>
           <hr className='bg-blue-gray-500' />
-        <CommentList postId={postId} />
+        <CommentList postId={postId} className="mt-6" />
       </Card>
   )
 }

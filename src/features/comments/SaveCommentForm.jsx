@@ -1,25 +1,25 @@
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { commentSchema } from './commentSchema'
 import { Button, Typography } from '@material-tailwind/react'
-import { TextEditor } from '../posts/TextEditor'
 import { useSaveComment } from './useSaveComment'
 import { showErrorToast } from '../../shared/utils/showErrorToast'
+import PostContentEditor from '../../shared/components/TextEditors/ContentEditor'
 
 const SaveCommentForm = ({ comment = {}, onClose, className }) => {
   const saveCommentMutation = useSaveComment()
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors, isValid },
     reset
   } = useForm({
     mode: 'onTouched',
     resolver: joiResolver(commentSchema),
-    defaultValues: { body: comment.body || '' }
+    defaultValues: { content: comment.body }
   })
 
-  const saveComment = ({ body }) => {
+  const saveComment = ({ content: { body } }) => {
     saveCommentMutation
       .mutateAsync({
         ...comment,
@@ -37,19 +37,28 @@ const SaveCommentForm = ({ comment = {}, onClose, className }) => {
   return (
     <form
         onSubmit={handleSubmit(saveComment)}
-        className={`my-2 w-full pl-5 ${className || ''}`}
+        className={`w-full ${className || ''}`}
       >
         <div className="pb-1 flex flex-col gap-2 w-full">
-          <TextEditor
-            id="body"
-            label="Comentario"
-            register={register}
-            registerKey="body"
-            className="bg-white"
+          <Controller
+            name="content"
+            defaultValue={{ content: comment.body }}
+            control={control}
+            render={({ field }) => {
+              const { ref, ...rest } = field
+              return (
+                <PostContentEditor
+                  id="content"
+                  {...rest}
+                  initialValue={comment.body}
+                  className="ql-comment"
+                />
+              )
+            }}
           />
-          {errors.body && (
-            <Typography variant="small" color="red" className="font-normal">
-              {errors.body.message}
+          {errors.content && (
+            <Typography variant="small" color="red" className="font-normal ">
+              {errors.content.message}
             </Typography>
           )}
           <div className="flex gap-2">

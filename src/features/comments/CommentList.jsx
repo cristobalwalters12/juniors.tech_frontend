@@ -4,7 +4,7 @@ import { useGetComments } from './useGetComments'
 import { showErrorToast } from '../../shared/utils/showErrorToast'
 import { Spinner, Typography } from '@material-tailwind/react'
 
-const CommentList = ({ postId }) => {
+const CommentList = ({ postId, className }) => {
   const getCommentsQuery = useGetComments(postId)
   const comments = handleComments(getCommentsQuery?.data)
   if (getCommentsQuery?.isLoading) {
@@ -20,13 +20,14 @@ const CommentList = ({ postId }) => {
   }
 
   return (
-    <div className="p-3 pt-1 pr-5 ">
+    <div className={className}>
       {getCommentsQuery.data.length > 0
-        ? comments.rootComments.map(comment =>
+        ? comments.rootComments.map((comment, index) =>
         <Comment
           key={comment.id}
           comment={comment}
           getRepliesById={comments?.getRepliesById}
+          className={index !== 0 ? 'mt-4' : ''}
         />
         )
         : <div className='flex items-center justify-center pt-6'>

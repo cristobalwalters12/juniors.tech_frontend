@@ -1,4 +1,5 @@
 import Joi from 'joi'
+import { plainTextContentValidator } from '../../shared/validators/plainTextContentValidator'
 
 const postSchema = Joi.object({
   categoryId: Joi.string()
@@ -15,11 +16,7 @@ const postSchema = Joi.object({
       'any.required': 'El título es obligatorio'
     })
     .required(),
-  body: Joi.string().min(4).messages({
-    'string.min': 'La descripción debe tener al menos 4 caracteres',
-    'string.empty': 'La descripción no puede estar vacía',
-    'any.required': 'La descripción es obligatoria'
-  }).required()
+  content: plainTextContentValidator
 })
 
 export { postSchema }

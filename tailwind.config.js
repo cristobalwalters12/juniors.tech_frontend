@@ -22,7 +22,8 @@ export default withMT({
         },
         grey: {
           dark: '#8291A1',
-          light: '#DEE7EE'
+          light: '#DEE7EE',
+          lighter: '#f5f6f7'
         }
       }
     }

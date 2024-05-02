@@ -3,7 +3,6 @@ import {
   CardBody,
   CardHeader,
   Collapse,
-  // Collapse,
   Typography
 } from '@material-tailwind/react'
 import { useState } from 'react'
@@ -16,8 +15,9 @@ import { useDeleteComment } from './useDeleteComment'
 import { showErrorToast } from '../../shared/utils/showErrorToast'
 import { toast } from 'react-toastify'
 import { useVoteComment } from './useVoteComment'
+import ContentViewer from '../../shared/components/TextEditors/ContentViewer'
 
-const Comment = ({ comment, getRepliesById }) => {
+const Comment = ({ comment, getRepliesById, className }) => {
   const [editing, setEditing] = useState(false)
   const deleteCommentMutation = useDeleteComment()
   const voteOnCommentMutation = useVoteComment()
@@ -40,6 +40,7 @@ const Comment = ({ comment, getRepliesById }) => {
       showErrorToast(err, 'Error al intentar votar')
     })
   }
+
   const handleReport = () => {}
 
   const handleDelete = () => {
@@ -66,7 +67,7 @@ const Comment = ({ comment, getRepliesById }) => {
         color="transparent"
         shadow={false}
         onClick={toggleReplies}
-        className={`w-full mt-3 p-3 pb-2 bg-blue-gray-50 ${comment.commentCount > 0 ? 'cursor-pointer' : ''}`}
+        className={`w-full p-3 pb-2 bg-grey-lighter ${className || ''}${comment.commentCount > 0 ? ' cursor-pointer' : ''}`}
       >
         <CardHeader
           color="transparent"
@@ -94,17 +95,17 @@ const Comment = ({ comment, getRepliesById }) => {
             )}
           </div>
         </CardHeader>
-        <CardBody className="mb-0 p-0 pr-2 ml-11">
+        <CardBody className="mb-0 p-0 pr-2">
         {
           editing
-            ? <SaveCommentForm
-                onClose={hideEditingForm}
-                comment={comment}
-              />
-            : (<>
-                <Typography variant='small' className={`font-normal ${comment.deletedAt ? 'text-gray-600' : ''}`}>
-                  {comment.body}
-                </Typography>
+            ? <div className="ml-7">
+                <SaveCommentForm onClose={hideEditingForm} comment={comment} />
+              </div>
+            : (<div className='ml-11'>
+                <ContentViewer
+                  body={comment.body}
+                  className={comment.deletedAt ? 'ql-content-deleted' : ''}
+                />
                 <CustomCardFooter
                   comment={comment}
                   onEdit={showEditingForm}
@@ -114,7 +115,7 @@ const Comment = ({ comment, getRepliesById }) => {
                   onReport={handleReport}
                   onDelete={handleDelete}
                 />
-              </>)
+              </div>)
         }
         </CardBody>
       </Card>
@@ -126,14 +127,19 @@ const Comment = ({ comment, getRepliesById }) => {
               parentId: comment.id
             }}
             onClose={closeReplyForm}
-            className="pt-1"
+            className="pt-4 pb-8 pl-12"
           />
         }
       {
         replies.length > 0 &&
         <Collapse open={showReplies} className='pl-5'>
           {replies.map((reply) =>
-            <Comment key={reply.id} comment={reply} getRepliesById={getRepliesById}/>
+            <Comment
+              key={reply.id}
+              comment={reply}
+              getRepliesById={getRepliesById}
+              className="mt-4"
+            />
           )}
         </Collapse>
       }

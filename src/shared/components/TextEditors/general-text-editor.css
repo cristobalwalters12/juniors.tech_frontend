@@ -1,0 +1,39 @@
+.ql-container {
+  font-family: Roboto, sans-serif;
+  font-size: 1rem;
+}
+
+.ql-editor {
+  padding: 0;
+}
+
+.ql-editor li::before {
+  display: none !important;
+}
+
+.ql-toolbar:has(+ .ql-toolbar) {
+  display: none;
+}
+
+.ql-disabled .ql-code-block-container select {
+  display: none;
+}
+
+.ql-viewer .ql-toolbar {
+  display: none !important;
+}
+
+.ql-viewer .ql-code-copy {
+  margin-left: auto;
+}
+
+.ql-viewer .ql-editor,
+.ql-viewer .ql-editor-container,
+.ql-viewer .ql-disabled,
+.ql-viewer .ql-container {
+  border: none !important;
+}
+
+.ql-viewer .ql-editor * {
+  cursor: unset !important;
+}

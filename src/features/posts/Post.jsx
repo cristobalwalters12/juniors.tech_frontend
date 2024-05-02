@@ -15,8 +15,9 @@ import { toast } from 'react-toastify'
 import { showErrorToast } from '../../shared/utils/showErrorToast'
 import { useVoteOnPost } from './useVoteOnPost'
 import UserAvatar from '../../shared/components/UserAvatar'
+import ContentViewer from '../../shared/components/TextEditors/ContentViewer'
 
-const Post = ({ post, onShowReplies, diableReplyButton }) => {
+const Post = ({ post, onShowReplies, disableReplyButton }) => {
   const navigate = useNavigate()
   const deletePostMutation = useDeletePost()
   const voteOnPostMutation = useVoteOnPost()
@@ -47,7 +48,7 @@ const Post = ({ post, onShowReplies, diableReplyButton }) => {
       <Card
         color="transparent"
         shadow={false}
-        className="w-full pl-2 pt-2 pr-6"
+        className="w-full pt-2"
       >
         <CardHeader
           color="transparent"
@@ -56,9 +57,11 @@ const Post = ({ post, onShowReplies, diableReplyButton }) => {
           className="mx-0 flex justify-between pt-0 pb-2"
         >
           <div className='flex items-center gap-2'>
-            <Button variant='text' className='rounded-full p-0 w-14 h-10 flex items-center justify-center' onClick={() => navigate(-1)}>
+            <div>
+            <Button variant='text' className='rounded-full p-0 w-10 h-10 flex items-center justify-center' onClick={() => navigate(-1)}>
               <ArrowLeftIcon className='h-4 w-4' />
             </Button>
+            </div>
             <span className="rounded-full p-0 flex items-center">
               <UserAvatar avatarUrl={post.avatarUrl} size="sm" className="m-0" />
             </span>
@@ -92,12 +95,12 @@ const Post = ({ post, onShowReplies, diableReplyButton }) => {
         </CardHeader>
         <CardBody className="mb-2 mt-4 p-0 flex flex-col gap-2">
           <Typography variant='h4' className='text-blue-gray-900 mb-2'>{post.title}</Typography>
-          <Typography className='font-normal text-md mb-3'>{post.body}</Typography>
+          <ContentViewer body={post.body} />
         </CardBody>
         <CustomCardFooter
           post={post}
           onReply={onShowReplies}
-          disableReply={diableReplyButton}
+          disableReply={disableReplyButton}
           onVote={handleVote}
           onReport={handleReport}
           onDelete={handleDelete}

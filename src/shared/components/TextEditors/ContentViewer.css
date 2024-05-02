@@ -1,0 +1,7 @@
+.ql-viewer-container img {
+  cursor: auto;
+}
+
+.ql-content-deleted p {
+  color: hsl(215, 14%, 45%) !important;
+}
