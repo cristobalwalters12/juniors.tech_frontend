@@ -30,7 +30,7 @@ const CommentList = ({ postId, className }) => {
           className={index !== 0 ? 'mt-4' : ''}
         />
         )
-        : <div className='flex items-center justify-center pt-6'>
+        : <div className='flex items-center justify-center'>
           <Typography className='text-lg font-normal'>Aún no hay comentarios. Anímate a dejar el tuyo</Typography>
         </div>
     }

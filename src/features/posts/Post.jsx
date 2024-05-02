@@ -62,9 +62,7 @@ const Post = ({ post, onShowReplies, disableReplyButton }) => {
               <ArrowLeftIcon className='h-4 w-4' />
             </Button>
             </div>
-            <span className="rounded-full p-0 flex items-center">
-              <UserAvatar avatarUrl={post.avatarUrl} size="sm" className="m-0" />
-            </span>
+            <UserAvatar avatarUrl={post.avatarUrl} size="sm" className="m-0" />
             <div className="flex w-full flex-col">
               <Typography variant="paragraph" color="black" className='font-semibold'>
                 {post.category}

@@ -9,8 +9,8 @@ const getPosts = async ({ sort, order, page, limit, category }) => {
   if (limit) params.append('limit', limit)
   if (category) params.append('category', category)
 
-  const { data: { data } } = await baseApi.get(API_PATHS.posts, { params })
-  return data
+  const { data: { data: posts } } = await baseApi.get(API_PATHS.posts, { params })
+  return posts
 }
 
 const savePost = async ({ id: postId, categoryId, title, body }) => {
@@ -21,45 +21,13 @@ const savePost = async ({ id: postId, categoryId, title, body }) => {
   } else {
     result = await baseApi.post(API_PATHS.posts, post)
   }
-  const { data } = result.data
-  return {
-    id: data.id,
-    title: data.title,
-    body: data.body,
-    categoryId: data.categoryId,
-    category: data.category,
-    slug: data.slug,
-    authorId: data.authorId,
-    authorUsername: data.username,
-    avatarUrl: data.avatarUrl,
-    voteCount: data.voteCount,
-    commentCount: data.commentCount,
-    createdAt: data.createdAt,
-    updatedAt: data.updatedAt,
-    hasOpenReport: data.hasOpenReport,
-    voteDirection: data.voteDirection
-  }
+  const { data: savedPost } = result.data
+  return savedPost
 }
 
 const getPostById = async (postId) => {
   const { data: { data: post } } = await baseApi.get(`${API_PATHS.posts}/${postId}`)
-  return {
-    id: post.id,
-    title: post.title,
-    body: post.body,
-    categoryId: post.categoryId,
-    category: post.category,
-    slug: post.slug,
-    authorId: post.authorId,
-    authorUsername: post.username,
-    avatarUrl: post.avatarUrl,
-    voteCount: post.voteCount,
-    commentCount: post.commentCount,
-    createdAt: post.createdAt,
-    updatedAt: post.updatedAt,
-    hasOpenReport: post.hasOpenReport,
-    voteDirection: post.voteDirection
-  }
+  return post
 }
 
 const deletePostById = async ({ postId }) => {
