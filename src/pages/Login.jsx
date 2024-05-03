@@ -1,6 +1,9 @@
+import { useDocumentTitle } from 'usehooks-ts'
 import LoginForm from '../features/login/LoginForm'
 import LoginWords from '../features/login/LoginWords'
+
 const Login = () => {
+  useDocumentTitle('Inicia sesión')
   return (
       <>
         <div className="flex flex-col md:flex-row h-screen items-center">
