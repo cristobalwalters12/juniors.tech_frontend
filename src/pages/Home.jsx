@@ -3,7 +3,8 @@ import { useDocumentTitle } from '../shared/hooks/useDocumentTitle'
 import { useGetPosts } from '../features/posts/useGetPosts'
 import PostSummary from '../features/posts/PostSummary'
 import { useCallback, useRef } from 'react'
-import { Spinner } from '@material-tailwind/react'
+import { Button, Spinner } from '@material-tailwind/react'
+import { showErrorToast } from '../shared/utils/showErrorToast'
 
 const Home = () => {
   useDocumentTitle('Página de inicio')
@@ -11,8 +12,11 @@ const Home = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    isFetching,
+    isLoading,
+    isError,
     data,
-    status,
+    refetch,
     error
   } = useGetPosts()
 
@@ -31,7 +35,7 @@ const Home = () => {
     if (post) intObserver.current.observe(post)
   }, [isFetchingNextPage, fetchNextPage, hasNextPage])
 
-  if (status === 'loading') {
+  if (isLoading) {
     return (
     <div className='flex justify-center'>
       <Spinner className="h-16 w-16 text-gray-900/50" />
@@ -39,8 +43,18 @@ const Home = () => {
     )
   }
 
-  if (status === 'error') {
-    return <div>Error: {error.message}</div>
+  if (isError) {
+    showErrorToast(error, error.message)
+    return (
+      <div className='w-full text-lg'>
+        <div className='mx-auto w-fit'>
+          <p>Ha ocurrido un error al cargar las publicaciones</p>
+          <div className='mt-4'>
+            <Button onClick={refetch} size='sm' loading={isFetching} className='normal-case text-sm'>Volver a cargar</Button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   const posts = data?.pages.flatMap(page => page.posts) || []
