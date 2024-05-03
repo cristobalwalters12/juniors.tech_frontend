@@ -13,7 +13,7 @@ const PostDetails = () => {
   const [replying, setReplying] = useState(false)
   const navigate = useNavigate()
   const getSinglePostQuery = useGetSinglePost(postId)
-  useDocumentTitle(getSinglePostQuery.data?.title, getSinglePostQuery.isFetched)
+  useDocumentTitle(getSinglePostQuery.data?.title)
 
   useEffect(() => {
     if (getSinglePostQuery.data) {

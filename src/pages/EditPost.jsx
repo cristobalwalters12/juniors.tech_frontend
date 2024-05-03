@@ -10,7 +10,7 @@ const EditPost = () => {
   const { id } = useParams()
   const query = useGetSinglePost(id)
   const currUserId = useAuthStore((state) => state.id)
-  useDocumentTitle('Edita tu publicación', query.isFetched)
+  useDocumentTitle('Edita tu publicación')
 
   if (query.isLoading) {
     return (
