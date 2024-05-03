@@ -13,11 +13,13 @@ import { useNavigate } from 'react-router-dom'
 import { showErrorToast } from '../../shared/utils/showErrorToast'
 import { useGetCategories } from '../../shared/hooks/useGetCategories'
 import ContentEditor from '../../shared/components/TextEditors/ContentEditor'
+import { useState } from 'react'
 
 const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '' }) => {
   const navigate = useNavigate()
   const savePostMutation = useSavePost()
   const query = useGetCategories()
+  const [titleHint, setTitleHint] = useState(false)
   const {
     register,
     handleSubmit,
@@ -39,6 +41,14 @@ const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '
       showErrorToast(err, 'Error al crear publicación')
     })
   }
+  const { onBlur, ...titleRegistry } = register('title')
+
+  const handleBlur = (value) => {
+    setTitleHint(false)
+    onBlur(value)
+  }
+
+  const handleFocus = () => setTitleHint(true)
 
   const titleLength = watch('title').length
   const contentLength = watch('content')?.text?.trim().length
@@ -93,13 +103,20 @@ const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '
               labelProps={{
                 className: 'hidden'
               }}
-              {...register('title')}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+              {...titleRegistry}
             />
             <span className={`${titleLength < 4 || titleLength > 300 ? 'text-red-500' : ''} w-[3.6rem] text-right text-sm`}>{titleLength}/300</span>
-            </div>
+          </div>
           {errors.title && (
             <Typography variant="small" color="red" className="font-normal -mt-5">
               {errors.title.message}
+            </Typography>
+          )}
+          {!errors.title && titleHint && (
+            <Typography variant="small" color="blue-gray" className="font-normal -mt-5 form-title-hint">
+              El título debe ser único
             </Typography>
           )}
           <Typography color="blue-gray" className="-mb-3 text-md font-bold">
