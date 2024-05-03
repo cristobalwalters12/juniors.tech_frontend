@@ -22,6 +22,7 @@ const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors, isValid },
     reset
   } = useForm({
@@ -39,13 +40,16 @@ const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '
     })
   }
 
+  const titleLength = watch('title').length
+  const contentLength = watch('content')?.text?.trim().length
+
   return (
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="mt-8 mb-2 w-full"
       >
         <div className="mb-1 flex flex-col gap-6">
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
+          <Typography color="blue-gray" className="-mb-3 text-md font-bold">
             Categoría
           </Typography>
           {query.isLoading
@@ -67,35 +71,38 @@ const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '
                       labelProps={{
                         className: 'hidden'
                       }}
-                      >
+                    >
                       {query?.data.map(({ id, name }) => <Option key={id} value={id}>{name}</Option>)}
                     </Select>)
                 }}
               />
             }
           {errors.categoryId && (
-            <Typography variant="small" color="red" className="font-normal">
+            <Typography variant="small" color="red" className="font-normal -mt-5">
               {errors.categoryId.message}
             </Typography>
           )}
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
+          <Typography color="blue-gray" className="-mb-3 text-md font-bold">
             Título
           </Typography>
-          <Input
-            id='title'
-            placeholder="Título"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: 'hidden'
-            }}
-            {...register('title')}
-          />
+          <div className='flex gap-2 items-center'>
+            <Input
+              id='title'
+              placeholder="Título"
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900 flex-1"
+              labelProps={{
+                className: 'hidden'
+              }}
+              {...register('title')}
+            />
+            <span className={`${titleLength < 4 || titleLength > 300 ? 'text-red-500' : ''} w-[3.6rem] text-right text-sm`}>{titleLength}/300</span>
+            </div>
           {errors.title && (
-            <Typography variant="small" color="red" className="font-normal -mt-3">
+            <Typography variant="small" color="red" className="font-normal -mt-5">
               {errors.title.message}
             </Typography>
           )}
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
+          <Typography color="blue-gray" className="-mb-3 text-md font-bold">
             Contenido
           </Typography>
           <Controller
@@ -115,11 +122,14 @@ const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '
               )
             }}
           />
-          {errors.content && (
-            <Typography variant="small" color="red" className="font-normal ">
+          <div className='-mt-5 flex justify-end'>
+            {errors.content && (
+            <span className="font-normal text-red-500 text-sm inline-block flex-1">
               {errors.content.message}
-            </Typography>
-          )}
+            </span>
+            )}
+            <span className={`${contentLength < 4 || contentLength > 10000 ? 'text-red-500' : ''} inline-block text-right text-sm`}>{contentLength}/10.000</span>
+          </div>
           <div className="flex gap-2">
             <Button onClick={() => navigate(-1)} size="sm" color="red" variant="text" className="rounded-md">
               Cancelar
