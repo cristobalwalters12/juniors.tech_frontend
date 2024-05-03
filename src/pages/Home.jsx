@@ -6,7 +6,7 @@ import { useCallback, useRef } from 'react'
 import { Spinner } from '@material-tailwind/react'
 
 const Home = () => {
-  useDocumentTitle('Home')
+  useDocumentTitle('Página de inicio')
   const {
     fetchNextPage,
     hasNextPage,
