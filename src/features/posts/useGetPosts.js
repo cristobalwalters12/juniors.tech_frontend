@@ -13,7 +13,8 @@ const useGetPosts = () => {
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.nextPage,
     staleTime: 5 * 60 * 1000,
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
+    retry: 1
   })
 }
 
