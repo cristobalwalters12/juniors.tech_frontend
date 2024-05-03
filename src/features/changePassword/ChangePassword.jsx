@@ -12,9 +12,11 @@ import { useUserChangePassword } from './userUserchangePassword'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { showErrorToast } from '../../shared/utils/showErrorToast'
+import { useDocumentTitle } from '../../shared/hooks/useDocumentTitle'
 const ChangePassword = () => {
   const user = useAuthStore(state => state.user)
   const navigate = useNavigate()
+  useDocumentTitle('Cambiar contraseña')
 
   const { change } = useUserChangePassword()
   const { register, handleSubmit } = useForm()
