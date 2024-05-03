@@ -7,8 +7,11 @@ import {
   Typography,
   Button
 } from '@material-tailwind/react'
+import { useDocumentTitle } from '../shared/hooks/useDocumentTitle'
 
 export default function NotFound () {
+  useDocumentTitle('Página no encontrada')
+
   return (
     <>
       <div className='flex-column'>
