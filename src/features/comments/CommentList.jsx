@@ -9,7 +9,7 @@ const CommentList = ({ postId, className }) => {
   const comments = handleComments(getCommentsQuery?.data)
   if (getCommentsQuery?.isLoading) {
     return (
-    <div className='flex justify-center'>
+    <div className='flex justify-center mt-6'>
       <Spinner className="h-16 w-16 text-gray-900/50" />
     </div>)
   }
