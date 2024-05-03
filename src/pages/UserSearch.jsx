@@ -8,9 +8,11 @@ import { Spinner } from '@material-tailwind/react'
 const UserSearch = () => {
   const [searchParams] = useSearchParams()
   const decodedQuery = decodeURIComponent(searchParams.get('q'))
+  const page = searchParams.get('page') || 1
   const q = decodedQuery === 'null' ? '' : decodedQuery
   const { isLoading, data: searchResults } = useSearchUsers({ username: q })
-  useDocumentTitle(`Buscar ${q || ' en Juniors.tech'}`)
+  const title = q ? `${q} - Página ${page}` : ' en Juniors.tech'
+  useDocumentTitle(`Buscar ${title}`)
 
   return (
       <div className={`flex flex-col items-center ${searchResults?.users.length > 0 ? 'max-w-[48rem] justify-center' : ''}`}>
