@@ -12,6 +12,7 @@ const SaveCommentForm = ({ comment = {}, onClose, className }) => {
     control,
     handleSubmit,
     formState: { errors, isValid },
+    watch,
     reset
   } = useForm({
     mode: 'onTouched',
@@ -33,6 +34,8 @@ const SaveCommentForm = ({ comment = {}, onClose, className }) => {
         showErrorToast(err)
       })
   }
+
+  const contentLength = watch('content')?.text?.trim().length
 
   return (
     <form
@@ -56,18 +59,23 @@ const SaveCommentForm = ({ comment = {}, onClose, className }) => {
               )
             }}
           />
-          {errors.content && (
-            <Typography variant="small" color="red" className="font-normal ">
-              {errors.content.message}
-            </Typography>
-          )}
-          <div className="flex gap-2">
-            <Button size="sm" color="red" disabled={saveCommentMutation.isPending} variant="text" className="rounded-md" onClick={onClose}>
-              Cancelar
-            </Button>
-            <Button type="submit" disabled={!isValid || saveCommentMutation.isPending} loading={saveCommentMutation.isPending} size="sm" className="rounded-md">
-              Publicar
-            </Button>
+          <div className="flex justify-end">
+            <div className='flex flex-col gap-2 justify-start flex-1'>
+              {errors.content && (
+              <Typography variant="small" color="red" className="font-normal ">
+                {errors.content.message}
+              </Typography>
+              )}
+              <div className='flex gap-2'>
+                <Button size="sm" color="red" disabled={saveCommentMutation.isPending} variant="text" className="rounded-md" onClick={onClose}>
+                  Cancelar
+                </Button>
+                <Button type="submit" disabled={!isValid || saveCommentMutation.isPending} loading={saveCommentMutation.isPending} size="sm" className="rounded-md">
+                  Publicar
+                </Button>
+              </div>
+            </div>
+            <span className={`${contentLength < 4 || contentLength > 10000 ? 'text-red-500' : ''} inline-block text-right text-sm`}>{contentLength}/10.000</span>
           </div>
         </div>
       </form>
