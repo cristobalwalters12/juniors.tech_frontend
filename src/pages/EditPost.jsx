@@ -4,11 +4,13 @@ import { Card, Spinner, Typography } from '@material-tailwind/react'
 import { useGetSinglePost } from '../features/posts/useGetSinglePost'
 import { useAuthStore } from '../stores/authStore'
 import { showErrorToast } from '../shared/utils/showErrorToast'
+import { useDocumentTitle } from 'usehooks-ts'
 
 const EditPost = () => {
   const { id } = useParams()
   const query = useGetSinglePost(id)
   const currUserId = useAuthStore((state) => state.id)
+  useDocumentTitle('Edita tu publicación', query.isFetched)
 
   if (query.isLoading) {
     return (
