@@ -7,6 +7,7 @@ import { CommentList } from '../features/comments/CommentList'
 import { SaveCommentForm } from '../features/comments/SaveCommentForm'
 import { useDocumentTitle } from '../shared/hooks/useDocumentTitle'
 import { showErrorToast } from '../shared/utils/showErrorToast'
+import Rules from '../shared/components/Rules'
 
 const PostDetails = () => {
   const { id: postId } = useParams()
@@ -43,7 +44,8 @@ const PostDetails = () => {
   const newComment = { postId, parentId: postId }
 
   return (
-      <Card className='max-w-[48rem] px-6 pb-6 mb-4 mr-4'>
+    <div className='flex'>
+      <Card className='max-w-[48rem] flex-1 px-6 pb-6 mb-4 mr-4'>
         <Post
           post={getSinglePostQuery.data}
           onShowReplies={showReplyForm}
@@ -62,6 +64,8 @@ const PostDetails = () => {
           <hr className='bg-blue-gray-500' />
         <CommentList postId={postId} className="mt-6" />
       </Card>
+      <Rules className="self-start dashboard-layout__aside-right" />
+    </div>
   )
 }
 
