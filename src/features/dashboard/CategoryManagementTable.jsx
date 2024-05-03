@@ -11,10 +11,12 @@ import {
 } from '@material-tailwind/react'
 import { getCategories, addCategory, removeCategory, editCategory } from '../../services/categories'
 import { toast } from 'react-toastify'
+import { useDocumentTitle } from 'usehooks-ts'
 
 const TABLE_HEAD = ['Categoría', 'Acciones']
 
 export function CategoryManagementTable () {
+  useDocumentTitle('Gestión de categorías')
   const [openDialogIndex, setOpenDialogIndex] = useState(null)
   const [tableRows, setTableRows] = useState([])
   const [newCategoryName, setNewCategoryName] = useState('')
