@@ -8,9 +8,11 @@ import { Spinner } from '@material-tailwind/react'
 const SearchPosts = () => {
   const [searchParams] = useSearchParams()
   const decodedQuery = decodeURIComponent(searchParams.get('q'))
+  const page = searchParams.get('page') || 1
   const q = decodedQuery === 'null' ? '' : decodedQuery
   const { isLoading, data: searchResults } = useSearchPosts({ title: q })
-  useDocumentTitle(`Buscar ${q || ' en Juniors.tech'}`)
+  const title = q ? `${q} - Página ${page}` : ' en Juniors.tech'
+  useDocumentTitle(`Buscar ${title}`)
 
   return (
     <div className={`flex h-full flex-col gap-4 pr-4 ${searchResults?.posts.length > 0 ? 'max-w-[48rem]' : ''}`}>
