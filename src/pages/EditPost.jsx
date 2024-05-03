@@ -5,6 +5,7 @@ import { useGetSinglePost } from '../features/posts/useGetSinglePost'
 import { useAuthStore } from '../stores/authStore'
 import { showErrorToast } from '../shared/utils/showErrorToast'
 import { useDocumentTitle } from 'usehooks-ts'
+import Rules from '../shared/components/Rules'
 
 const EditPost = () => {
   const { id } = useParams()
@@ -33,14 +34,15 @@ const EditPost = () => {
   const { categoryId, title, body } = query.data
 
   return (
-    <>
-    <Card className='p-8 pb-6 max-w-[48rem] mb-4 mr-4 bg-accent-light'>
-      <Typography variant="h4" color="blue-gray">
-        Edita tu publicación
-      </Typography>
-      <SavePostForm id={id} categoryId={categoryId} title={title} body={body}/>
+    <div className='flex'>
+      <Card className='p-8 pb-6 max-w-[48rem] flex-1 mb-4 mr-4 bg-accent-light'>
+        <Typography variant="h4" color="blue-gray">
+          Edita tu publicación
+        </Typography>
+        <SavePostForm id={id} categoryId={categoryId} title={title} body={body}/>
       </Card>
-    </>
+      <Rules className="self-start dashboard-layout__aside-right" />
+    </div>
   )
 }
 
