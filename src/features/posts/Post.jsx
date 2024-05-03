@@ -7,7 +7,7 @@ import {
 } from '@material-tailwind/react'
 import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 import { FormattedDate } from '../../shared/components/FormattedDate'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { CustomCardFooter } from '../../shared/components/Cards/CustomCardFooter'
 import ContextMenu from '../../shared/components/Cards/ContextMenu'
 import { useDeletePost } from './useDeletePost'
@@ -43,6 +43,9 @@ const Post = ({ post, onShowReplies, disableReplyButton }) => {
       showErrorToast(err, 'Error al eliminar publicación')
     })
   }
+
+  const avatarWidthClassname = post.avatarUrl ? 'w-[3.94rem]' : 'w-[3rem]'
+
   return (
     <article>
       <Card
@@ -62,7 +65,9 @@ const Post = ({ post, onShowReplies, disableReplyButton }) => {
               <ArrowLeftIcon className='h-4 w-4' />
             </Button>
             </div>
-            <UserAvatar avatarUrl={post.avatarUrl} size="sm" className="m-0" />
+            <Link to={`/users/${post.authorUsername}`}>
+              <UserAvatar avatarUrl={post.avatarUrl} className={`${avatarWidthClassname} h-[3rem]`} />
+            </Link>
             <div className="flex w-full flex-col">
               <Typography variant="paragraph" color="black" className='font-semibold'>
                 {post.category}
