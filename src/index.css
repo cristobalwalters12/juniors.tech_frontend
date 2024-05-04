@@ -4,3 +4,7 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
+
+.custom-text-md {
+  font-size: 1rem !important;
+}

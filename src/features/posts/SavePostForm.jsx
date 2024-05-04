@@ -77,12 +77,12 @@ const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '
                       id="categoryId"
                       {...rest}
                       label="Categoría"
-                      className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                      className="!border-t-blue-gray-200 focus:!border-t-gray-900 custom-text-md"
                       labelProps={{
                         className: 'hidden'
                       }}
                     >
-                      {query?.data.map(({ id, name }) => <Option key={id} value={id}>{name}</Option>)}
+                      {query?.data.map(({ id, name }) => <Option key={id} value={id} className='custom-text-md'>{name}</Option>)}
                     </Select>)
                 }}
               />
@@ -99,7 +99,7 @@ const SavePostForm = ({ id, categoryId = '', category = '', title = '', body = '
             <Input
               id='title'
               placeholder="Título"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900 flex-1"
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900 flex-1 custom-text-md"
               labelProps={{
                 className: 'hidden'
               }}
