@@ -5,7 +5,7 @@ import PostSummary from '../features/posts/PostSummary'
 import { useCallback, useRef } from 'react'
 import { Button } from '@material-tailwind/react'
 import { showErrorToast } from '../shared/utils/showErrorToast'
-import SkeletonList from '../shared/components/Skeletons/SkeletonList'
+import PostSkeletonList from '../shared/components/Skeletons/PostSkeletonList'
 
 const Home = () => {
   useDocumentTitle('Página de inicio')
@@ -55,7 +55,7 @@ const Home = () => {
   return (
     <div className={`flex flex-col gap-3 mb-4 mr-4 ${posts?.length > 0 ? 'max-w-[48rem]' : ''}`}>
       {isLoading
-        ? <SkeletonList totalSkeletons={5} />
+        ? <PostSkeletonList totalSkeletons={5} />
         : posts.length > 0
           ? posts.map((post, index, { length }) => {
             if (index === length - 1) {
@@ -76,7 +76,7 @@ const Home = () => {
             <Link to="/posts/new" className='text-primary-dark font-semibold'>Anímate a crear la primera</Link>
           </div>)
     }
-      {isFetchingNextPage && (<SkeletonList totalSkeletons={1} />)}
+      {isFetchingNextPage && (<PostSkeletonList totalSkeletons={1} />)}
     </div>
   )
 }

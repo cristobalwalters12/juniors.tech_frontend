@@ -1,6 +1,6 @@
 import PostSummarySkeleton from './PostSummarySkeleton'
 
-const SkeletonList = ({ totalSkeletons }) => {
+const PostSkeletonList = ({ totalSkeletons }) => {
   return (
     <div className="flex flex-col gap-3 w-full max-w-[48rem]">
       {Array(totalSkeletons)
@@ -12,4 +12,4 @@ const SkeletonList = ({ totalSkeletons }) => {
   )
 }
 
-export default SkeletonList
+export default PostSkeletonList
