@@ -1,9 +1,9 @@
 .dashboard-layout__aside-right {
-  display: none;
+  display: none !important;
 }
 
 @media (min-width:70rem) {
   .dashboard-layout__aside-right {
-    display: unset;
+    display: unset !important;
   }
 }
