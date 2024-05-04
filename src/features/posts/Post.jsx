@@ -16,11 +16,21 @@ import { showErrorToast } from '../../shared/utils/showErrorToast'
 import { useVoteOnPost } from './useVoteOnPost'
 import UserAvatar from '../../shared/components/UserAvatar'
 import ContentViewer from '../../shared/components/TextEditors/ContentViewer'
+import { useState } from 'react'
 
 const Post = ({ post, onShowReplies, disableReplyButton }) => {
   const navigate = useNavigate()
+  const [activeLink, setActiveLink] = useState(true)
   const deletePostMutation = useDeletePost()
   const voteOnPostMutation = useVoteOnPost()
+
+  const goBackHandler = () => {
+    setTimeout(() =>
+      navigate(-1)
+    , 250)
+    setActiveLink(false)
+  }
+
   const handleVote = (voteDirection) => {
     voteOnPostMutation
       .mutateAsync({ postId: post.id, voteDirection })
@@ -61,7 +71,12 @@ const Post = ({ post, onShowReplies, disableReplyButton }) => {
         >
           <div className='flex items-center gap-2'>
             <div>
-            <Button variant='text' className='rounded-full p-0 w-10 h-10 flex items-center justify-center' onClick={() => navigate(-1)}>
+            <Button
+              variant='text'
+              className='rounded-full p-0 w-10 h-10 flex items-center justify-center'
+              disabled={!activeLink}
+              onClick={goBackHandler}
+            >
               <ArrowLeftIcon className='h-4 w-4' />
             </Button>
             </div>
