@@ -57,7 +57,7 @@ const TechnologyDictionary = [
   },
   {
     value: 'xeihZzY2mL',
-    label: 'Golang'
+    label: 'Svelte'
   },
   {
     value: 'XXZROnTUjP',
@@ -153,7 +153,7 @@ const TechnologyDictionary = [
   },
   {
     value: '121bcFfPXf',
-    label: 'StoryBook'
+    label: 'GraphQL'
   },
   {
     value: '1oCUvjJGGn',
