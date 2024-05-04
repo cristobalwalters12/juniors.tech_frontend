@@ -22,7 +22,7 @@ const PostSkeleton = () => {
               <ArrowLeftIcon className='h-4 w-4' />
             </Button>
             </div>
-            <div className='w-[4.3rem] h-[3rem] animate-pulse rounded-full bg-gray-300'></div>
+            <div className='w-[4.4rem] h-[3rem] animate-pulse rounded-full bg-gray-300'></div>
             <div className="flex w-full flex-col">
               <Typography as="div" variant="small" className="h-4 w-40 rounded-full bg-gray-300 animate-pulse">
                 &nbsp;
