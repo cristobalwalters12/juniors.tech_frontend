@@ -6,26 +6,27 @@ const useVoteOnPost = () => {
 
   return useMutation({
     mutationFn: voteOnPost,
-    onMutate: (payload) => payload,
-    onSuccess: (votedPost, variables, context) => {
+    onMutate: (payload) => {
+      let prevPostData
       queryClient.setQueryData(
-        ['posts', context.postId],
+        ['posts', payload.postId],
         (prevPost) => {
+          prevPostData = prevPost
           let newVoteCount = 0
           let newVoteDirection = 0
           // unvote
-          if (prevPost.voteDirection === context.voteDirection) {
-            newVoteCount = prevPost.voteCount - context.voteDirection
+          if (prevPost.voteDirection === payload.voteDirection) {
+            newVoteCount = prevPost.voteCount - payload.voteDirection
             newVoteDirection = 0
           } else {
-            // nre vote
+            // new vote
             if (prevPost.voteDirection === 0) {
-              newVoteCount = prevPost.voteCount + context.voteDirection
+              newVoteCount = prevPost.voteCount + payload.voteDirection
             } else {
               // reverse vote direction
-              newVoteCount = prevPost.voteCount + 2 * context.voteDirection
+              newVoteCount = prevPost.voteCount + 2 * payload.voteDirection
             }
-            newVoteDirection = context.voteDirection
+            newVoteDirection = payload.voteDirection
           }
           return {
             ...prevPost,
@@ -34,6 +35,11 @@ const useVoteOnPost = () => {
           }
         }
       )
+      return prevPostData
+    },
+    onError: (error, variables, context) => {
+      queryClient.setQueryData(['posts', variables.postId], context)
+      throw error
     },
     retry: 0
   })
