@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { useDocumentTitle } from '../shared/hooks/useDocumentTitle'
 import { useSearchPosts } from '../features/posts/useSearchPosts'
 import Pagination from '../shared/components/Pagination'
-import { Spinner } from '@material-tailwind/react'
+import SkeletonList from '../shared/components/Skeletons/SkeletonList'
 
 const SearchPosts = () => {
   const [searchParams] = useSearchParams()
@@ -18,10 +18,7 @@ const SearchPosts = () => {
     <div className={`flex h-full flex-col gap-4 pr-4 ${searchResults?.posts.length > 0 ? 'max-w-[48rem]' : ''}`}>
       {q
         ? isLoading
-          ? (<div className='flex justify-center'>
-              <Spinner className="h-16 w-16 text-gray-900/50" />
-            </div>
-            )
+          ? (<SkeletonList totalSkeletons={5} />)
           : searchResults?.posts && searchResults?.posts.length > 0
             ? <>
                 <div className="flex flex-1 flex-row">
