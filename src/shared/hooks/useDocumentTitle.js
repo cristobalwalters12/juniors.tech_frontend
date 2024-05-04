@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const useDocumentTitle = (title, dataFetched = true) => {
+const useDocumentTitle = (title) => {
   useEffect(() => {
     if (!title) return
     document.title = `${title} - Juniors.tech`

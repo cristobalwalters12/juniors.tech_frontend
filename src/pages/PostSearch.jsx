@@ -3,23 +3,22 @@ import { useSearchParams } from 'react-router-dom'
 import { useDocumentTitle } from '../shared/hooks/useDocumentTitle'
 import { useSearchPosts } from '../features/posts/useSearchPosts'
 import Pagination from '../shared/components/Pagination'
-import { Spinner } from '@material-tailwind/react'
+import PostSkeletonList from '../shared/components/Skeletons/PostSkeletonList'
 
 const SearchPosts = () => {
   const [searchParams] = useSearchParams()
   const decodedQuery = decodeURIComponent(searchParams.get('q'))
+  const page = searchParams.get('page') || 1
   const q = decodedQuery === 'null' ? '' : decodedQuery
   const { isLoading, data: searchResults } = useSearchPosts({ title: q })
-  useDocumentTitle(`Buscar ${q || ' en Juniors.tech'}`)
+  const title = q ? `${q} - Página ${page}` : ' en Juniors.tech'
+  useDocumentTitle(`Buscar ${title}`)
 
   return (
     <div className={`flex h-full flex-col gap-4 pr-4 ${searchResults?.posts.length > 0 ? 'max-w-[48rem]' : ''}`}>
       {q
         ? isLoading
-          ? (<div className='flex justify-center'>
-              <Spinner className="h-16 w-16 text-gray-900/50" />
-            </div>
-            )
+          ? (<PostSkeletonList totalSkeletons={5} />)
           : searchResults?.posts && searchResults?.posts.length > 0
             ? <>
                 <div className="flex flex-1 flex-row">

@@ -8,10 +8,12 @@ import {
   DialogBody,
   DialogFooter
 } from '@material-tailwind/react'
+import { useDocumentTitle } from '../../shared/hooks/useDocumentTitle'
 
 const TABLE_HEAD = ['Publicación', 'Autor de la publicación', 'Autor del reporte', 'Motivo del reporte', 'Acciones']
 
 export function PostReportTable () {
+  useDocumentTitle('Gestión de reportes de publicaciones')
   const [openDialogs, setOpenDialogs] = useState([])
   const [confirmIndex, setConfirmIndex] = useState(null)
   const [tableRows, setTableRows] = useState([])

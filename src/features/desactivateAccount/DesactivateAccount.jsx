@@ -17,7 +17,10 @@ import { useUserDesactivateAccount } from './useUserDesactivateAccount'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { showErrorToast } from '../../shared/utils/showErrorToast'
+import { useDocumentTitle } from '../../shared/hooks/useDocumentTitle'
+
 const DesactivateAccount = () => {
+  useDocumentTitle('Desactivar cuenta')
   const user = useAuthStore(state => state.user)
   const idUser = useAuthStore(state => state.id)
   const { logout } = useAuthStore()

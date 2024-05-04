@@ -1,7 +1,9 @@
 import RegisterFormEmail from '../features/registerEmail/RegisterFormEmail'
 import RegisterWords from '../features/register/RegisterWords'
+import { useDocumentTitle } from '../shared/hooks/useDocumentTitle'
 
 const Register = () => {
+  useDocumentTitle('Regístrate')
   return (
     <>
     <div className="flex flex-col md:flex-row h-screen items-center">

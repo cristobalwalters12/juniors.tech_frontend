@@ -13,6 +13,7 @@ import { getMods, addModerator, removeModerator } from '../../services/mods'
 import { useAuthStore } from '../../stores/authStore'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { useDocumentTitle } from '../../shared/hooks/useDocumentTitle'
 
 const TABLE_HEAD = ['Nombre', 'Acciones']
 
@@ -21,6 +22,7 @@ export function RoleManagementTable () {
   const [tableRows, setTableRows] = useState([])
   const [newModeratorName, setNewModeratorName] = useState('')
   const [openAddDialog, setOpenAddDialog] = useState(false)
+  useDocumentTitle('Gestión de roles')
   const navigate = useNavigate()
 
   useEffect(() => {

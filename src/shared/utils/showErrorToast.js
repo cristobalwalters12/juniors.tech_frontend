@@ -4,12 +4,12 @@ const ERROR_CODES = {
   ERR_BAD_REQUEST: 'Recurso no encontrado',
   ERR_NETWORK: 'Error de conexión'
 }
-const showErrorToast = ({ code, response: { status, data: { message } } }, customMessage) => {
+const showErrorToast = (error, customMessage) => {
   let toastMessage = ''
-  if (status >= 400 && status < 500) {
-    toastMessage = message
+  if (error.response && error.response.status >= 400 && error.response.status < 500) {
+    toastMessage = error.response.data.message
   } else {
-    toastMessage = ERROR_CODES[code] || customMessage || message
+    toastMessage = ERROR_CODES[error.code] || customMessage || error?.response.data.message
   }
   toast.error(toastMessage)
 }

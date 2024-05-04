@@ -56,9 +56,10 @@ const Comment = ({ comment, getRepliesById, className }) => {
 
   const Avatar = (
     <UserAvatar
-    avatarUrl={comment.avatarUrl}
-    username={comment.authorUsername || 'Usuario eliminado'}
-    className="w-10" />
+      avatarUrl={comment.avatarUrl}
+      username={comment.authorUsername || 'Usuario eliminado'}
+      className="w-10"
+    />
   )
 
   return (
@@ -98,7 +99,7 @@ const Comment = ({ comment, getRepliesById, className }) => {
         <CardBody className="mb-0 p-0 pr-2">
         {
           editing
-            ? <div className="ml-7">
+            ? <div className="ml-9">
                 <SaveCommentForm onClose={hideEditingForm} comment={comment} />
               </div>
             : (<div className='ml-11'>

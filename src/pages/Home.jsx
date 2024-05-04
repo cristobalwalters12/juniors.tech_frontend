@@ -3,16 +3,21 @@ import { useDocumentTitle } from '../shared/hooks/useDocumentTitle'
 import { useGetPosts } from '../features/posts/useGetPosts'
 import PostSummary from '../features/posts/PostSummary'
 import { useCallback, useRef } from 'react'
-import { Spinner } from '@material-tailwind/react'
+import { Button } from '@material-tailwind/react'
+import { showErrorToast } from '../shared/utils/showErrorToast'
+import PostSkeletonList from '../shared/components/Skeletons/PostSkeletonList'
 
 const Home = () => {
-  useDocumentTitle('Home')
+  useDocumentTitle('Página de inicio')
   const {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    isFetching,
+    isLoading,
+    isError,
     data,
-    status,
+    refetch,
     error
   } = useGetPosts()
 
@@ -31,47 +36,47 @@ const Home = () => {
     if (post) intObserver.current.observe(post)
   }, [isFetchingNextPage, fetchNextPage, hasNextPage])
 
-  if (status === 'loading') {
+  if (isError) {
+    showErrorToast(error, error.message)
     return (
-    <div className='flex justify-center'>
-      <Spinner className="h-16 w-16 text-gray-900/50" />
-    </div>
+      <div className='w-full text-lg'>
+        <div className='mx-auto w-fit'>
+          <p>Ha ocurrido un error al cargar las publicaciones</p>
+          <div className='mt-4'>
+            <Button onClick={refetch} size='sm' loading={isFetching} className='normal-case text-sm'>Volver a cargar</Button>
+          </div>
+        </div>
+      </div>
     )
-  }
-
-  if (status === 'error') {
-    return <div>Error: {error.message}</div>
   }
 
   const posts = data?.pages.flatMap(page => page.posts) || []
 
   return (
-    <div className={`flex flex-col gap-3 mb-4 mr-4 ${posts.length > 0 ? 'max-w-[48rem]' : ''}`}>
-      {posts.length > 0
-        ? posts.map((post, index, { length }) => {
-          if (index === length - 1) {
-            return (
+    <div className={`flex flex-col gap-3 mb-4 mr-4 ${posts?.length > 0 ? 'max-w-[48rem]' : ''}`}>
+      {isLoading
+        ? <PostSkeletonList totalSkeletons={5} />
+        : posts.length > 0
+          ? posts.map((post, index, { length }) => {
+            if (index === length - 1) {
+              return (
               <Link ref={lastPostRef} key={post.id} to={`/posts/${post.id}/${post.slug}`}>
                 <PostSummary post={post} />
               </Link>
-            )
-          }
-          return (
+              )
+            }
+            return (
             <Link key={post.id} to={`/posts/${post.id}/${post.slug}`}>
               <PostSummary post={post} />
             </Link>
-          )
-        })
-        : (<div className='text-center w-full text-lg'>
+            )
+          })
+          : (<div className='text-center w-full text-lg'>
             <p>Aún no hay publicaciones en esta categoría.</p>
             <Link to="/posts/new" className='text-primary-dark font-semibold'>Anímate a crear la primera</Link>
           </div>)
     }
-      {isFetchingNextPage && (
-        <div className='flex justify-center'>
-          <Spinner className="h-16 w-16 text-gray-900/50" />
-        </div>
-      )}
+      {isFetchingNextPage && (<PostSkeletonList totalSkeletons={1} />)}
     </div>
   )
 }

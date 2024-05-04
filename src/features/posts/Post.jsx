@@ -7,7 +7,7 @@ import {
 } from '@material-tailwind/react'
 import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 import { FormattedDate } from '../../shared/components/FormattedDate'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { CustomCardFooter } from '../../shared/components/Cards/CustomCardFooter'
 import ContextMenu from '../../shared/components/Cards/ContextMenu'
 import { useDeletePost } from './useDeletePost'
@@ -16,11 +16,21 @@ import { showErrorToast } from '../../shared/utils/showErrorToast'
 import { useVoteOnPost } from './useVoteOnPost'
 import UserAvatar from '../../shared/components/UserAvatar'
 import ContentViewer from '../../shared/components/TextEditors/ContentViewer'
+import { useState } from 'react'
 
 const Post = ({ post, onShowReplies, disableReplyButton }) => {
   const navigate = useNavigate()
+  const [activeLink, setActiveLink] = useState(true)
   const deletePostMutation = useDeletePost()
   const voteOnPostMutation = useVoteOnPost()
+
+  const goBackHandler = () => {
+    setTimeout(() =>
+      navigate(-1)
+    , 250)
+    setActiveLink(false)
+  }
+
   const handleVote = (voteDirection) => {
     voteOnPostMutation
       .mutateAsync({ postId: post.id, voteDirection })
@@ -43,6 +53,9 @@ const Post = ({ post, onShowReplies, disableReplyButton }) => {
       showErrorToast(err, 'Error al eliminar publicación')
     })
   }
+
+  const avatarWidthClassname = post.avatarUrl ? 'w-[3.94rem]' : 'w-[3rem]'
+
   return (
     <article>
       <Card
@@ -58,11 +71,18 @@ const Post = ({ post, onShowReplies, disableReplyButton }) => {
         >
           <div className='flex items-center gap-2'>
             <div>
-            <Button variant='text' className='rounded-full p-0 w-10 h-10 flex items-center justify-center' onClick={() => navigate(-1)}>
+            <Button
+              variant='text'
+              className='rounded-full p-0 w-10 h-10 flex items-center justify-center'
+              disabled={!activeLink}
+              onClick={goBackHandler}
+            >
               <ArrowLeftIcon className='h-4 w-4' />
             </Button>
             </div>
-            <UserAvatar avatarUrl={post.avatarUrl} size="sm" className="m-0" />
+            <Link to={`/users/${post.authorUsername}`}>
+              <UserAvatar avatarUrl={post.avatarUrl} className={`${avatarWidthClassname} h-[3rem]`} />
+            </Link>
             <div className="flex w-full flex-col">
               <Typography variant="paragraph" color="black" className='font-semibold'>
                 {post.category}

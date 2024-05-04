@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@material-tailwind/react'
+import { useDocumentTitle } from '../../shared/hooks/useDocumentTitle'
 
 function ReportManagementSelector () {
+  useDocumentTitle('Gestión de reportes')
   const navigate = useNavigate()
 
   const handleSelectPublicaciones = () => {

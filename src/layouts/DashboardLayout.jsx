@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../shared/components/Sidebars/Sidebar'
 import CustomNavbar from '../shared/components/Navbar/CustomNavbar'
+import './DashboardLayout.css'
 
 const DashboardLayout = () => {
   return (
